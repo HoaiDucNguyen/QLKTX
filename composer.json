@@ -1,0 +1,16 @@
+{
+    "name": "hp/qlktx",
+    "description": "qu?n ly ky túc xá",
+    "autoload": {
+        "psr-4": {
+            "Hp\\Qlktx\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HoaiDuc",
+            "email": "ducb2111881@student.ctu.edu.vn"
+        }
+    ],
+    "require": {}
+}
