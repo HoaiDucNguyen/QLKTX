@@ -11,7 +11,9 @@
 
 <body>
     <div class="d-flex">
+
         <?php include '../app/views/nav.php'; ?>
+
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Quản Lý Phòng</h1>

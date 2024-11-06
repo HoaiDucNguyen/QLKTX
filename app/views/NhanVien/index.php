@@ -10,7 +10,9 @@
 
 <body>
     <div class="d-flex">
+
         <?php include '../app/views/nav.php'; ?>
+
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Quản Lý Nhân Viên</h1>
@@ -33,10 +35,9 @@
                             <td><?= $nhanvien['so_dien_thoai'] ?></td>
                             <td><?= $nhanvien['ghi_chu'] ?></td>
                             <td>
-                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>"
-                                    class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="/nhanvien/delete/<?= $nhanvien['ma_nhan_vien'] ?>"
-                                    class="btn btn-danger btn-sm">Xóa</a>
+
+                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+
                             </td>
                         </tr>
                         <?php endforeach; ?>
