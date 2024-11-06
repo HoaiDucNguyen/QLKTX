@@ -21,6 +21,15 @@
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Thêm Phòng</h1>
+                <?php if (!empty($errors)): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                        <li><?= $error ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
                 <form method="POST">
                     <label>Tên Phòng:</label>
                     <input type="text" name="ten_phong" required>
