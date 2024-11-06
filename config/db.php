@@ -4,7 +4,7 @@
 $host = 'localhost';
 $db = 'qlktx';
 $user = 'root';
-$pass = '';
+$pass = '322003';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
