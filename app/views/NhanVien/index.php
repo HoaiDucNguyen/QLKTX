@@ -10,15 +10,9 @@
 
 <body>
     <div class="d-flex">
-        <nav class="bg-light sidebar">
-            <h1>Quản lý ký túc xá</h1>
-            <ul class="list-unstyled">
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/phong">Quản Lý Phòng</a></li>
-                <li><a href="/nhanvien">Quản Lý Nhân Viên</a></li>
-                <!-- Thêm các mục khác -->
-            </ul>
-        </nav>
+
+        <?php include '../app/views/nav.php'; ?>
+
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Quản Lý Nhân Viên</h1>
@@ -41,7 +35,9 @@
                             <td><?= $nhanvien['so_dien_thoai'] ?></td>
                             <td><?= $nhanvien['ghi_chu'] ?></td>
                             <td>
+
                                 <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+
                             </td>
                         </tr>
                         <?php endforeach; ?>

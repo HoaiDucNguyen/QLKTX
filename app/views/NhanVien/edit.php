@@ -10,18 +10,12 @@
 
 <body>
     <div class="d-flex">
-        <nav class="bg-light sidebar">
-            <ul class="list-unstyled">
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/phong">Quản Lý Phòng</a></li>
-                <li><a href="/nhanvien">Quản Lý Nhân Viên</a></li>
-                <!-- Thêm các mục khác -->
-            </ul>
-        </nav>
+        <?php include '../app/views/nav.php'; ?>
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Sửa Nhân Viên</h1>
                 <form method="POST">
+
                     <div class="form-group">
                         <label>Họ Tên:</label>
                         <input type="text" name="ho_ten" class="form-control" value="<?= htmlspecialchars($nhanVien->ho_ten) ?>" required>
@@ -38,6 +32,7 @@
                         <label>Mật Khẩu (Để trống nếu không muốn đổi):</label>
                         <input type="password" name="password" class="form-control">
                     </div>
+
                     <button type="submit" class="btn btn-primary">Cập Nhật</button>
                 </form>
             </div>

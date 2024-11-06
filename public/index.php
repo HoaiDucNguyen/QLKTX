@@ -10,6 +10,7 @@ require '../config/db.php';
 use Hp\Qlktx\Controllers\PhongController;
 use Hp\Qlktx\Controllers\NhanVienController;
 use Hp\Qlktx\Controllers\HomeController;
+use Hp\Qlktx\Controllers\ThuePhongController;
 
 // Kiểm tra session để xác định người dùng đã đăng nhập hay chưa
 session_start();
@@ -56,6 +57,21 @@ if ($requestUri === '/' || $requestUri === '/phong') {
     $controller->delete($matches[1]);
 } elseif (preg_match('/\/nhanvien\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new NhanVienController($pdo);
+    $controller->detail($matches[1]);
+} elseif ($requestUri === '/thuephong') {
+    $controller = new ThuePhongController($pdo);
+    $controller->index();
+} elseif ($requestUri === '/thuephong/create') {
+    $controller = new ThuePhongController($pdo);
+    $controller->create();
+} elseif (preg_match('/\/thuephong\/edit\/(\d+)/', $requestUri, $matches)) {
+    $controller = new ThuePhongController($pdo);
+    $controller->edit($matches[1]);
+} elseif (preg_match('/\/thuephong\/delete\/(\d+)/', $requestUri, $matches)) {
+    $controller = new ThuePhongController($pdo);
+    $controller->delete($matches[1]);
+} elseif (preg_match('/\/thuephong\/detail\/(\d+)/', $requestUri, $matches)) {
+    $controller = new ThuePhongController($pdo);
     $controller->detail($matches[1]);
 } else {
     echo "Page not found.";
