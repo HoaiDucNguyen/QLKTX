@@ -10,6 +10,7 @@ class NhanVien
     public string $ho_ten;
     public string $so_dien_thoai;
     public string $ghi_chu = '';
+    public string $password;
     private array $errors = [];
 
     public function __construct(?PDO $pdo)
@@ -22,6 +23,8 @@ class NhanVien
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
         $this->ghi_chu = $data['ghi_chu'] ?? '';
+        // Mã hóa password nếu tồn tại trong dữ liệu đầu vào
+        $this->password = isset($data['password']) ? md5($data['password']) : '';
         return $this;
     }
 
@@ -38,6 +41,9 @@ class NhanVien
         if (empty($this->so_dien_thoai) || !preg_match('/^[0-9]{10,11}$/', $this->so_dien_thoai)) {
             $this->errors['so_dien_thoai'] = 'Số điện thoại không hợp lệ';
         }
+        if (empty($this->password)) {
+            $this->errors['password'] = 'Mật khẩu không được để trống';
+        }
         return empty($this->errors);
     }
 
@@ -45,22 +51,24 @@ class NhanVien
     {
         if ($this->ma_nhan_vien >= 0) {
             $statement = $this->db->prepare(
-                'UPDATE NhanVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ghi_chu = :ghi_chu WHERE ma_nhan_vien = :ma_nhan_vien'
+                'UPDATE NhanVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ghi_chu = :ghi_chu, password = :password WHERE ma_nhan_vien = :ma_nhan_vien'
             );
             return $statement->execute([
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
                 'ghi_chu' => $this->ghi_chu,
+                'password' => $this->password,
                 'ma_nhan_vien' => $this->ma_nhan_vien
             ]);
         } else {
             $statement = $this->db->prepare(
-                'INSERT INTO NhanVien (ho_ten, so_dien_thoai, ghi_chu) VALUES (:ho_ten, :so_dien_thoai, :ghi_chu)'
+                'INSERT INTO NhanVien (ho_ten, so_dien_thoai, ghi_chu, password) VALUES (:ho_ten, :so_dien_thoai, :ghi_chu, :password)'
             );
             $result = $statement->execute([
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
-                'ghi_chu' => $this->ghi_chu
+                'ghi_chu' => $this->ghi_chu,
+                'password' => $this->password
             ]);
             if ($result) {
                 $this->ma_nhan_vien = $this->db->lastInsertId();
@@ -91,7 +99,8 @@ class NhanVien
             'ma_nhan_vien' => $this->ma_nhan_vien,
             'ho_ten' => $this->ho_ten,
             'so_dien_thoai' => $this->so_dien_thoai,
-            'ghi_chu' => $this->ghi_chu
+            'ghi_chu' => $this->ghi_chu,
+            'password' => $this->password
         ] = $row;
         return $this;
     }
@@ -101,4 +110,14 @@ class NhanVien
         $stmt = $this->db->query("SELECT * FROM NhanVien");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function findByPhoneAndPassword(string $so_dien_thoai, string $password): ?NhanVien
+{
+    $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE so_dien_thoai = :so_dien_thoai AND password = :password');
+    $statement->execute(['so_dien_thoai' => $so_dien_thoai, 'password' => $password]);
+    if ($row = $statement->fetch()) {
+        return $this->fillFromDB($row);
+    }
+    return null;
+}
 }

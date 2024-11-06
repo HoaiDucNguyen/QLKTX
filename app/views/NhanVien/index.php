@@ -11,7 +11,7 @@
 <body>
     <div class="d-flex">
         <nav class="bg-light sidebar">
-            <h1>Trang Quản lý Ký túc xá</h1>
+            <h1>Quản lý ký túc xá</h1>
             <ul class="list-unstyled">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/phong">Quản Lý Phòng</a></li>
@@ -34,15 +34,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($nhanviens as $nhanvien): ?>
+                        <?php foreach ($nhanViens as $nhanvien): ?>
                         <tr>
-                            <td><?= $nhanvien['ma_nhanvien'] ?></td>
+                            <td><?= $nhanvien['ma_nhan_vien'] ?></td>
                             <td><?= $nhanvien['ho_ten'] ?></td>
                             <td><?= $nhanvien['so_dien_thoai'] ?></td>
                             <td><?= $nhanvien['ghi_chu'] ?></td>
                             <td>
-                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhanvien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="/nhanvien/delete/<?= $nhanvien['ma_nhanvien'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

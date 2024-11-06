@@ -12,7 +12,7 @@
 <body>
     <div class="d-flex">
         <nav class="bg-light sidebar">
-        <h1>Trang Quản lý Ký túc xá</h1>
+        <h1>Quản lý ký túc xá</h1>
             <ul class="list-unstyled">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/phong">Quản Lý Phòng</a></li>

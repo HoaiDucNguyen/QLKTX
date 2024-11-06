@@ -22,12 +22,22 @@
             <div class="container mt-5">
                 <h1 class="mb-4">Sửa Nhân Viên</h1>
                 <form method="POST">
-                    <label>Họ Tên:</label>
-                    <input type="text" name="ho_ten" value="<?= $nhanvien->ho_ten ?>" required>
-                    <label>Số Điện Thoại:</label>
-                    <input type="text" name="so_dien_thoai" value="<?= $nhanvien->so_dien_thoai ?>" required>
-                    <label>Ghi Chú:</label>
-                    <textarea name="ghi_chu" required><?= $nhanvien->ghi_chu ?></textarea>
+                    <div class="form-group">
+                        <label>Họ Tên:</label>
+                        <input type="text" name="ho_ten" class="form-control" value="<?= htmlspecialchars($nhanVien->ho_ten) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại:</label>
+                        <input type="text" name="so_dien_thoai" class="form-control" value="<?= htmlspecialchars($nhanVien->so_dien_thoai) ?>" required pattern="[0-9]{10,11}" title="Số điện thoại phải có 10-11 chữ số">
+                    </div>
+                    <div class="form-group">
+                        <label>Ghi Chú:</label>
+                        <textarea name="ghi_chu" class="form-control" required><?= htmlspecialchars($nhanVien->ghi_chu) ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Mật Khẩu (Để trống nếu không muốn đổi):</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
                     <button type="submit" class="btn btn-primary">Cập Nhật</button>
                 </form>
             </div>

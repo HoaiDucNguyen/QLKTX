@@ -34,6 +34,10 @@
                         <label>Ghi Chú:</label>
                         <textarea name="ghi_chu" class="form-control"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label>Mật Khẩu:</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>
                 </form>
             </div>
