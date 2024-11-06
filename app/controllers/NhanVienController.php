@@ -84,7 +84,7 @@ class NhanVienController
     }
 
     public function login()
-{
+    {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
         $password = md5($_POST['password'] ?? '');
@@ -92,6 +92,7 @@ class NhanVienController
         $nhanVien = $this->nhanVienModel->findByPhoneAndPassword($so_dien_thoai, $password);
         if ($nhanVien) {
             $_SESSION['nhan_vien_id'] = $nhanVien->ma_nhan_vien;
+            $_SESSION['ghi_chu'] = $nhanVien->ghi_chu;
             header('Location: /');
             exit;
         } else {
@@ -100,4 +101,9 @@ class NhanVienController
     }
     include '../app/views/login.php';
 }
+public function unauthorized():void{
+    include '../app/views/unauthorized.php';
+}
+
+
 }

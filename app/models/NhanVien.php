@@ -27,6 +27,7 @@ class NhanVien
         $this->password = isset($data['password']) ? md5($data['password']) : '';
         return $this;
     }
+   
 
     public function getValidationErrors(): array
     {
@@ -51,7 +52,7 @@ class NhanVien
     {
         if ($this->ma_nhan_vien >= 0) {
             $statement = $this->db->prepare(
-                'UPDATE NhanVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ghi_chu = :ghi_chu, password = :password WHERE ma_nhan_vien = :ma_nhan_vien'
+                'update NhanVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ghi_chu = :ghi_chu, password = :password where ma_nhan_vien = :ma_nhan_vien'
             );
             return $statement->execute([
                 'ho_ten' => $this->ho_ten,

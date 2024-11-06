@@ -19,6 +19,13 @@ if ($requestUri !== '/login' && !isset($_SESSION['nhan_vien_id'])) {
     exit;
 }
 
+// Kiểm tra quyền truy cập cho các route liên quan đến /phong
+// if (strpos($requestUri, '/phong') === 0 && ($_SESSION['ghi_chu']  !== 'admin')) {
+//     $controller = new NhanVienController($pdo);
+//     $controller->unauthorized();
+//     exit;
+// }
+
 // Kiểm tra các route và điều hướng
 if ($requestUri === '/' || $requestUri === '/phong') {
     $controller = new PhongController($pdo);
@@ -36,20 +43,40 @@ if ($requestUri === '/' || $requestUri === '/phong') {
     $controller = new PhongController($pdo);
     $controller->detail($matches[1]);
 } elseif ($requestUri === '/nhanvien') {
-    $controller = new NhanVienController($pdo);
-    $controller->index();
+    if ($_SESSION['ghi_chu'] === 'admin') {
+        $controller = new NhanVienController($pdo);
+        $controller->index();
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
 } elseif ($requestUri === '/nhanvien/create') {
-    $controller = new NhanVienController($pdo);
-    $controller->create();
+    if ($_SESSION['ghi_chu'] === 'admin') {
+        $controller = new NhanVienController($pdo);
+        $controller->create();
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
 } elseif ($requestUri === '/login') {
     $controller = new NhanVienController($pdo);
     $controller->login();
 } elseif (preg_match('/\/nhanvien\/edit\/(\d+)/', $requestUri, $matches)) {
-    $controller = new NhanVienController($pdo);
-    $controller->edit($matches[1]);
+    if ($_SESSION['ghi_chu'] === 'admin') {
+        $controller = new NhanVienController($pdo);
+        $controller->edit($matches[1]);
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
 } elseif (preg_match('/\/nhanvien\/delete\/(\d+)/', $requestUri, $matches)) {
-    $controller = new NhanVienController($pdo);
-    $controller->delete($matches[1]);
+    if ($_SESSION['ghi_chu'] === 'admin') {
+        $controller = new NhanVienController($pdo);
+        $controller->delete($matches[1]);
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
 } elseif (preg_match('/\/nhanvien\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new NhanVienController($pdo);
     $controller->detail($matches[1]);
