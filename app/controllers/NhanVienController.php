@@ -98,6 +98,6 @@ class NhanVienController
             $error = "Số điện thoại hoặc mật khẩu không đúng.";
         }
     }
-    include '../app/views/NhanVien/login.php';
+    include '../app/views/login.php';
 }
 }

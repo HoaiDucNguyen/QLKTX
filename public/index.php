@@ -9,19 +9,15 @@ require '../config/db.php';
 
 use Hp\Qlktx\Controllers\PhongController;
 use Hp\Qlktx\Controllers\NhanVienController;
-use Hp\Qlktx\Controllers\HomeController;
 use Hp\Qlktx\Controllers\ThuePhongController;
 
-// Kiểm tra session để xác định người dùng đã đăng nhập hay chưa
-session_start();
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if (!isset($_SESSION['nhanvien_id'])) {
-    // Nếu chưa đăng nhập, chuyển hướng tới trang đăng nhập
+// Kiểm tra nếu không phải trang đăng nhập và người dùng chưa đăng nhập
+if ($requestUri !== '/login' && !isset($_SESSION['nhan_vien_id'])) {
     header('Location: /login');
     exit;
 }
-
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Kiểm tra các route và điều hướng
 if ($requestUri === '/' || $requestUri === '/phong') {
@@ -46,7 +42,6 @@ if ($requestUri === '/' || $requestUri === '/phong') {
     $controller = new NhanVienController($pdo);
     $controller->create();
 } elseif ($requestUri === '/login') {
-    // Nếu là trang đăng nhập, gọi controller login
     $controller = new NhanVienController($pdo);
     $controller->login();
 } elseif (preg_match('/\/nhanvien\/edit\/(\d+)/', $requestUri, $matches)) {
@@ -76,4 +71,3 @@ if ($requestUri === '/' || $requestUri === '/phong') {
 } else {
     echo "Page not found.";
 }
-

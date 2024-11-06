@@ -3,6 +3,8 @@ namespace Hp\Qlktx\Controllers;
 
 use Hp\Qlktx\Models\ThuePhong;
 
+use PDO;
+
 class ThuePhongController
 {
     private $thuePhongModel;
