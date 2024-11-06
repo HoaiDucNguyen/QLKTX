@@ -6,6 +6,7 @@ require '../vendor/autoload.php';
 require '../config/db.php';
 
 use Hp\Qlktx\Controllers\PhongController;
+use Hp\Qlktx\Controllers\NhanVienController;
 use Hp\Qlktx\Controllers\HomeController;
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -24,6 +25,21 @@ if ($requestUri === '/' || $requestUri === '/phong') {
     $controller->delete($matches[1]);
 } elseif (preg_match('/\/phong\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new PhongController($pdo);
+    $controller->detail($matches[1]);
+} elseif ($requestUri === '/nhanvien') {
+    $controller = new NhanVienController($pdo);
+    $controller->index();
+} elseif ($requestUri === '/nhanvien/create') {
+    $controller = new NhanVienController($pdo);
+    $controller->create();
+} elseif (preg_match('/\/nhanvien\/edit\/(\d+)/', $requestUri, $matches)) {
+    $controller = new NhanVienController($pdo);
+    $controller->edit($matches[1]);
+} elseif (preg_match('/\/nhanvien\/delete\/(\d+)/', $requestUri, $matches)) {
+    $controller = new NhanVienController($pdo);
+    $controller->delete($matches[1]);
+} elseif (preg_match('/\/nhanvien\/detail\/(\d+)/', $requestUri, $matches)) {
+    $controller = new NhanVienController($pdo);
     $controller->detail($matches[1]);
 } else {
     echo "Page not found.";
