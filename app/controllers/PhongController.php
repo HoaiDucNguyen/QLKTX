@@ -21,6 +21,7 @@ class PhongController
 
     public function create()
     {
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $phong = new Phong($this->phongModel->db);
             $phong->fill($_POST);
@@ -41,6 +42,7 @@ class PhongController
             exit;
         }
 
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $phong->fill($_POST);
             if ($phong->validate() && $phong->save()) {
