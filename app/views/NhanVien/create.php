@@ -26,7 +26,10 @@
                     </div>
                     <div class="form-group">
                         <label>Ghi Chú:</label>
-                        <textarea name="ghi_chu" class="form-control"></textarea>
+                        <select name="ghi_chu" class="form-control">
+                            <option value="admin">Admin</option>
+                            <option value="nhan vien">Nhân Viên</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Mật Khẩu:</label>

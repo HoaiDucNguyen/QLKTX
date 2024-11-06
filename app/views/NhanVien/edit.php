@@ -18,15 +18,22 @@
 
                     <div class="form-group">
                         <label>Họ Tên:</label>
-                        <input type="text" name="ho_ten" class="form-control" value="<?= htmlspecialchars($nhanVien->ho_ten) ?>" required>
+                        <input type="text" name="ho_ten" class="form-control"
+                            value="<?= htmlspecialchars($nhanVien->ho_ten) ?>" required>
                     </div>
                     <div class="form-group">
                         <label>Số Điện Thoại:</label>
-                        <input type="text" name="so_dien_thoai" class="form-control" value="<?= htmlspecialchars($nhanVien->so_dien_thoai) ?>" required pattern="[0-9]{10,11}" title="Số điện thoại phải có 10-11 chữ số">
+                        <input type="text" name="so_dien_thoai" class="form-control"
+                            value="<?= htmlspecialchars($nhanVien->so_dien_thoai) ?>" required pattern="[0-9]{10,11}"
+                            title="Số điện thoại phải có 10-11 chữ số">
                     </div>
                     <div class="form-group">
                         <label>Ghi Chú:</label>
-                        <textarea name="ghi_chu" class="form-control" required><?= htmlspecialchars($nhanVien->ghi_chu) ?></textarea>
+                        <select name="ghi_chu" class="form-control" required>
+                            <option value="admin" <?= $nhanVien->ghi_chu === 'admin' ? 'selected' : '' ?>>Admin</option>
+                            <option value="nhan vien" <?= $nhanVien->ghi_chu === 'nhan vien' ? 'selected' : '' ?>>Nhân
+                                Viên</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Mật Khẩu (Để trống nếu không muốn đổi):</label>
