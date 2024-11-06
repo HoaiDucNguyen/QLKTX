@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Nhân Viên</title>
+    <title>Quản Lý Thuê Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -13,29 +13,35 @@
         <?php include '../app/views/nav.php'; ?>
         <div class="content p-4">
             <div class="container mt-5">
-                <h1 class="mb-4">Quản Lý Nhân Viên</h1>
-                <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
+                <h1 class="mb-4">Quản Lý Thuê Phòng</h1>
+                <a href="/thuephong/create" class="btn btn-primary mb-3">Thêm Hợp Đồng</a>
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Mã Nhân Viên</th>
-                            <th>Họ Tên</th>
-                            <th>Số Điện Thoại</th>
-                            <th>Ghi Chú</th>
+                            <th>Mã Hợp Đồng</th>
+                            <th>Mã Sinh Viên</th>
+                            <th>Mã Phòng</th>
+                            <th>Bắt Đầu</th>
+                            <th>Kết Thúc</th>
+                            <th>Tiền Đặt Cọc</th>
+                            <th>Giá Thuê Thực Tế</th>
                             <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($nhanViens as $nhanvien): ?>
+                        <?php foreach ($thuePhongs as $thuePhong): ?>
                         <tr>
-                            <td><?= $nhanvien['ma_nhan_vien'] ?></td>
-                            <td><?= $nhanvien['ho_ten'] ?></td>
-                            <td><?= $nhanvien['so_dien_thoai'] ?></td>
-                            <td><?= $nhanvien['ghi_chu'] ?></td>
+                            <td><?= $thuePhong['ma_hop_dong'] ?></td>
+                            <td><?= $thuePhong['ma_sinh_vien'] ?></td>
+                            <td><?= $thuePhong['ma_phong'] ?></td>
+                            <td><?= $thuePhong['bat_dau'] ?></td>
+                            <td><?= $thuePhong['ket_thuc'] ?></td>
+                            <td><?= $thuePhong['tien_dat_coc'] ?></td>
+                            <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
                             <td>
-                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>"
+                                <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
                                     class="btn btn-warning btn-sm">Sửa</a>
-                                <a href="/nhanvien/delete/<?= $nhanvien['ma_nhan_vien'] ?>"
+                                <a href="/thuephong/delete/<?= $thuePhong['ma_hop_dong'] ?>"
                                     class="btn btn-danger btn-sm">Xóa</a>
                             </td>
                         </tr>

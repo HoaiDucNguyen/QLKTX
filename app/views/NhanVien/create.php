@@ -10,14 +10,7 @@
 
 <body>
     <div class="d-flex">
-        <nav class="bg-light sidebar">
-            <ul class="list-unstyled">
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/phong">Quản Lý Phòng</a></li>
-                <li><a href="/nhanvien">Quản Lý Nhân Viên</a></li>
-                <!-- Thêm các mục khác -->
-            </ul>
-        </nav>
+        <?php include '../app/views/nav.php'; ?>
         <div class="content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Thêm Nhân Viên</h1>
@@ -28,7 +21,8 @@
                     </div>
                     <div class="form-group">
                         <label>Số Điện Thoại:</label>
-                        <input type="text" name="so_dien_thoai" class="form-control" required pattern="[0-9]{10,11}" title="Số điện thoại phải có 10-11 chữ số">
+                        <input type="text" name="so_dien_thoai" class="form-control" required pattern="[0-9]{10,11}"
+                            title="Số điện thoại phải có 10-11 chữ số">
                     </div>
                     <div class="form-group">
                         <label>Ghi Chú:</label>
