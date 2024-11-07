@@ -106,7 +106,7 @@ class NhanVien
         return $this;
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         $stmt = $this->db->query("SELECT * FROM NhanVien");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

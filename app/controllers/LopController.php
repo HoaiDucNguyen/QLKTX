@@ -1,5 +1,4 @@
 <?php
-// app/controllers/LopController.php
 namespace Hp\Qlktx\Controllers;
 
 use Hp\Qlktx\Models\Lop;
@@ -23,7 +22,7 @@ class LopController
     {
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $lop = new Lop($this->lopModel->getDb());
+            $lop = new Lop($this->lopModel->db);
             $lop->fill($_POST);
             if ($lop->validate() && $lop->save()) {
                 header('Location: /lop');

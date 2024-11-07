@@ -12,7 +12,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="mb-4">Thêm Lớp</h1>
-        <?php if (!empty($errors)): ?>
+        <!-- <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">
                 <ul>
                     <?php foreach ($errors as $error): ?>
@@ -20,7 +20,7 @@
                     <?php endforeach; ?>
                 </ul>
             </div>
-        <?php endif; ?>
+        <?php endif; ?> -->
         <form method="POST">
             <div class="form-group">
                 <label for="ma_lop">Mã Lớp</label>
