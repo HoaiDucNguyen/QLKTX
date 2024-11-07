@@ -6,6 +6,7 @@
         <?php endif; ?>
         <li><a href="/thuephong">Quản Lý Thuê Phòng</a></li>
         <li><a href="/lop">Quản Lý Lớp</a></li>
+        <li><a href="/sinhvien">Quản Lý Sinh Viên</a></li>
         <!-- Thêm các mục khác -->
     </ul>
 </nav>
