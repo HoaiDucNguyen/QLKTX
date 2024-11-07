@@ -4,7 +4,7 @@
 $host = 'localhost';
 $db = 'qlktx';
 $user = 'root';
-$pass = '322003';
+$pass = 'hao123';
 
 
 try {

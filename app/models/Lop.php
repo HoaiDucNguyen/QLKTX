@@ -1,60 +1,79 @@
 <?php
 namespace Hp\Qlktx\Models;
+
 use PDO;
+
 
 class Lop
 {
-    public ?PDO $db;
-    public int $ma_lop = -1;
-    public string $ten_lop;
-    private array $errors = [];
+    public $ma_lop;
+    public $ten_lop;
+    private $db;
 
-    public function __construct(?PDO $pdo)
+    public function __construct($db)
     {
-        $this->db = $pdo;
+        $this->db = $db;
     }
 
-    public function fill(array $data): Lop
+    public function fill($data)
     {
-        $this->ten_lop = $data['ten_lop'] ?? '';
-        return $this;
+        $this->ma_lop = $data['ma_lop'] ?? null;
+        $this->ten_lop = $data['ten_lop'] ?? null;
     }
 
-    public function getValidationErrors(): array
+    public function validate()
     {
-        return $this->errors;
-    }
-
-    public function validate(): bool
-    {
+        $errors = [];
+        if (empty($this->ma_lop)) {
+            $errors[] = 'Mã lớp không được để trống.';
+        }
         if (empty($this->ten_lop)) {
-            $this->errors['ten_lop'] = 'Tên lớp không được để trống';
+            $errors[] = 'Tên lớp không được để trống.';
         }
-        return empty($this->errors);
+
+        return $errors;
     }
 
-    public function find(int $ma_lop): ?Lop
+    public function getValidationErrors()
     {
-        $statement = $this->db->prepare('SELECT * FROM Lop WHERE ma_lop = :ma_lop');
-        $statement->execute(['ma_lop' => $ma_lop]);
-        if ($row = $statement->fetch()) {
-            return $this->fillFromDB($row);
-        }
-        return null;
+        return $this->validate();
     }
 
-    protected function fillFromDB(array $row): Lop
+    public function save()
     {
-        [
-            'ma_lop' => $this->ma_lop,
-            'ten_lop' => $this->ten_lop
-        ] = $row;
-        return $this;
+        if ($this->ma_lop) {
+            // Cập nhật lớp nếu ma_lop đã tồn tại
+            $stmt = $this->db->prepare("UPDATE Lop SET ten_lop = :ten_lop WHERE ma_lop = :ma_lop");
+            return $stmt->execute([':ten_lop' => $this->ten_lop, ':ma_lop' => $this->ma_lop]);
+        } else {
+            // Chèn lớp mới, sử dụng ma_lop do người dùng nhập vào
+            $stmt = $this->db->prepare("INSERT INTO Lop (ma_lop, ten_lop) VALUES (:ma_lop, :ten_lop)");
+            return $stmt->execute([':ma_lop' => $this->ma_lop, ':ten_lop' => $this->ten_lop]);
+        }
+    }
+
+    public function find($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM Lop WHERE ma_lop = :ma_lop");
+        $stmt->execute([':ma_lop' => $id]);
+        return $stmt->fetch();
     }
 
     public function getAll()
     {
-        $stmt = $this->db->query("SELECT * FROM Lop");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->db->prepare("SELECT * FROM Lop");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function delete()
+    {
+        $stmt = $this->db->prepare("DELETE FROM Lop WHERE ma_lop = :ma_lop");
+        return $stmt->execute([':ma_lop' => $this->ma_lop]);
+    }
+
+    public function getDb()
+    {
+        return $this->db;
     }
 }
