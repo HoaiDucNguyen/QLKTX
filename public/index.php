@@ -10,6 +10,7 @@ require '../config/db.php';
 use Hp\Qlktx\Controllers\PhongController;
 use Hp\Qlktx\Controllers\NhanVienController;
 use Hp\Qlktx\Controllers\ThuePhongController;
+use Hp\Qlktx\Controllers\LopController; // Import LopController
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -18,13 +19,6 @@ if ($requestUri !== '/login' && !isset($_SESSION['nhan_vien_id'])) {
     header('Location: /login');
     exit;
 }
-
-// Kiểm tra quyền truy cập cho các route liên quan đến /phong
-// if (strpos($requestUri, '/phong') === 0 && ($_SESSION['ghi_chu']  !== 'admin')) {
-//     $controller = new NhanVienController($pdo);
-//     $controller->unauthorized();
-//     exit;
-// }
 
 // Kiểm tra các route và điều hướng
 if ($requestUri === '/' || $requestUri === '/phong') {
@@ -94,6 +88,24 @@ if ($requestUri === '/' || $requestUri === '/phong') {
     $controller->delete($matches[1]);
 } elseif (preg_match('/\/thuephong\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new ThuePhongController($pdo);
+    $controller->detail($matches[1]);
+} 
+
+// Routes cho Lop
+elseif ($requestUri === '/lop') {
+    $controller = new LopController($pdo);
+    $controller->index();
+} elseif ($requestUri === '/lop/create') {
+    $controller = new LopController($pdo);
+    $controller->create();
+} elseif (preg_match('/\/lop\/edit\/(\d+)/', $requestUri, $matches)) {
+    $controller = new LopController($pdo);
+    $controller->edit($matches[1]);
+} elseif (preg_match('/\/lop\/delete\/(\d+)/', $requestUri, $matches)) {
+    $controller = new LopController($pdo);
+    $controller->delete($matches[1]);
+} elseif (preg_match('/\/lop\/detail\/(\d+)/', $requestUri, $matches)) {
+    $controller = new LopController($pdo);
     $controller->detail($matches[1]);
 } else {
     echo "Page not found.";

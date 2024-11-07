@@ -5,6 +5,7 @@
         <li><a href="/nhanvien">Quản Lý Nhân Viên</a></li>
         <?php endif; ?>
         <li><a href="/thuephong">Quản Lý Thuê Phòng</a></li>
+        <li><a href="/lop">Quản Lý Lớp</a></li>
         <!-- Thêm các mục khác -->
     </ul>
 </nav>
