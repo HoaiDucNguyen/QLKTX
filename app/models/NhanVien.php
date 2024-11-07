@@ -27,6 +27,15 @@ class NhanVien
         $this->password = isset($data['password']) ? md5($data['password']) : '';
         return $this;
     }
+    public function filledit(array $data): NhanVien
+    {
+        $this->ho_ten = $data['ho_ten'] ?? '';
+        $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
+        $this->ghi_chu = $data['ghi_chu'] ?? '';
+        
+        
+        return $this;
+    }
    
 
     public function getValidationErrors(): array

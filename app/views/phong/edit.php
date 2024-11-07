@@ -5,37 +5,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Phòng</title>
+    <title>Sửa Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="d-flex">
-        <?php include '../app/views/nav.php'; ?>
-
-        <div class="content p-4">
-            <div class="container mt-5">
-                <h1 class="mb-4">Sửa Phòng</h1>
-                <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger">
-                    <ul>
-                        <?php foreach ($errors as $error): ?>
-                        <li><?= $error ?></li>
-                        <?php endforeach; ?>
-                    </ul>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <?php include '../app/views/nav.php'; ?>
+            </div>
+            <div class="col-md-9">
+                <div class="content mt-4">
+                    <h1 class="mb-4">Sửa Phòng</h1>
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                    <form method="POST" class="form">
+                        <div class="form-group">
+                            <label for="ten_phong">Tên Phòng:</label>
+                            <input type="text" name="ten_phong" id="ten_phong" class="form-control"
+                                value="<?= htmlspecialchars($phong->ten_phong) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dien_tich">Diện Tích:</label>
+                            <input type="number" name="dien_tich" id="dien_tich" class="form-control"
+                                value="<?= htmlspecialchars($phong->dien_tich) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="so_giuong">Số Giường:</label>
+                            <input type="number" name="so_giuong" id="so_giuong" class="form-control"
+                                value="<?= htmlspecialchars($phong->so_giuong) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gia_thue">Giá Thuê:</label>
+                            <input type="number" name="gia_thue" id="gia_thue" class="form-control"
+                                value="<?= htmlspecialchars($phong->gia_thue) ?>" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    </form>
                 </div>
-                <?php endif; ?>
-                <form method="POST">
-                    <label>Tên Phòng:</label>
-                    <input type="text" name="ten_phong" value="<?= $phong->ten_phong ?>" required>
-                    <label>Diện Tích:</label>
-                    <input type="number" name="dien_tich" value="<?= $phong->dien_tich ?>" required>
-                    <label>Số Giường:</label>
-                    <input type="number" name="so_giuong" value="<?= $phong->so_giuong ?>" required>
-                    <label>Giá Thuê:</label>
-                    <input type="number" name="gia_thue" value="<?= $phong->gia_thue ?>" required>
-                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
-                </form>
             </div>
         </div>
     </div>

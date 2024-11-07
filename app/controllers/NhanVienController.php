@@ -48,7 +48,8 @@ class NhanVienController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nhanVien->fill($_POST);
+            
+            $nhanVien->filledit($_POST);
 
             // Cập nhật mật khẩu nếu có nhập mới
             if (!empty($_POST['password'])) {

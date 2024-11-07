@@ -9,40 +9,43 @@
 </head>
 
 <body>
-    <div class="d-flex">
-
-        <?php include '../app/views/nav.php'; ?>
-
-        <div class="content p-4">
-            <div class="container mt-5">
-                <h1 class="mb-4">Quản Lý Nhân Viên</h1>
-                <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Mã Nhân Viên</th>
-                            <th>Họ Tên</th>
-                            <th>Số Điện Thoại</th>
-                            <th>Ghi Chú</th>
-                            <th>Hành Động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($nhanViens as $nhanvien): ?>
-                        <tr>
-                            <td><?= $nhanvien['ma_nhan_vien'] ?></td>
-                            <td><?= $nhanvien['ho_ten'] ?></td>
-                            <td><?= $nhanvien['so_dien_thoai'] ?></td>
-                            <td><?= $nhanvien['ghi_chu'] ?></td>
-                            <td>
-
-                                <a href="/nhanvien/edit/<?= $nhanvien['ma_nhan_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <?php include '../app/views/nav.php'; ?>
+            </div>
+            <div class="col-md-9">
+                <div class="content mt-4">
+                    <h1 class="mb-4">Quản Lý Nhân Viên</h1>
+                    <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <th>Họ Tên</th>
+                                <th>Số Điện Thoại</th>
+                                <th>Ghi Chú</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($nhanViens as $nhanvien): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['ho_ten']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['so_dien_thoai']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['ghi_chu']) ?></td>
+                                <td>
+                                    <a href="/nhanvien/edit/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/nhanvien/delete/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>"
+                                        class="btn btn-danger btn-sm">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

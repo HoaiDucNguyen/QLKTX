@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa Lớp</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mt-5">
-        <h1>Sửa Lớp</h1>
-        <form action="/lop/edit/<?= $lop['ma_lop'] ?>" method="POST">
-            <div class="form-group">
-                <label for="ten_lop">Tên Lớp:</label>
-                <input type="text" id="ten_lop" name="ten_lop" class="form-control" value="<?= $lop['ten_lop'] ?>" required>
-            </div>
-            <button type="submit" class="btn btn-success">Cập Nhật</button>
-        </form>
 
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger mt-3">
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= $error ?></li>
-                    <?php endforeach; ?>
-                </ul>
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <?php include '../app/views/nav.php'; ?>
             </div>
-        <?php endif; ?>
+            <div class="col-md-9">
+                <div class="content mt-4">
+                    <h1 class="mb-4">Sửa Lớp</h1>
+                    <form method="POST" class="form">
+                        <div class="form-group">
+
+                            <div class="form-group">
+                                <label for="ma_lop">Mã Lớp :
+                                    <input type="text" hidden name="ma_lop" id="ma_lop" class="form-control"
+                                        value="<?= htmlspecialchars($lop->ma_lop) ?>" required>
+                                    <?php echo $lop->ma_lop; ?></label>
+                                <br>
+                                <label for="ten_lop">Tên Lớp:</label>
+                                <input type="text" name="ten_lop" id="ten_lop" class="form-control"
+                                    value="<?= htmlspecialchars($lop->ten_lop) ?>" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    </form>
+
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger mt-3">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+
 </html>

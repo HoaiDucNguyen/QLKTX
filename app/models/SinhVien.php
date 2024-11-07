@@ -5,10 +5,10 @@ use PDO;
 class SinhVien
 {
     public ?PDO $db;
-    public int $ma_sinh_vien = -1;
+    public string $ma_sinh_vien ;
     public string $ho_ten;
     public string $so_dien_thoai;
-    public int $ma_lop;
+    public string $ma_lop;
     private array $errors = [];
 
     public function __construct(?PDO $pdo)
@@ -18,9 +18,10 @@ class SinhVien
 
     public function fill(array $data): SinhVien
     {
+        $this->ma_sinh_vien = $data['ma_sinh_vien'] ?? '';
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
-        $this->ma_lop = $data['ma_lop'] ?? 0;
+        $this->ma_lop = $data['ma_lop'] ?? '';
         return $this;
     }
 
@@ -37,15 +38,15 @@ class SinhVien
         if (empty($this->so_dien_thoai)) {
             $this->errors['so_dien_thoai'] = 'Số điện thoại không được để trống';
         }
-        if ($this->ma_lop <= 0) {
-            $this->errors['ma_lop'] = 'Mã lớp phải lớn hơn 0';
+        if (empty($this->ma_lop)) {
+            $this->errors['ma_lop'] = 'Mã lớp không được để trống';
         }
         return empty($this->errors);
     }
 
     public function save(): bool
     {
-        if ($this->ma_sinh_vien >= 0) {
+        if ($this->exists()) {
             $statement = $this->db->prepare(
                 'UPDATE SinhVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ma_lop = :ma_lop WHERE ma_sinh_vien = :ma_sinh_vien'
             );
@@ -57,17 +58,14 @@ class SinhVien
             ]);
         } else {
             $statement = $this->db->prepare(
-                'INSERT INTO SinhVien (ho_ten, so_dien_thoai, ma_lop) VALUES (:ho_ten, :so_dien_thoai, :ma_lop)'
+                'INSERT INTO SinhVien (ma_sinh_vien, ho_ten, so_dien_thoai, ma_lop) VALUES (:ma_sinh_vien, :ho_ten, :so_dien_thoai, :ma_lop)'
             );
-            $result = $statement->execute([
+            return $statement->execute([
+                'ma_sinh_vien' => $this->ma_sinh_vien,
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
                 'ma_lop' => $this->ma_lop
             ]);
-            if ($result) {
-                $this->ma_sinh_vien = $this->db->lastInsertId();
-            }
-            return $result;
         }
     }
 
@@ -77,7 +75,7 @@ class SinhVien
         return $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
     }
 
-    public function find(int $ma_sinh_vien): ?SinhVien
+    public function find( $ma_sinh_vien): ?SinhVien
     {
         $statement = $this->db->prepare('SELECT * FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien');
         $statement->execute(['ma_sinh_vien' => $ma_sinh_vien]);
@@ -102,5 +100,12 @@ class SinhVien
     {
         $stmt = $this->db->query("SELECT * FROM SinhVien");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function exists(): bool
+    {
+        $statement = $this->db->prepare('SELECT COUNT(*) FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien');
+        $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+        return $statement->fetchColumn() > 0;
     }
 }

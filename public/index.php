@@ -98,16 +98,13 @@ elseif ($requestUri === '/lop') {
 } elseif ($requestUri === '/lop/create') {
     $controller = new LopController($pdo);
     $controller->create();
-} elseif (preg_match('/\/lop\/edit\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/lop\/edit\/(\w+)/', $requestUri, $matches)) {
     $controller = new LopController($pdo);
     $controller->edit($matches[1]);
-} elseif (preg_match('/\/lop\/delete\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/lop\/delete\/(\w+)/', $requestUri, $matches)) {
     $controller = new LopController($pdo);
     $controller->delete($matches[1]);
-} elseif (preg_match('/\/lop\/detail\/(\d+)/', $requestUri, $matches)) {
-    $controller = new LopController($pdo);
-    $controller->detail($matches[1]);
-}
+} 
 
 // Routes cho SinhVien
 elseif ($requestUri === '/sinhvien') {
@@ -116,10 +113,10 @@ elseif ($requestUri === '/sinhvien') {
 } elseif ($requestUri === '/sinhvien/create') {
     $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
     $controller->create();
-} elseif (preg_match('/\/sinhvien\/edit\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/sinhvien\/edit\/(\w+)/', $requestUri, $matches)) {
     $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
     $controller->edit($matches[1]);
-} elseif (preg_match('/\/sinhvien\/delete\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/sinhvien\/delete\/(\w+)/', $requestUri, $matches)) {
     $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
     $controller->delete($matches[1]);
 } 

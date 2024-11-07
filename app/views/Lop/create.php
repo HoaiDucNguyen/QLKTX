@@ -10,28 +10,37 @@
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Thêm Lớp</h1>
-        <!-- <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach ($errors as $error): ?>
-                        <li><?= $error ?></li>
-                    <?php endforeach; ?>
-                </ul>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <?php include '../app/views/nav.php'; ?>
             </div>
-        <?php endif; ?> -->
-        <form method="POST">
-            <div class="form-group">
-                <label for="ma_lop">Mã Lớp</label>
-                <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
+            <div class="col-md-9">
+                <div class="content mt-4">
+                    <h1 class="mb-4">Thêm Lớp</h1>
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="ma_lop">Mã Lớp</label>
+                            <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ten_lop">Tên Lớp</label>
+                            <input type="text" name="ten_lop" id="ten_lop" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm Lớp</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="ten_lop">Tên Lớp</label>
-                <input type="text" name="ten_lop" id="ten_lop" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Thêm Lớp</button>
-        </form>
+        </div>
     </div>
 </body>
 
