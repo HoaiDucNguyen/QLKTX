@@ -107,6 +107,22 @@ elseif ($requestUri === '/lop') {
 } elseif (preg_match('/\/lop\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new LopController($pdo);
     $controller->detail($matches[1]);
-} else {
+}
+
+// Routes cho SinhVien
+elseif ($requestUri === '/sinhvien') {
+    $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
+    $controller->index();
+} elseif ($requestUri === '/sinhvien/create') {
+    $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
+    $controller->create();
+} elseif (preg_match('/\/sinhvien\/edit\/(\d+)/', $requestUri, $matches)) {
+    $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
+    $controller->edit($matches[1]);
+} elseif (preg_match('/\/sinhvien\/delete\/(\d+)/', $requestUri, $matches)) {
+    $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
+    $controller->delete($matches[1]);
+} 
+ else {
     echo "Page not found.";
 }
