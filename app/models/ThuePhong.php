@@ -6,7 +6,7 @@ class ThuePhong
 {
     public ?PDO $db;
     public int $ma_hop_dong = -1;
-    public int $ma_sinh_vien;
+    public string $ma_sinh_vien;
     public int $ma_phong;
     public string $bat_dau;
     public string $ket_thuc;
@@ -37,7 +37,7 @@ class ThuePhong
 
     public function validate(): bool
     {
-        if ($this->ma_sinh_vien <= 0) {
+        if ($this->ma_sinh_vien =='') {
             $this->errors['ma_sinh_vien'] = 'Mã sinh viên không hợp lệ';
         }
         if ($this->ma_phong <= 0) {
