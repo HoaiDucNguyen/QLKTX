@@ -7,12 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css"> 
 </head>
 
 <body>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-12">
+                <?php include '../app/views/header.php'; ?>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="col-md-2">
+                
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">
@@ -20,7 +28,7 @@
                     <h1 class="mb-4">Quản Lý Phòng</h1>
                     <a href="/phong/create" class="btn btn-primary mb-3">Thêm Phòng</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Phòng</th>
                                 <th>Tên Phòng</th>
