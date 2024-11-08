@@ -9,7 +9,9 @@ class SinhVien
     public string $ho_ten;
     public string $so_dien_thoai;
     public string $ma_lop;
+    public string $password;
     private array $errors = [];
+    
 
     public function __construct(?PDO $pdo)
     {
@@ -22,6 +24,7 @@ class SinhVien
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
         $this->ma_lop = $data['ma_lop'] ?? '';
+        $this->password = $data['password'] ?? '';
         return $this;
     }
 
@@ -91,7 +94,8 @@ class SinhVien
             'ma_sinh_vien' => $this->ma_sinh_vien,
             'ho_ten' => $this->ho_ten,
             'so_dien_thoai' => $this->so_dien_thoai,
-            'ma_lop' => $this->ma_lop
+            'ma_lop' => $this->ma_lop,
+            'password' => $this->password
         ] = $row;
         return $this;
     }
@@ -100,6 +104,12 @@ class SinhVien
     {
         $stmt = $this->db->query("SELECT * FROM SinhVien");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function findByMaAndPassword($ma_sinh_vien, $password): ?SinhVien
+    {
+        $statement = $this->db->prepare('SELECT * FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien AND password = :password');
+        $statement->execute(['ma_sinh_vien' => $ma_sinh_vien, 'password' => $password]);
+        return $statement->fetch() ? $this->fillFromDB($statement->fetch()) : null;
     }
 
     public function exists(): bool

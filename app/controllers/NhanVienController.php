@@ -2,8 +2,9 @@
 // app/controllers/NhanVienController.php
 namespace Hp\Qlktx\Controllers;
 
-use Hp\Qlktx\Models\NhanVien;
 
+use Hp\Qlktx\Models\NhanVien;
+use Hp\Qlktx\Models\SinhVien;
 class NhanVienController
 {
     private $nhanVienModel;
@@ -87,7 +88,7 @@ class NhanVienController
     public function login()
     {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
+        $so_dien_thoai = $_POST['ma_nhan_vien'] ?? '';
         $password = md5($_POST['password'] ?? '');
 
         $nhanVien = $this->nhanVienModel->findByPhoneAndPassword($so_dien_thoai, $password);
@@ -99,7 +100,13 @@ class NhanVienController
             header('Location: /');
             exit;
         } else {
-            $error = "Số điện thoại hoặc mật khẩu không đúng.";
+            $sinhvien = new SinhVien($this->nhanVienModel->db);
+            $sinhvien->ma_sinh_vien = $_POST['ma_sinh_vien'];
+            $sinhvien->password = md5($_POST['password']);
+            if($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)){
+                $_SESSION['sinh_vien_id'] = $sinhvien->ma_sinh_vien;
+            }
+            
         }
     }
     include '../app/views/login.php';
