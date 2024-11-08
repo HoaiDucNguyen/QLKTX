@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Thuê Phòng</title>
+    <title>Quản Lý Thanh Toán Thuê Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -16,36 +16,32 @@
             </div>
             <div class="col-md-9">
                 <div class="content mt-4">
-                    <h1 class="mb-4">Quản Lý Thuê Phòng</h1>
-                    <a href="/thuephong/create" class="btn btn-primary mb-3">Thêm Hợp Đồng</a>
+                    <h1 class="mb-4">Quản Lý Thanh Toán Thuê Phòng</h1>
+                    <a href="/tt_thuephong/create" class="btn btn-primary mb-3">Thêm Thanh Toán</a>
                     <table class="table table-bordered table-hover">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Mã Hợp Đồng</th>
-                                <th>Mã Sinh Viên</th>
-                                <th>Mã Phòng</th>
-                                <th>Bắt Đầu</th>
-                                <th>Kết Thúc</th>
-                                <th>Tiền Đặt Cọc</th>
-                                <th>Giá Thuê Thực Tế</th>
+                                <th>Tháng Năm</th>
+                                <th>Số Tiền</th>
+                                <th>Ngày Thanh Toán</th>
+                                <th>Mã Nhân Viên</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($thuePhongs as $thuePhong): ?>
+                            <?php foreach ($ttThuePhongs as $ttThuePhong): ?>
                             <tr>
-                                <td><?= $thuePhong['ma_hop_dong'] ?></td>
-                                <td><?= $thuePhong['ma_sinh_vien'] ?></td>
-                                <td><?= $thuePhong['ma_phong'] ?></td>
-                                <td><?= $thuePhong['bat_dau'] ?></td>
-                                <td><?= $thuePhong['ket_thuc'] ?></td>
-                                <td><?= $thuePhong['tien_dat_coc'] ?></td>
-                                <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
+                                <td><?= $ttThuePhong['ma_hop_dong'] ?></td>
+                                <td><?= $ttThuePhong['thang_nam'] ?></td>
+                                <td><?= $ttThuePhong['so_tien'] ?></td>
+                                <td><?= $ttThuePhong['ngay_thanh_toan'] ?></td>
+                                <td><?= $ttThuePhong['ma_nhan_vien'] ?></td>
                                 <td>
-                                    <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-success btn-sm">Thêm Thanh Toán</a>
-                                    <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
+                                    <a href="/tt_thuephong/edit/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= $ttThuePhong['thang_nam'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/tt_thuephong/delete/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= $ttThuePhong['thang_nam'] ?>"
+                                        class="btn btn-danger btn-sm">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

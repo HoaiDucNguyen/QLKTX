@@ -11,6 +11,7 @@ use Hp\Qlktx\Controllers\PhongController;
 use Hp\Qlktx\Controllers\NhanVienController;
 use Hp\Qlktx\Controllers\ThuePhongController;
 use Hp\Qlktx\Controllers\LopController; // Import LopController
+use Hp\Qlktx\Controllers\TtThuePhongController;
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -120,6 +121,17 @@ elseif ($requestUri === '/sinhvien') {
     $controller = new \Hp\Qlktx\Controllers\SinhVienController($pdo);
     $controller->delete($matches[1]);
 } 
- else {
+
+// Routes cho TtThuePhong
+elseif ($requestUri === '/tt_thuephong') {
+    $controller = new TtThuePhongController($pdo);
+    $controller->index();
+} elseif ($requestUri === '/tt_thuephong/create') {
+    $controller = new TtThuePhongController($pdo);
+    $controller->create();
+} elseif (preg_match('/\/tt_thuephong\/delete\/(\d+)\/(\d{4}-\d{2})/', $requestUri, $matches)) {
+    $controller = new TtThuePhongController($pdo);
+    $controller->delete($matches[1], $matches[2]);
+} else {
     echo "Page not found.";
 }

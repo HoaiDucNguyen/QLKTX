@@ -94,6 +94,8 @@ class NhanVienController
         if ($nhanVien) {
             $_SESSION['nhan_vien_id'] = $nhanVien->ma_nhan_vien;
             $_SESSION['ghi_chu'] = $nhanVien->ghi_chu;
+            $_SESSION['ho_ten'] = $nhanVien->ho_ten;
+             
             header('Location: /');
             exit;
         } else {
