@@ -29,9 +29,11 @@
     </div>
 </nav> -->
 <?php
-// Function to check if the current page matches the link
 function isActive($path) {
-    return $_SERVER['REQUEST_URI'] === $path ? 'active' : '';
+    $currentPath = $_SERVER['REQUEST_URI'];
+    return $currentPath === $path || 
+           strpos($currentPath, $path . '/create') === 0 || 
+           strpos($currentPath, $path . '/edit') === 0 ? 'active' : '';
 }
 ?>
 
