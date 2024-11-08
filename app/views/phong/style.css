@@ -1,53 +1,175 @@
-.navbar {
-    background-color: #343a40 !important; /* Màu nền tối */
-    font-family: 'Arial', sans-serif;
-}
-
-.navbar-brand {
-    font-size: 1.8rem;
+:root {
+    --main-bg-color: #009d63;
+    --main-text-color: #009d63;
+    --second-text-color: #bbbec5;
+    --second-bg-color: #c1efde;
+  }
+  
+  .primary-text {
+    color: var(--main-text-color);
+  }
+  
+  .second-text {
+    color: var(--second-text-color);
+  }
+  
+  .primary-bg {
+    background-color: var(--main-bg-color);
+  }
+  
+  .secondary-bg {
+    background-color: var(--second-bg-color);
+  }
+  
+  .rounded-full {
+    border-radius: 100%;
+  }
+  
+  #wrapper {
+    overflow-x: hidden;
+    background-image: linear-gradient(
+      to right,
+      #baf3d7,
+      #c2f5de,
+      #cbf7e4,
+      #d4f8ea,
+      #ddfaef
+    );
+  }
+  #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin 0.25s ease-out;
+    -moz-transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-out;
+    transition: margin 0.25s ease-out;
+  }
+  
+  #sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+  }
+  
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+  
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+  
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+  
+  #menu-toggle {
+    cursor: pointer;
+  }
+  
+  .list-group-item {
+      border: none;
+      padding: 20px 30px;
+  }
+  
+  .list-group-item.active {
+    background-color: transparent;
+    color: var(--main-text-color);
     font-weight: bold;
-    color: #ffffff; /* Màu chữ cho brand */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.navbar-toggler {
-    border-color: #ffffff; /* Màu viền cho nút toggle */
-}
-
-.navbar-toggler-icon {
-    background-color: #ffffff; /* Màu của biểu tượng hamburger */
-}
-
-.nav-item {
-    margin-right: 15px; /* Khoảng cách giữa các mục */
-}
-
-.nav-link {
-    color: #ffffff; /* Màu chữ của các liên kết */
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 10px 15px;
-    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền khi hover */
-}
-
-.nav-link:hover {
-    background-color: #007bff; /* Màu nền khi hover */
-    color: #ffffff;
-    border-radius: 5px; /* Bo góc cho hiệu ứng hover */
-}
-
-.navbar-nav {
-    margin-left: auto; /* Đẩy các mục điều hướng sang phải */
-}
-
-@media (max-width: 767px) {
-    /* Cải thiện hiển thị trên thiết bị di động */
-    .navbar-brand {
-        font-size: 1.5rem; /* Giảm kích thước chữ trên mobile */
+    border: none;
+  }
+  
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
     }
-
-    .nav-link {
-        font-size: 0.9rem; /* Giảm kích thước chữ cho các mục */
+  
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
     }
-}
+  
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -15rem;
+    }
+  }
+  
+  /* phần header */
+  /* Apply general styling for the header */
+  .header {
+      background-color: #1f5ca9; /* Light background for a professional look */
+      padding: 20px; /* Extra padding for spacing */
+      border-bottom: 2px solid #ddd; /* Slightly thicker border */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  
+  /* Style for the logo */
+  .header .logo {
+      width: 120px; /* Slightly larger logo */
+      margin-right: 20px; /* Space between logo and text */
+  }
+  
+  /* Style for the container holding the title */
+  .header .container {
+      flex: 1;
+      text-align: center;
+  }
+  
+  /* Style for the title */
+  .header h1 {
+      font-size: 50px; /* Adjust title size */
+      font-weight: bold;
+      color: #ffffff; /* Darker color for better readability */
+      margin: 0; /* Remove default margin */
+  }
+  
+  /* Style chung cho các mục trong sidebar */
+  #sidebar-wrapper .list-group-item {
+      color: #333; /* Màu chữ bình thường */
+      transition:  color 0.3s; /* Hiệu ứng chuyển màu mượt */
+  }
+  
+  /* Hiệu ứng khi di chuột qua */
+  #sidebar-wrapper .list-group-item:hover {
+      background-color: #00afef; /* Màu nền khi hover */
+      color: #ffffff; /* Màu chữ khi hover */
+  }
+  
+  /* Mục đang ở trang hiện tại (active) */
+  #sidebar-wrapper .list-group-item.active {
+      background-color: #1f5ca9; /* Màu nền khi active */
+      color: #fff; /* Màu chữ khi active */
+      font-weight: bold; /* Chữ đậm hơn khi active */
+  }
+  .custom-thead {
+    background-color: #1f5ca9; /* Change this to your desired color */
+    color: white;
+  }
+  @font-face {
+    font-family: 'CustomFont';
+    src: url('../font/K2D-Bold.ttf') format('truetype');
+    /* Điều chỉnh đường dẫn dựa trên vị trí của file CSS so với file font */
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'CustomFont1';
+    src: url('../font/ReadexPro-Light.ttf') format('truetype');
+    /* Điều chỉnh đường dẫn dựa trên vị trí của file CSS so với file font */
+    font-weight: normal;
+    font-style: normal;
+  }
+  h1 {
+    font-family: 'CustomFont', sans-serif;
+  }
+  .list-group-item {
+    font-family: 'CustomFont1', sans-serif;
+  }
+  body {
+    font-family: 'CustomFont1', sans-serif;
+  }
+  
+  .fas{
+    margin-right: 10px;
+  }
