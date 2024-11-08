@@ -1,0 +1,53 @@
+.navbar {
+    background-color: #343a40 !important; /* Màu nền tối */
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff; /* Màu chữ cho brand */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar-toggler {
+    border-color: #ffffff; /* Màu viền cho nút toggle */
+}
+
+.navbar-toggler-icon {
+    background-color: #ffffff; /* Màu của biểu tượng hamburger */
+}
+
+.nav-item {
+    margin-right: 15px; /* Khoảng cách giữa các mục */
+}
+
+.nav-link {
+    color: #ffffff; /* Màu chữ của các liên kết */
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền khi hover */
+}
+
+.nav-link:hover {
+    background-color: #007bff; /* Màu nền khi hover */
+    color: #ffffff;
+    border-radius: 5px; /* Bo góc cho hiệu ứng hover */
+}
+
+.navbar-nav {
+    margin-left: auto; /* Đẩy các mục điều hướng sang phải */
+}
+
+@media (max-width: 767px) {
+    /* Cải thiện hiển thị trên thiết bị di động */
+    .navbar-brand {
+        font-size: 1.5rem; /* Giảm kích thước chữ trên mobile */
+    }
+
+    .nav-link {
+        font-size: 0.9rem; /* Giảm kích thước chữ cho các mục */
+    }
+}
