@@ -135,15 +135,15 @@ class NhanVien
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findByPhoneAndPassword(string $so_dien_thoai, string $password): ?NhanVien
-{
-    $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE so_dien_thoai = :so_dien_thoai AND password = :password');
-    $statement->execute(['so_dien_thoai' => $so_dien_thoai, 'password' => $password]);
+    public function findByMaAndPassWord(string $ma_nhan_vien, string $password): ?NhanVien
+    {
+    $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien AND password = :password');
+    $statement->execute(['ma_nhan_vien' => $ma_nhan_vien, 'password' => $password]);
     if ($row = $statement->fetch()) {
         return $this->fillFromDB($row);
     }
     return null;
-}
+    }
     public function exists(): bool
     {
         $statement = $this->db->prepare('SELECT COUNT(*) FROM nhanvien WHERE ma_nhan_vien = :ma_nhan_vien');

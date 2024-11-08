@@ -88,10 +88,10 @@ class NhanVienController
     public function login()
     {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $so_dien_thoai = $_POST['ma_nhan_vien'] ?? '';
+        $ma_nhan_vien = $_POST['ma_so'] ?? '';
         $password = md5($_POST['password'] ?? '');
 
-        $nhanVien = $this->nhanVienModel->findByPhoneAndPassword($so_dien_thoai, $password);
+        $nhanVien = $this->nhanVienModel->findByMaAndPassword($ma_nhan_vien, $password);
         if ($nhanVien) {
             $_SESSION['nhan_vien_id'] = $nhanVien->ma_nhan_vien;
             $_SESSION['ghi_chu'] = $nhanVien->ghi_chu;
@@ -101,12 +101,14 @@ class NhanVienController
             exit;
         } else {
             $sinhvien = new SinhVien($this->nhanVienModel->db);
-            $sinhvien->ma_sinh_vien = $_POST['ma_sinh_vien'];
+            $sinhvien->ma_sinh_vien = $_POST['ma_so'];
             $sinhvien->password = md5($_POST['password']);
             if($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)){
                 $_SESSION['sinh_vien_id'] = $sinhvien->ma_sinh_vien;
             }
-            
+            else{
+                $error = "Sai mã số hoặc mật khẩu";
+            }
         }
     }
     include '../app/views/login.php';
