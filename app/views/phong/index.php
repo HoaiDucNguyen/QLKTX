@@ -8,7 +8,7 @@
     <title>Quản Lý Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
