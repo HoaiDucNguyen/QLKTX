@@ -7,17 +7,22 @@ function isActive($path) {
 }
 ?>
 
-<nav class="border-right">
-    <div class="bg-white " id="sidebar-wrapper">
-        <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase">
-        </div>
-        <div class="list-group list-group-flush my-3">
-            <ul class="list-unstyled">
-                <a href="#" class="list-group-item list-group-item-action <?php echo isActive('/'); ?>"><i
-                        class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/phong'); ?>"><i
-                        class="fas fa-bed me-2"></i>Quản lý Phòng</a>
+<nav class="navbar border-right navbar-expand-lg">
+    <div class="bg-white" id="sidebar-wrapper">
+        <!-- Nút hamburger cho màn hình nhỏ -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> <!-- Biểu tượng hamburger -->
+        </button>
+        <div class="collapse list-group-flush my-3 navbar-collapse" id="navbarNav">
+            <ul class="list-unstyled flex-column navbar-nav">
+                <li>
+                    <a href="#" class="list-group-item list-group-item-action <?php echo isActive('/'); ?>"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                </li>
+                <li>
+                    <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/phong'); ?>"><i class="fas fa-bed me-2"></i>Quản lý Phòng</a>
+                </li>
                 <?php if ($_SESSION['ghi_chu'] === 'admin') : ?>
+
                 <a href="/nhanvien"
                     class="list-group-item list-group-item-action <?php echo isActive('/nhanvien'); ?>"><i
                         class="fas fa-users me-2"></i>Quản Lý Nhân Viên</a>
@@ -37,3 +42,4 @@ function isActive($path) {
         </div>
     </div>
 </nav>
+

@@ -68,7 +68,7 @@
 
 .list-group-item {
     border: none;
-    padding: 20px 30px;
+    padding: 20px;
 }
 
 .list-group-item.active {
@@ -92,6 +92,11 @@
     margin-left: -15rem;
   }
 }
+/* Thay đổi màu biểu tượng hamburger */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='red' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 
 /* phần header */
 /* Apply general styling for the header */
@@ -172,4 +177,49 @@ body {
 
 .fas{
   margin-right: 10px;
+}
+
+/* Căn chỉnh form tìm kiếm */
+form.mb-3 {
+  display: flex;
+  justify-content: flex-start; /* Căn phần tử về phía bên trái */
+  gap: 10px;       /* Khoảng cách giữa các phần tử */
+  align-items: center; /* Căn các phần tử theo chiều dọc giữa (tùy chọn) */
+  background-color: #f8f9fa; /* Màu nền nhẹ */
+  padding: 15px;   /* Khoảng cách bên trong form */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Các trường input */
+form.mb-3 input[type="text"],
+form.mb-3 input[type="number"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 200px; /* Độ rộng của mỗi trường input */
+}
+
+/* Nút tìm kiếm */
+form.mb-3 button {
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff; /* Màu xanh cho nút */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng khi hover */
+form.mb-3 input[type="text"]:hover,
+form.mb-3 input[type="number"]:hover,
+form.mb-3 button:hover {
+  border-color: #007bff;
+}
+
+form.mb-3 button:hover {
+  background-color: #0056b3;
 }
