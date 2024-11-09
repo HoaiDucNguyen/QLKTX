@@ -12,6 +12,7 @@ use Hp\Qlktx\Controllers\NhanVienController;
 use Hp\Qlktx\Controllers\ThuePhongController;
 use Hp\Qlktx\Controllers\LopController; // Import LopController
 use Hp\Qlktx\Controllers\TtThuePhongController;
+use Hp\Qlktx\Controllers\DanhSachPhongController;
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -37,6 +38,7 @@ if ($requestUri === '/' || $requestUri === '/phong') {
 } elseif (preg_match('/\/phong\/detail\/(\d+)/', $requestUri, $matches)) {
     $controller = new PhongController($pdo);
     $controller->detail($matches[1]);
+
 } elseif ($requestUri === '/nhanvien') {
     if ($_SESSION['ghi_chu'] === 'admin') {
         $controller = new NhanVienController($pdo);
@@ -132,6 +134,17 @@ elseif ($requestUri === '/tt_thuephong') {
 } elseif (preg_match('/\/tt_thuephong\/delete\/(\d+)\/(\d{4}-\d{2})/', $requestUri, $matches)) {
     $controller = new TtThuePhongController($pdo);
     $controller->delete($matches[1], $matches[2]);
-} else {
+} 
+
+
+elseif ($requestUri === '/danhsachphong') {
+        $controller = new DanhSachPhongController($pdo);
+        $controller->index();
+} elseif ($requestUri === '/danhsachphong/search') {
+    $controller = new DanhSachPhongController($pdo);
+    $controller->search();
+}
+
+else {
     echo "Page not found.";
 }
