@@ -18,6 +18,11 @@ class PhongController
         $phongs = $this->phongModel->getAll();
         include '../app/views/phong/index.php';
     }
+    public function SVindex()
+    {
+        $phongs = $this->phongModel->getAll();
+        include '../app/views/views_SV/index.php';
+    }
 
     public function create()
     {

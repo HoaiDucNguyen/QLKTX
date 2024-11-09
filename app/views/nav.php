@@ -18,19 +18,22 @@ function isActive($path) {
                 <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/phong'); ?>"><i
                         class="fas fa-bed me-2"></i>Quản lý Phòng</a>
                 <?php if ($_SESSION['ghi_chu'] === 'admin') : ?>
-                    <a href="/nhanvien" class="list-group-item list-group-item-action <?php echo isActive('/nhanvien'); ?>"><i
+                <a href="/nhanvien"
+                    class="list-group-item list-group-item-action <?php echo isActive('/nhanvien'); ?>"><i
                         class="fas fa-users me-2"></i>Quản Lý Nhân Viên</a>
                 <?php endif; ?>
-                <a href="/thuephong" class="list-group-item list-group-item-action <?php echo isActive('/thuephong'); ?>"><i
+                <a href="/thuephong"
+                    class="list-group-item list-group-item-action <?php echo isActive('/thuephong'); ?>"><i
                         class="fas fa-paperclip me-2"></i>Quản Lý Thuê Phòng</a>
                 <a href="/lop" class="list-group-item list-group-item-action <?php echo isActive('/lop'); ?>"><i
                         class="fas fa-address-book me-2"></i>Quản Lý Lớp</a>
-                <a href="/sinhvien" class="list-group-item list-group-item-action <?php echo isActive('/sinhvien'); ?>"><i
+                <a href="/sinhvien"
+                    class="list-group-item list-group-item-action <?php echo isActive('/sinhvien'); ?>"><i
                         class="fas fa-graduation-cap me-2"></i>Quản Lý Sinh Viên</a>
-                <a href="/login" class="list-group-item list-group-item-action text-danger fw-bold <?php echo isActive('/login'); ?>"><i
+                <a href="/logout"
+                    class="list-group-item list-group-item-action text-danger fw-bold <?php echo isActive('/logout'); ?>"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
             </ul>
         </div>
     </div>
 </nav>
-
