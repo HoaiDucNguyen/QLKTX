@@ -19,6 +19,7 @@ class NhanVienController
         $nhanViens = $this->nhanVienModel->getAll() ?? [];
         include '../app/views/NhanVien/index.php';
     }
+    
 
     public function create()
     {
@@ -93,10 +94,9 @@ class NhanVienController
 
         $nhanVien = $this->nhanVienModel->findByMaAndPassword($ma_nhan_vien, $password);
         if ($nhanVien) {
-            $_SESSION['nhan_vien_id'] = $nhanVien->ma_nhan_vien;
+            $_SESSION['ma_so'] = $nhanVien->ma_nhan_vien;
             $_SESSION['ghi_chu'] = $nhanVien->ghi_chu;
             $_SESSION['ho_ten'] = $nhanVien->ho_ten;
-             
             header('Location: /');
             exit;
         } else {
@@ -104,7 +104,8 @@ class NhanVienController
             $sinhvien->ma_sinh_vien = $_POST['ma_so'];
             $sinhvien->password = md5($_POST['password']);
             if($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)){
-                $_SESSION['sinh_vien_id'] = $sinhvien->ma_sinh_vien;
+                $_SESSION['ma_so'] = $sinhvien->ma_sinh_vien;
+                $_SESSION['ghi_chu'] = 'sinh vien';
             }
             else{
                 $error = "Sai mã số hoặc mật khẩu";
@@ -113,6 +114,11 @@ class NhanVienController
     }
     include '../app/views/login.php';
 }
+ public function logout(): void
+    {
+        header('Location: /logout');
+        include '../app/views/logout.php';
+    }
 public function unauthorized():void{
     include '../app/views/unauthorized.php';
 }

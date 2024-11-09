@@ -107,9 +107,12 @@ class SinhVien
     }
     public function findByMaAndPassword($ma_sinh_vien, $password): ?SinhVien
     {
-        $statement = $this->db->prepare('SELECT * FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien AND password = :password');
+        $statement = $this->db->prepare('SELECT * FROM sinhVien WHERE ma_sinh_vien = :ma_sinh_vien AND password = :password');
         $statement->execute(['ma_sinh_vien' => $ma_sinh_vien, 'password' => $password]);
-        return $statement->fetch() ? $this->fillFromDB($statement->fetch()) : null;
+        if ($row = $statement->fetch()) {
+            return $this->fillFromDB($row);
+        }
+        return null;
     }
 
     public function exists(): bool
@@ -117,5 +120,12 @@ class SinhVien
         $statement = $this->db->prepare('SELECT COUNT(*) FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien');
         $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
         return $statement->fetchColumn() > 0;
+    }
+
+    public function getCurrentRoom(): ?array
+    {
+        $statement = $this->db->prepare('SELECT * FROM ThuePhong WHERE ma_sinh_vien = :ma_sinh_vien AND ( OR ket_thuc > NOW())');
+        $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

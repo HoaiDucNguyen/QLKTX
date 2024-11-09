@@ -137,12 +137,12 @@ class NhanVien
 
     public function findByMaAndPassWord(string $ma_nhan_vien, string $password): ?NhanVien
     {
-    $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien AND password = :password');
-    $statement->execute(['ma_nhan_vien' => $ma_nhan_vien, 'password' => $password]);
-    if ($row = $statement->fetch()) {
-        return $this->fillFromDB($row);
-    }
-    return null;
+        $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien AND password = :password');
+        $statement->execute(['ma_nhan_vien' => $ma_nhan_vien, 'password' => $password]);
+        if ($row = $statement->fetch()) {
+            return $this->fillFromDB($row);
+        }
+        return null;
     }
     public function exists(): bool
     {
