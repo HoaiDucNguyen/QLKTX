@@ -34,6 +34,7 @@
                                 <th>Diện Tích</th>
                                 <th>Số Giường</th>
                                 <th>Giá Thuê</th>
+                                <th>Giới Tính</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -45,6 +46,7 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
                                 <td>
                                     <a href="/phong/edit/<?= $phong['ma_phong'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>
@@ -62,7 +64,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
 </body>
 
 </html>

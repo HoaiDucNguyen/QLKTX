@@ -107,7 +107,7 @@ class NhanVien
         return $statement->execute(['ma_nhan_vien' => $this->ma_nhan_vien]);
     }
 
-    public function find(int $ma_nhan_vien): ?NhanVien
+    public function find(string $ma_nhan_vien): ?NhanVien
     {
         $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien');
         $statement->execute(['ma_nhan_vien' => $ma_nhan_vien]);

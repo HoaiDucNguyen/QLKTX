@@ -46,19 +46,22 @@ class SinhVienController
         $errors = [];
         $sinhVien = $this->sinhVienModel->find($id);
         if (!$sinhVien) {
-            die('Sinh viên không tồn tại');
+            header('Location: /sinhvien');
+            exit;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->sinhVienModel->fill($_POST);
             $this->sinhVienModel->ma_sinh_vien = $id;
-            if ($this->sinhVienModel->validate()) {
-                if ($this->sinhVienModel->save()) {
-                    header('Location: /sinhvien');
-                    exit;
-                } else {
-                    $errors[] = 'Lỗi khi cập nhật sinh viên. Vui lòng thử lại.';
-                }
+
+            // Cập nhật mật khẩu nếu có nhập mới
+            if (!empty($_POST['password'])) {
+                $this->sinhVienModel->password = md5($_POST['password']);
+            }
+
+            if ($this->sinhVienModel->validate() && $this->sinhVienModel->save()) {
+                header('Location: /sinhvien');
+                exit;
             } else {
                 $errors = $this->sinhVienModel->getValidationErrors();
             }

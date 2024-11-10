@@ -40,6 +40,7 @@ class NhanVienController
         }
         include '../app/views/NhanVien/create.php';
     }
+    
 
     public function edit($id)
     {
@@ -106,6 +107,7 @@ class NhanVienController
             if($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)){
                 $_SESSION['ma_so'] = $sinhvien->ma_sinh_vien;
                 $_SESSION['ghi_chu'] = 'sinh vien';
+                header('Location: /');
             }
             else{
                 $error = "Sai mã số hoặc mật khẩu";

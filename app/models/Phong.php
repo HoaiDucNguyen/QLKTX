@@ -4,11 +4,12 @@ use PDO;
 class Phong
 {
     public ?PDO $db;
-    public int $ma_phong = -1;
+    public string $ma_phong;
     public string $ten_phong;
     public float $dien_tich;
     public int $so_giuong;
     public float $gia_thue;
+    public string $gioi_tinh;
     private array $errors = [];
     public function
         __construct(
@@ -19,10 +20,12 @@ class Phong
 
     public function fill(array $data): Phong
     {
+        $this->ma_phong = $data['ma_phong'] ?? '';
         $this->ten_phong = $data['ten_phong'] ?? '';
         $this->dien_tich = $data['dien_tich'] ?? 0;
         $this->so_giuong = $data['so_giuong'] ?? 0;
         $this->gia_thue = $data['gia_thue'] ?? 0;
+        $this->gioi_tinh = $data['gioi_tinh'] ?? '';
         return $this;
     }
 
@@ -33,6 +36,9 @@ class Phong
 
     public function validate(): bool
     {
+        if (empty($this->ma_phong)) {
+            $this->errors['ma_phong'] = 'Mã phòng không được để trống';
+        }
         if (empty($this->ten_phong)) {
             $this->errors['ten_phong'] = 'Tên phòng không được để trống';
         }
@@ -45,38 +51,39 @@ class Phong
         if ($this->gia_thue <= 0) {
             $this->errors['gia_thue'] = 'Giá thuê phải lớn hơn 0';
         }
+        if (empty($this->gioi_tinh)) {
+            $this->errors['gioi_tinh'] = 'Giới tính không được để trống';
+        }
         return empty($this->errors);
     }
 
     public function save(): bool
     {
-        if ($this->ma_phong >= 0) {
+        if ($this->exists()) {
             $statement = $this->db->prepare(
-                'UPDATE Phong SET ten_phong = :ten_phong, dien_tich = :dien_tich, so_giuong = :so_giuong, gia_thue =
-                :gia_thue WHERE ma_phong = :ma_phong'
+                'UPDATE Phong SET ten_phong = :ten_phong, dien_tich = :dien_tich, so_giuong = :so_giuong, gia_thue = :gia_thue, gioi_tinh = :gioi_tinh WHERE ma_phong = :ma_phong'
             );
             return $statement->execute([
                 'ten_phong' => $this->ten_phong,
                 'dien_tich' => $this->dien_tich,
                 'so_giuong' => $this->so_giuong,
                 'gia_thue' => $this->gia_thue,
+                'gioi_tinh' => $this->gioi_tinh,
                 'ma_phong' => $this->ma_phong
             ]);
         } else {
             $statement = $this->db->prepare(
-                'INSERT INTO Phong (ten_phong, dien_tich, so_giuong, gia_thue) VALUES (:ten_phong, :dien_tich,
-                :so_giuong,
-                :gia_thue)'
+                'INSERT INTO Phong (ten_phong, dien_tich, so_giuong, gia_thue, gioi_tinh, ma_phong) VALUES (:ten_phong, :dien_tich, :so_giuong, :gia_thue, :gioi_tinh, :ma_phong)'
             );
             $result = $statement->execute([
                 'ten_phong' => $this->ten_phong,
                 'dien_tich' => $this->dien_tich,
                 'so_giuong' => $this->so_giuong,
-                'gia_thue' => $this->gia_thue
+                'gia_thue' => $this->gia_thue,
+                'gioi_tinh' => $this->gioi_tinh,
+                'ma_phong' => $this->ma_phong
             ]);
-            if ($result) {
-                $this->ma_phong = $this->db->lastInsertId();
-            }
+         
             return $result;
         }
     }
@@ -87,7 +94,7 @@ class Phong
         return $statement->execute(['ma_phong' => $this->ma_phong]);
     }
 
-   public function find(int $ma_phong): ?Phong
+   public function find( $ma_phong): ?Phong
     {
         $statement = $this->db->prepare('SELECT * FROM Phong WHERE ma_phong = :ma_phong');
         $statement->execute(['ma_phong' => $ma_phong]);
@@ -103,9 +110,16 @@ class Phong
             'ten_phong' => $this->ten_phong,
             'dien_tich' => $this->dien_tich,
             'so_giuong' => $this->so_giuong,
-            'gia_thue' => $this->gia_thue
+            'gia_thue' => $this->gia_thue,
+            'gioi_tinh' => $this->gioi_tinh
         ] = $row;
         return $this;
+    }
+    public function exists(): bool
+    {
+        $statement = $this->db->prepare('SELECT COUNT(*) FROM phong WHERE ma_phong = :ma_phong');
+        $statement->execute(['ma_phong' => $this->ma_phong]);
+        return $statement->fetchColumn() > 0;
     }
 
     public function getAll():array 
@@ -124,6 +138,10 @@ class Phong
         if (!empty($criteria['so_giuong'])) {
             $query .= " AND so_giuong = :so_giuong";
             $params['so_giuong'] = $criteria['so_giuong'];
+        }
+        if (!empty($criteria['gioi_tinh'])) {
+            $query .= " AND gioi_tinh = :gioi_tinh";
+            $params['gioi_tinh'] = $criteria['gioi_tinh'];
         }
 
         $stmt = $this->db->prepare($query);

@@ -24,7 +24,7 @@ if ($requestUri !== '/login' && !isset($_SESSION['ma_so'])) {
 
 // Kiểm tra các route và điều hướng
 if ($requestUri === '/' || $requestUri === '/phong') {
-    if($_SESSION['ghi_chu']==='nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new PhongController($pdo);
         $controller->index();
     } else {
@@ -32,24 +32,33 @@ if ($requestUri === '/' || $requestUri === '/phong') {
         $controller->SVindex();
     }
 } elseif ($requestUri === '/phong/create') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new PhongController($pdo);
         $controller->create();
     } else {
         $controller = new NhanVienController($pdo);
         $controller->unauthorized();
     }
-} elseif (preg_match('/\/phong\/edit\/(\d+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+} elseif ($requestUri === '/phong/search') {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new PhongController($pdo);
+        $controller->search();
+    } else {
+        $controller = new PhongController($pdo);
+        $controller->search();
+    }
+}
+elseif (preg_match('/\/phong\/edit\/(\w+)/', $requestUri, $matches)) {
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new PhongController($pdo);
         $controller->edit($matches[1]);
     } else {
         $controller = new NhanVienController($pdo);
         $controller->unauthorized();
     }
-} elseif (preg_match('/\/phong\/delete\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/phong\/delete\/(\w+)/', $requestUri, $matches)) {
 
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new PhongController($pdo);
         $controller->delete($matches[1]);
     } else {
@@ -77,7 +86,7 @@ elseif ($requestUri === '/nhanvien') {
 } elseif ($requestUri === '/login') {
     $controller = new NhanVienController($pdo);
     $controller->login();
-} elseif (preg_match('/\/nhanvien\/edit\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/nhanvien\/edit\/(\w+)/', $requestUri, $matches)) {
     if ($_SESSION['ghi_chu'] === 'admin') {
         $controller = new NhanVienController($pdo);
         $controller->edit($matches[1]);
@@ -85,7 +94,7 @@ elseif ($requestUri === '/nhanvien') {
         $controller = new NhanVienController($pdo);
         $controller->unauthorized();
     }
-} elseif (preg_match('/\/nhanvien\/delete\/(\d+)/', $requestUri, $matches)) {
+} elseif (preg_match('/\/nhanvien\/delete\/(\w+)/', $requestUri, $matches)) {
     if ($_SESSION['ghi_chu'] === 'admin') {
         $controller = new NhanVienController($pdo);
         $controller->delete($matches[1]);
@@ -96,7 +105,7 @@ elseif ($requestUri === '/nhanvien') {
 }
 
 elseif ($requestUri === '/thuephong') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new ThuePhongController($pdo);
         $controller->index();
     } else {
@@ -104,7 +113,7 @@ elseif ($requestUri === '/thuephong') {
         $controller->unauthorized();
     }
 } elseif ($requestUri === '/thuephong/create') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new ThuePhongController($pdo);
         $controller->create();
     } else {
@@ -112,7 +121,7 @@ elseif ($requestUri === '/thuephong') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/thuephong\/edit\/(\d+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new ThuePhongController($pdo);
         $controller->edit($matches[1]);
     } else {
@@ -120,7 +129,7 @@ elseif ($requestUri === '/thuephong') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/thuephong\/delete\/(\d+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new ThuePhongController($pdo);
         $controller->delete($matches[1]);
     } else {
@@ -131,7 +140,7 @@ elseif ($requestUri === '/thuephong') {
 
 // Routes cho Lop
 elseif ($requestUri === '/lop') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new LopController($pdo);
         $controller->index();
     } else {
@@ -139,7 +148,7 @@ elseif ($requestUri === '/lop') {
         $controller->unauthorized();
     }
 } elseif ($requestUri === '/lop/create') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new LopController($pdo);
         $controller->create();
     } else {
@@ -147,7 +156,7 @@ elseif ($requestUri === '/lop') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/lop\/edit\/(\w+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new LopController($pdo);
         $controller->edit($matches[1]);
     } else {
@@ -155,7 +164,7 @@ elseif ($requestUri === '/lop') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/lop\/delete\/(\w+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new LopController($pdo);
         $controller->delete($matches[1]);
     } else {
@@ -166,7 +175,7 @@ elseif ($requestUri === '/lop') {
 
 // Routes cho SinhVien
 elseif ($requestUri === '/sinhvien') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new SinhVienController($pdo);
         $controller->index();
     } else {
@@ -174,7 +183,7 @@ elseif ($requestUri === '/sinhvien') {
         $controller->unauthorized();
     }
 } elseif ($requestUri === '/sinhvien/create') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new SinhVienController($pdo);
         $controller->create();
     } else {
@@ -182,7 +191,7 @@ elseif ($requestUri === '/sinhvien') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/sinhvien\/edit\/(\w+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new SinhVienController($pdo);
         $controller->edit($matches[1]);
     } else {
@@ -190,7 +199,7 @@ elseif ($requestUri === '/sinhvien') {
         $controller->unauthorized();
     }
 } elseif (preg_match('/\/sinhvien\/delete\/(\w+)/', $requestUri, $matches)) {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new SinhVienController($pdo);
         $controller->delete($matches[1]);
     } else {
@@ -201,7 +210,7 @@ elseif ($requestUri === '/sinhvien') {
 
 // Routes cho TtThuePhong
 elseif ($requestUri === '/tt_thuephong') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new TtThuePhongController($pdo);
         $controller->index();
     } else {
@@ -209,7 +218,7 @@ elseif ($requestUri === '/tt_thuephong') {
         $controller->unauthorized();
     }
 } elseif ($requestUri === '/tt_thuephong/create') {
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new TtThuePhongController($pdo);
         $controller->create();
     } else {
@@ -218,7 +227,7 @@ elseif ($requestUri === '/tt_thuephong') {
     }
 } elseif (preg_match('/\/tt_thuephong\/delete\/(\d+)\/(\d{4}-\d{2})/', $requestUri, $matches)) {
 
-    if($_SESSION['ghi_chu'] === 'nhan vien'){
+    if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new TtThuePhongController($pdo);
         $controller->delete($matches[1], $matches[2]);
     } else {

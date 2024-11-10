@@ -40,7 +40,7 @@
                         <label>Nhân viên thanh toán: <?= htmlspecialchars($_SESSION['ho_ten'])?></label>
                         <div class="form-group">
                             <input type="number" name="ma_nhan_vien" hidden class="form-control"
-                                value="<?= $_SESSION['nhan_vien_id'] ?>" readonly>
+                                value="<?= $_SESSION['ma_so'] ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>
                     </form>

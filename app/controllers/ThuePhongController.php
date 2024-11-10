@@ -4,6 +4,7 @@ namespace Hp\Qlktx\Controllers;
 use Hp\Qlktx\Models\ThuePhong;
 
 use PDO;
+use Exception;
 
 class ThuePhongController
 {
@@ -25,15 +26,34 @@ class ThuePhongController
         $errors = [];
         $sinhViens = $this->getSinhViens();
         $phongs = $this->getPhongs();
+        $hocKys = $this->getHocKys();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $thuePhong = new ThuePhong($this->thuePhongModel->db);
             $thuePhong->fill($_POST);
-            if ($thuePhong->validate() && $thuePhong->save()) {
-                header('Location: /thuephong');
-                exit;
+
+            try {
+                $giaThue = $this->getGiaThue($thuePhong->ma_phong);
+                if ($giaThue !== null) {
+                    $thuePhong->gia_thue_thuc_te = $giaThue;
+                }
+
+                $hocKy = $this->getHocKy($thuePhong->ma_hoc_ky);
+                if ($hocKy !== null) {
+                    $thuePhong->bat_dau = $hocKy['bat_dau'];
+                    $thuePhong->ket_thuc = $hocKy['ket_thuc'];
+                }
+
+                $thuePhong->can_thanh_toan = $thuePhong->gia_thue_thuc_te - $thuePhong->tien_dat_coc;
+
+                if ($thuePhong->validate() && $thuePhong->save()) {
+                    $errors = array_merge($errors, $thuePhong->getValidationErrors());
+                    include '../app/views/thuephong/create.php';
+                }
+                $errors = array_merge($errors, $thuePhong->getValidationErrors());
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
             }
-            $errors = $thuePhong->getValidationErrors();
         }
         include '../app/views/thuephong/create.php';
     }
@@ -48,6 +68,27 @@ class ThuePhongController
     {
         $stmt = $this->thuePhongModel->db->query("SELECT * FROM Phong");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private function getHocKys()
+    {
+        $stmt = $this->thuePhongModel->db->query("SELECT * FROM Hoc_Ky");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private function getGiaThue($ma_phong)
+    {
+        $stmt = $this->thuePhongModel->db->prepare("SELECT gia_thue FROM Phong WHERE ma_phong = :ma_phong");
+        $stmt->execute(['ma_phong' => $ma_phong]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['gia_thue'] : null;
+    }
+
+    private function getHocKy($ma_hoc_ky)
+    {
+        $stmt = $this->thuePhongModel->db->prepare("SELECT bat_dau, ket_thuc FROM Hoc_Ky WHERE ma_hoc_ky = :ma_hoc_ky");
+        $stmt->execute(['ma_hoc_ky' => $ma_hoc_ky]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function edit($id)

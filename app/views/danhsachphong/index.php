@@ -21,22 +21,25 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <?php include '../app/views/nav.php'; ?>
+                <?php include '../app/views/navSV.php'; ?>
             </div>
 
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Danh Sách Phòng</h1>
                     <!-- Form tìm kiếm -->
-                    <form action="/danhsachphong" method="get" class="mb-3">
-                        <input type="text" name="ten_phong" placeholder="Tên phòng" value="<?= htmlspecialchars($_GET['ten_phong'] ?? '') ?>">
-                        <input type="number" name="dien_tich" placeholder="Diện tích" value="<?= htmlspecialchars($_GET['dien_tich'] ?? '') ?>">
-                        <input type="number" name="so_giuong" placeholder="Số giường" value="<?= htmlspecialchars($_GET['so_giuong'] ?? '') ?>">
+                    <form action="/phong" method="get" class="mb-3">
+                        <input type="text" name="ten_phong" placeholder="Tên phòng"
+                            value="<?= htmlspecialchars($_GET['ten_phong'] ?? '') ?>">
+                        <input type="text" name="dien_tich" placeholder="Diện tích"
+                            value="<?= htmlspecialchars($_GET['dien_tich'] ?? '') ?>">
+                        <input type="number" name="so_giuong" placeholder="Số giường"
+                            value="<?= htmlspecialchars($_GET['so_giuong'] ?? '') ?>">
                         <button type="submit">Tìm kiếm</button>
                     </form>
 
                     <!-- Bảng hiển thị danh sách phòng hoặc kết quả tìm kiếm -->
-                    
+
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>
@@ -49,29 +52,31 @@
                         </thead>
                         <tbody>
                             <?php if (isset($_GET['ten_phong']) || isset($_GET['dien_tich']) || isset($_GET['so_giuong'])): ?>
-                                <?php if (empty($phongs)): ?>
-                                    <tr><td colspan="5">Không tìm thấy phòng nào phù hợp.</td></tr>
-                                <?php else: ?>
-                                    <?php foreach ($phongs as $phong): ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                                            <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                            <?php if (empty($phongs)): ?>
+                            <tr>
+                                <td colspan="5">Không tìm thấy phòng nào phù hợp.</td>
+                            </tr>
                             <?php else: ?>
-                                <?php foreach ($phongs as $phong): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                                        <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
+                            <?php foreach ($phongs as $phong): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php else: ?>
+                            <?php foreach ($phongs as $phong): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>

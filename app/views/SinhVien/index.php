@@ -8,7 +8,7 @@
     <title>Quản Lý Sinh Viên</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
@@ -33,6 +33,8 @@
                                 <th>Họ Tên</th>
                                 <th>Số Điện Thoại</th>
                                 <th>Mã Lớp</th>
+                                <th>Giới Tính</th>
+
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -43,6 +45,8 @@
                                 <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
                                 <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
                                 <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
+
                                 <td>
                                     <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>

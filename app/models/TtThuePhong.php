@@ -9,7 +9,7 @@
      public string $thang_nam;
      public float $so_tien;
      public ?string $ngay_thanh_toan;
-     public int $ma_nhan_vien;
+     public string $ma_nhan_vien;
      private array $errors = [];
 
      public function __construct(?PDO $pdo)
@@ -23,7 +23,7 @@
          $this->thang_nam = $data['thang_nam'] ? $data['thang_nam'] . '-01' : '';
          $this->so_tien = $data['so_tien'] ?? 0;
          $this->ngay_thanh_toan = $data['ngay_thanh_toan'] ?? null;
-         $this->ma_nhan_vien = $data['ma_nhan_vien'] ?? 0;
+         $this->ma_nhan_vien = $data['ma_nhan_vien'] ?? '';
          return $this;
      }
 

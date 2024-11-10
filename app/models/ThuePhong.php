@@ -1,17 +1,20 @@
 <?php
 namespace Hp\Qlktx\Models;
 use PDO;
+use PDOException;
 
 class ThuePhong
 {
     public ?PDO $db;
     public int $ma_hop_dong = -1;
     public string $ma_sinh_vien;
-    public int $ma_phong;
+    public string $ma_phong;
     public string $bat_dau;
     public string $ket_thuc;
     public float $tien_dat_coc;
     public float $gia_thue_thuc_te;
+    public string $ma_hoc_ky;
+    public float $can_thanh_toan;
     private array $errors = [];
 
     public function __construct(?PDO $pdo)
@@ -21,12 +24,15 @@ class ThuePhong
 
     public function fill(array $data): ThuePhong
     {
-        $this->ma_sinh_vien = $data['ma_sinh_vien'] ?? 0;
-        $this->ma_phong = $data['ma_phong'] ?? 0;
+        
+        $this->ma_sinh_vien = $data['ma_sinh_vien'] ?? '';
+        $this->ma_phong = $data['ma_phong'] ?? '';
         $this->bat_dau = $data['bat_dau'] ?? '';
         $this->ket_thuc = $data['ket_thuc'] ?? '';
         $this->tien_dat_coc = $data['tien_dat_coc'] ?? 0;
         $this->gia_thue_thuc_te = $data['gia_thue_thuc_te'] ?? 0;
+        $this->ma_hoc_ky = $data['ma_hoc_ky'] ?? '';
+        $this->can_thanh_toan = $data['can_thanh_toan'] ?? 0;
         return $this;
     }
 
@@ -40,7 +46,7 @@ class ThuePhong
         if ($this->ma_sinh_vien =='') {
             $this->errors['ma_sinh_vien'] = 'Mã sinh viên không hợp lệ';
         }
-        if ($this->ma_phong <= 0) {
+        if ($this->ma_phong== '') {
             $this->errors['ma_phong'] = 'Mã phòng không hợp lệ';
         }
         if (empty($this->bat_dau)) {
@@ -54,35 +60,46 @@ class ThuePhong
 
     public function save(): bool
     {
-        if ($this->ma_hop_dong >= 0) {
-            $statement = $this->db->prepare(
-                'UPDATE ThuePhong SET ma_sinh_vien = :ma_sinh_vien, ma_phong = :ma_phong, bat_dau = :bat_dau, ket_thuc = :ket_thuc, tien_dat_coc = :tien_dat_coc, gia_thue_thuc_te = :gia_thue_thuc_te WHERE ma_hop_dong = :ma_hop_dong'
-            );
-            return $statement->execute([
-                'ma_sinh_vien' => $this->ma_sinh_vien,
-                'ma_phong' => $this->ma_phong,
-                'bat_dau' => $this->bat_dau,
-                'ket_thuc' => $this->ket_thuc,
-                'tien_dat_coc' => $this->tien_dat_coc,
-                'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
-                'ma_hop_dong' => $this->ma_hop_dong
-            ]);
-        } else {
-            $statement = $this->db->prepare(
-                'INSERT INTO ThuePhong (ma_sinh_vien, ma_phong, bat_dau, ket_thuc, tien_dat_coc, gia_thue_thuc_te) VALUES (:ma_sinh_vien, :ma_phong, :bat_dau, :ket_thuc, :tien_dat_coc, :gia_thue_thuc_te)'
-            );
-            $result = $statement->execute([
-                'ma_sinh_vien' => $this->ma_sinh_vien,
-                'ma_phong' => $this->ma_phong,
-                'bat_dau' => $this->bat_dau,
-                'ket_thuc' => $this->ket_thuc,
-                'tien_dat_coc' => $this->tien_dat_coc,
-                'gia_thue_thuc_te' => $this->gia_thue_thuc_te
-            ]);
-            if ($result) {
-                $this->ma_hop_dong = $this->db->lastInsertId();
+        try {
+            if ($this->ma_hop_dong >= 0) {
+                $statement = $this->db->prepare(
+                    'UPDATE ThuePhong SET ma_sinh_vien = :ma_sinh_vien, ma_phong = :ma_phong, bat_dau = :bat_dau, ket_thuc = :ket_thuc, tien_dat_coc = :tien_dat_coc, gia_thue_thuc_te = :gia_thue_thuc_te, ma_hoc_ky = :ma_hoc_ky, can_thanh_toan = :can_thanh_toan WHERE ma_hop_dong = :ma_hop_dong'
+                );
+                return $statement->execute([
+                    'ma_sinh_vien' => $this->ma_sinh_vien,
+                    'ma_phong' => $this->ma_phong,
+                    'bat_dau' => $this->bat_dau,
+                    'ket_thuc' => $this->ket_thuc,
+                    'tien_dat_coc' => $this->tien_dat_coc,
+                    'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
+                    'ma_hoc_ky' => $this->ma_hoc_ky,
+                    'can_thanh_toan' => $this->can_thanh_toan,
+                    'ma_hop_dong' => $this->ma_hop_dong
+                ]);
+            } else {
+                $statement = $this->db->prepare(
+                    'INSERT INTO ThuePhong (ma_sinh_vien, ma_phong, bat_dau, ket_thuc, tien_dat_coc, gia_thue_thuc_te, ma_hoc_ky, can_thanh_toan) VALUES (:ma_sinh_vien, :ma_phong, :bat_dau, :ket_thuc, :tien_dat_coc, :gia_thue_thuc_te, :ma_hoc_ky, :can_thanh_toan)'
+                );
+                $result = $statement->execute([
+                    'ma_sinh_vien' => $this->ma_sinh_vien,
+                    'ma_phong' => $this->ma_phong,
+                    'bat_dau' => $this->bat_dau,
+                    'ket_thuc' => $this->ket_thuc,
+                    'tien_dat_coc' => $this->tien_dat_coc,
+                    'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
+                    'ma_hoc_ky' => $this->ma_hoc_ky,
+                    'can_thanh_toan' => $this->can_thanh_toan
+                ]);
+                if ($result) {
+                    $this->ma_hop_dong = $this->db->lastInsertId();
+                }else{
+                    $this->errors['save'] = 'Lỗi khi thêm hợp đồng';
+                }
+                return $result;
             }
-            return $result;
+        } catch (PDOException $e) {
+            $this->errors[] = $e->getMessage();
+            return false;
         }
     }
 
@@ -111,7 +128,9 @@ class ThuePhong
             'bat_dau' => $this->bat_dau,
             'ket_thuc' => $this->ket_thuc,
             'tien_dat_coc' => $this->tien_dat_coc,
-            'gia_thue_thuc_te' => $this->gia_thue_thuc_te
+            'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
+            'ma_hoc_ky' => $this->ma_hoc_ky,
+            'can_thanh_toan' => $this->can_thanh_toan
         ] = $row;
         return $this;
     }

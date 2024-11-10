@@ -14,7 +14,7 @@ function isActive($path)
         </div>
         <div class="list-group list-group-flush my-3">
             <ul class="list-unstyled">
-                <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/xemphong'); ?>"><i
+                <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/phong'); ?>"><i
                         class="fas fa-bed me-2"></i>Danh Sách Phòng</a>
                 <a href="/nhanvien"
                     class="list-group-item list-group-item-action <?php echo isActive('/hientai'); ?>"><i

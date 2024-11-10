@@ -8,7 +8,7 @@
     <title>Thêm Sinh Viên</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../../style.css"> 
+    <link rel="stylesheet" type="text/css" href="../../style.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
@@ -50,6 +50,18 @@
                         <div class="form-group">
                             <label for="ma_lop">Mã Lớp:</label>
                             <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu:</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gioi_tinh">Giới tính:</label>
+                            <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
+                                <option value="">Chọn giới tính</option>
+                                <option value="Nam">nam</option>
+                                <option value="Nữ">nu</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>
                     </form>

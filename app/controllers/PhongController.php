@@ -18,10 +18,25 @@ class PhongController
         $phongs = $this->phongModel->getAll();
         include '../app/views/phong/index.php';
     }
+
     public function SVindex()
     {
-        $phongs = $this->phongModel->getAll();
-        include '../app/views/views_SV/index.php';
+        $criteria = [
+            'ten_phong' => $_GET['ten_phong'] ?? '',
+            'dien_tich' => $_GET['dien_tich'] ?? '',
+            'so_giuong' => $_GET['so_giuong'] ?? '',
+            'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
+        ];
+
+        // Nếu có tiêu chí tìm kiếm, gọi phương thức `search`, nếu không thì lấy toàn bộ danh sách
+        if (!empty($criteria['ten_phong']) || !empty($criteria['dien_tich']) || !empty($criteria['so_giuong']) || !empty($criteria['gioi_tinh'])) {
+            $phongs = $this->phongModel->search($criteria);
+        } else {
+            $phongs = $this->phongModel->getAll();
+        }
+
+        // Gọi view index.php và truyền kết quả vào
+        include '../app/views/danhsachphong/index.php';
     }
 
     public function create()
@@ -37,6 +52,18 @@ class PhongController
             $errors = $phong->getValidationErrors();
         }
         include '../app/views/phong/create.php';
+    }
+
+    public function search()
+    {
+        $criteria = [
+            'ten_phong' => $_GET['ten_phong'] ?? '',
+            'dien_tich' => $_GET['dien_tich'] ?? '',
+            'so_giuong' => $_GET['so_giuong'] ?? '',
+            'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
+        ];
+        $phongs = $this->phongModel->search($criteria);
+        include '../app/views/danhsachphong/index.php';
     }
 
     public function edit($id)

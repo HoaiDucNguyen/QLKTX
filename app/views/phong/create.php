@@ -8,7 +8,7 @@
     <title>Thêm Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../../style.css"> 
+    <link rel="stylesheet" type="text/css" href="../../style.css">
 </head>
 
 <body>
@@ -17,12 +17,12 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
             </div>
-            
+
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Thêm Phòng</h1>
@@ -36,6 +36,10 @@
                     </div>
                     <?php endif; ?>
                     <form method="POST" class="form">
+                        <div class="form-group">
+                            <label for="ma_phong">Mã Phòng:</label>
+                            <input type="text" name="ma_phong" id="ma_phong" class="form-control" required>
+                        </div>
                         <div class="form-group">
                             <label for="ten_phong">Tên Phòng:</label>
                             <input type="text" name="ten_phong" id="ten_phong" class="form-control" required>
@@ -51,6 +55,14 @@
                         <div class="form-group">
                             <label for="gia_thue">Giá Thuê:</label>
                             <input type="number" name="gia_thue" id="gia_thue" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gioi_tinh">Giới tính:</label>
+                            <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
+                                <option value="">Chọn giới tính</option>
+                                <option value="Nam">nam</option>
+                                <option value="Nữ">nu</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>
                     </form>

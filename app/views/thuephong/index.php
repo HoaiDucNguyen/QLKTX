@@ -7,7 +7,7 @@
     <title>Quản Lý Thuê Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
@@ -35,6 +35,7 @@
                                 <th>Kết Thúc</th>
                                 <th>Tiền Đặt Cọc</th>
                                 <th>Giá Thuê Thực Tế</th>
+                                <th>Cần Thanh Toán</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                 <td><?= $thuePhong['ket_thuc'] ?></td>
                                 <td><?= $thuePhong['tien_dat_coc'] ?></td>
                                 <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
+                                <td><?= $thuePhong['can_thanh_toan'] ?></td>
                                 <td>
                                     <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
                                         class="btn btn-success btn-sm">Thêm Thanh Toán</a>
