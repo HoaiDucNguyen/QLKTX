@@ -96,4 +96,9 @@ class Lop
         $statement->execute(['ma_lop' => $this->ma_lop]);
         return $statement->fetchColumn() > 0;
     }
+    public function countAllLop(): int
+    {
+        $statement = $this->db->query("SELECT COUNT(*) FROM Lop");
+        return (int) $statement->fetchColumn();
+    }
 }

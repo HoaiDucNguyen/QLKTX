@@ -12,7 +12,7 @@ class PhongController
     {
         $this->phongModel = new Phong($pdo);
     }
-
+    
     public function index()
     {
         $phongs = $this->phongModel->getAll();
@@ -104,4 +104,5 @@ class PhongController
         }
         include '../app/views/phong/detail.php';
     }
+    
 }

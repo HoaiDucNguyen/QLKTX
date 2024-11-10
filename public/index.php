@@ -13,6 +13,8 @@ use Hp\Qlktx\Controllers\ThuePhongController;
 use Hp\Qlktx\Controllers\LopController; // Import LopController
 use Hp\Qlktx\Controllers\TtThuePhongController;
 use Hp\Qlktx\Controllers\DanhSachPhongController;
+use Hp\Qlktx\Controllers\ThongKeController;
+
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -237,7 +239,13 @@ elseif ($requestUri === '/tt_thuephong') {
 } else if($requestUri === '/logout' && isset($_SESSION['ma_so'])){
     $controller = new NhanVienController($pdo);
     $controller->logout();
-}else{
+
+
+} elseif($requestUri === '/ThongKe'){
+    $controller = new ThongKeController($pdo);
+    $controller->index();
+}
+else{
 
     echo "Page not found.";
 }

@@ -147,4 +147,9 @@ class SinhVien
         $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+    public function countAllsv(): int
+    {
+        $statement = $this->db->query("SELECT COUNT(*) FROM sinhVien");
+        return (int) $statement->fetchColumn();
+    }
 }

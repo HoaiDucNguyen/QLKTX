@@ -102,6 +102,8 @@
 /* Apply general styling for the header */
 .header {
     background-color: #1f5ca9; /* Light background for a professional look */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px; /* Extra padding for spacing */
     border-bottom: 2px solid #ddd; /* Slightly thicker border */
     display: flex;
@@ -133,6 +135,7 @@
 #sidebar-wrapper .list-group-item {
     color: #333; /* Màu chữ bình thường */
     transition:  color 0.3s; /* Hiệu ứng chuyển màu mượt */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Hiệu ứng khi di chuột qua */
@@ -222,4 +225,33 @@ form.mb-3 button:hover {
 
 form.mb-3 button:hover {
   background-color: #0056b3;
+}
+
+
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-item {
+  flex: 1 1 30%;
+  padding: 20px;
+  margin: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tendangnhap {
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
