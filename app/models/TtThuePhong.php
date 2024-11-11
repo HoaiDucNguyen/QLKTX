@@ -66,10 +66,10 @@
          return $statement->execute(['ma_hop_dong' => $this->ma_hop_dong, 'thang_nam' => $this->thang_nam]);
      }
 
-     public function find(int $ma_hop_dong, string $thang_nam): ?TtThuePhong
+     public function find(int $ma_hop_dong): ?TtThuePhong
      {
-         $statement = $this->db->prepare('SELECT * FROM tt_thuephong WHERE ma_hop_dong = :ma_hop_dong AND thang_nam = :thang_nam');
-         $statement->execute(['ma_hop_dong' => $ma_hop_dong, 'thang_nam' => $thang_nam]);
+         $statement = $this->db->prepare('SELECT * FROM tt_thuephong WHERE ma_hop_dong = :ma_hop_dong');
+         $statement->execute(['ma_hop_dong' => $ma_hop_dong]);
          if ($row = $statement->fetch()) {
              return $this->fillFromDB($row);
          }

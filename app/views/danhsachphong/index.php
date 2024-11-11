@@ -27,6 +27,25 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Danh Sách Phòng</h1>
+
+                    <!-- Hiển thị thông báo thành công nếu có -->
+                    <?php if (!empty($successMessage)): ?>
+                    <div class="alert alert-success">
+                        <?= htmlspecialchars($successMessage) ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Hiển thị lỗi nếu có -->
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+
                     <!-- Form tìm kiếm -->
                     <form action="/phong" method="get" class="mb-3">
                         <input type="text" name="ten_phong" placeholder="Tên phòng"
@@ -48,13 +67,14 @@
                                 <th>Diện Tích</th>
                                 <th>Số Giường</th>
                                 <th>Giá Thuê</th>
+                                <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (isset($_GET['ten_phong']) || isset($_GET['dien_tich']) || isset($_GET['so_giuong'])): ?>
                             <?php if (empty($phongs)): ?>
                             <tr>
-                                <td colspan="5">Không tìm thấy phòng nào phù hợp.</td>
+                                <td colspan="6">Không tìm thấy phòng nào phù hợp.</td>
                             </tr>
                             <?php else: ?>
                             <?php foreach ($phongs as $phong): ?>
@@ -64,6 +84,15 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td>
+                                    <form action="/thuephong/create" method="post" style="display:inline;">
+                                        <input type="hidden" name="ma_phong"
+                                            value="<?= htmlspecialchars($phong['ma_phong']) ?>">
+                                        <input type="hidden" name="ma_sinh_vien"
+                                            value="<?= htmlspecialchars($_SESSION['ma_so']) ?>">
+                                        <button type="submit" class="btn btn-primary">Thuê Phòng</button>
+                                    </form>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                             <?php endif; ?>
@@ -75,6 +104,15 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="ma_phong"
+                                            value="<?= htmlspecialchars($phong['ma_phong']) ?>">
+                                        <input type="hidden" name="ma_sinh_vien"
+                                            value="<?= htmlspecialchars($_SESSION['ma_so']) ?>">
+                                        <button type="submit" class="btn btn-primary">Thuê Phòng</button>
+                                    </form>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                             <?php endif; ?>

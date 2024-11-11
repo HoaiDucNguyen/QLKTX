@@ -36,9 +36,9 @@ class TtThuePhongController
         include '../app/views/tt_thuephong/create.php';
     }
 
-    public function delete($ma_hop_dong, $thang_nam)
+    public function delete($ma_hop_dong)
     {
-        $ttThuePhong = $this->ttThuePhongModel->find($ma_hop_dong, $thang_nam);
+        $ttThuePhong = $this->ttThuePhongModel->find($ma_hop_dong);
         if ($ttThuePhong && $ttThuePhong->delete()) {
             header('Location: /tt_thuephong');
             exit;

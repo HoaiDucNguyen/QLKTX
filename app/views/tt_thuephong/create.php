@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Thanh Toán Thuê Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
 </head>
 
 <body>
     <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <?php include '../app/views/header.php'; ?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <?php include '../app/views/nav.php'; ?>
@@ -39,7 +46,7 @@
                         </div>
                         <label>Nhân viên thanh toán: <?= htmlspecialchars($_SESSION['ho_ten'])?></label>
                         <div class="form-group">
-                            <input type="number" name="ma_nhan_vien" hidden class="form-control"
+                            <input type="text" name="ma_nhan_vien" hidden class="form-control"
                                 value="<?= $_SESSION['ma_so'] ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>

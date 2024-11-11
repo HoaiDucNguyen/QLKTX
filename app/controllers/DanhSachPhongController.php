@@ -2,12 +2,15 @@
 
 namespace Hp\Qlktx\Controllers;
 use Hp\Qlktx\Models\Phong;
-
+use Hp\Qlktx\Models\SinhVien;
+use PDO;
 class DanhSachPhongController {
     private $phongModel;
+    private $pdo;
 
     public function __construct($pdo)
     {
+        $this->pdo = $pdo;
         $this->phongModel = new Phong($pdo);
     }
     public function search() {
@@ -36,5 +39,15 @@ class DanhSachPhongController {
 
         // Gọi view index.php và truyền kết quả vào
         include '../app/views/danhsachphong/index.php';
+    }
+    public function current()
+    {
+        $sinhVien = new SinhVien($this->pdo);
+        $sinhVien->ma_sinh_vien = $_SESSION['ma_so'];
+        $currentRoom = $sinhVien->getCurrentRoom();
+        $pendingRoom = $sinhVien->getPendingRoom();
+        $roommates = $sinhVien->getRoommates();
+
+        include '../app/views/danhsachphong/current.php';
     }
 }
