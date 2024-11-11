@@ -16,7 +16,7 @@ function isActive($path) {
         <div class="collapse list-group-flush my-3 navbar-collapse" id="navbarNav">
             <ul class="list-unstyled flex-column navbar-nav">
                 <li>
-                    <a href="#" class="list-group-item list-group-item-action <?php echo isActive('/'); ?>"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="/ThongKe" class="list-group-item list-group-item-action <?php echo isActive('/ThongKe'); ?>"><i class="fas fa-tachometer-alt me-2"></i>Thống Kê</a>
                 </li>
                 <li>
                     <a href="/phong" class="list-group-item list-group-item-action <?php echo isActive('/phong'); ?>"><i class="fas fa-bed me-2"></i>Quản lý Phòng</a>
@@ -37,7 +37,7 @@ function isActive($path) {
                         class="fas fa-graduation-cap me-2"></i>Quản Lý Sinh Viên</a>
                 <a href="/logout"
                     class="list-group-item list-group-item-action text-danger fw-bold <?php echo isActive('/logout'); ?>"><i
-                        class="fas fa-power-off me-2"></i>Logout</a>
+                        class="fas fa-power-off me-2"></i>Đăng Xuất</a>
             </ul>
         </div>
     </div>

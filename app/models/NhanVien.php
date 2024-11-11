@@ -150,4 +150,10 @@ class NhanVien
         $statement->execute(['ma_nhan_vien' => $this->ma_nhan_vien]);
         return $statement->fetchColumn() > 0;
     }
+    public function countAllnv(): int
+    {
+        $statement = $this->db->prepare("SELECT COUNT(*) FROM NhanVien WHERE ghi_chu = :ghi_chu");
+        $statement->execute(['ghi_chu' => 'nhan vien']);
+        return (int) $statement->fetchColumn();
+    }
 }
