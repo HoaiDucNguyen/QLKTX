@@ -44,7 +44,7 @@
                             <label>Học Kỳ:</label>
                             <select name="ma_hoc_ky" class="form-control" required>
                                 <?php foreach ($hocKys as $hocKy): ?>
-                                <option value="<?= $hocKy['ma_hoc_ky'] ?>"><?= $hocKy['ten_hoc_ky'] ?></option>
+                                <option value="<?= $hocKy['ma_hoc_ky'] ?>"> <?= $hocKy['ten_hoc_ky'] ?> </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

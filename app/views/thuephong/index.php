@@ -36,6 +36,7 @@
                                 <th>Tiền Đặt Cọc</th>
                                 <th>Giá Thuê Thực Tế</th>
                                 <th>Cần Thanh Toán</th>
+                                <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -50,9 +51,18 @@
                                 <td><?= $thuePhong['tien_dat_coc'] ?></td>
                                 <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
                                 <td><?= $thuePhong['can_thanh_toan'] ?></td>
+                                <td><?php if ($thuePhong['trang_thai'] === 'choxetduyet'): ?>
+                                    <a href="/thuephong/approve/<?= $thuePhong['ma_hop_dong'] ?>"
+                                        class="btn btn-info btn-sm">Xét Duyệt</a>
+                                    <?php else :; ?>
+                                    <p>Đã được duyệt</p>
+                                    <?php endif?>
+                                </td>
                                 <td>
+                                    <?php if ($thuePhong['trang_thai'] === 'daduyet'): ?>
                                     <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
                                         class="btn btn-success btn-sm">Thêm Thanh Toán</a>
+                                    <?php endif ?>
                                     <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>
                                 </td>

@@ -143,8 +143,52 @@ class SinhVien
 
     public function getCurrentRoom(): ?array
     {
-        $statement = $this->db->prepare('SELECT * FROM ThuePhong WHERE ma_sinh_vien = :ma_sinh_vien AND ( OR ket_thuc > NOW())');
+        $statement = $this->db->prepare('
+            SELECT p.*, tp.ma_hop_dong 
+            FROM ThuePhong tp
+            JOIN Phong p ON tp.ma_phong = p.ma_phong
+            WHERE tp.ma_sinh_vien = :ma_sinh_vien 
+            AND tp.trang_thai = "daduyet"
+            AND (tp.ket_thuc IS NULL OR tp.ket_thuc > NOW())
+        ');
         $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public function getRoommates(): array
+    {
+        $currentRoom = $this->getCurrentRoom();
+        if (!$currentRoom) {
+            return [];
+        }
+
+        $statement = $this->db->prepare('
+            SELECT sv.*
+            FROM ThuePhong tp
+            JOIN SinhVien sv ON tp.ma_sinh_vien = sv.ma_sinh_vien
+            WHERE tp.ma_phong = :ma_phong 
+            AND tp.trang_thai = "daduyet"
+            AND sv.ma_sinh_vien != :ma_sinh_vien
+        ');
+        $statement->execute([
+            'ma_phong' => $currentRoom['ma_phong'],
+            'ma_sinh_vien' => $this->ma_sinh_vien
+        ]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPendingRoom(): ?array
+    {
+        $statement = $this->db->prepare('
+            SELECT p.*, tp.ma_hop_dong 
+            FROM ThuePhong tp
+            JOIN Phong p ON tp.ma_phong = p.ma_phong
+            WHERE tp.ma_sinh_vien = :ma_sinh_vien 
+            AND tp.trang_thai = "choxetduyet"
+        ');
+        $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+        $result= $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
     }
 }

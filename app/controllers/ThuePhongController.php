@@ -48,9 +48,10 @@ class ThuePhongController
 
                 if ($thuePhong->validate() && $thuePhong->save()) {
                     $errors = array_merge($errors, $thuePhong->getValidationErrors());
-                    include '../app/views/thuephong/create.php';
+                    
                 }
                 $errors = array_merge($errors, $thuePhong->getValidationErrors());
+                include '../app/views/thuephong/create.php';
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
             }
@@ -128,5 +129,16 @@ class ThuePhongController
             exit;
         }
         include '../app/views/thuephong/detail.php';
+    }
+
+    public function approve($id)
+    {
+        $thuePhong = $this->thuePhongModel->find($id);
+        if ($thuePhong && $thuePhong->updateStatus($id, 'daduyet')) {
+            header('Location: /thuephong');
+            exit;
+        }
+        $errors = $thuePhong->getValidationErrors();
+        include '../app/views/thuephong/index.php';
     }
 } 

@@ -15,6 +15,7 @@ class ThuePhong
     public float $gia_thue_thuc_te;
     public string $ma_hoc_ky;
     public float $can_thanh_toan;
+    public string $trang_thai;
     private array $errors = [];
 
     public function __construct(?PDO $pdo)
@@ -24,7 +25,7 @@ class ThuePhong
 
     public function fill(array $data): ThuePhong
     {
-        
+        $this->trang_thai = $data['trang_thai'] ?? 'choxetduyet';
         $this->ma_sinh_vien = $data['ma_sinh_vien'] ?? '';
         $this->ma_phong = $data['ma_phong'] ?? '';
         $this->bat_dau = $data['bat_dau'] ?? '';
@@ -121,7 +122,7 @@ class ThuePhong
 
     protected function fillFromDB(array $row): ThuePhong
     {
-        [
+        [   'trang_thai' => $this->trang_thai,
             'ma_hop_dong' => $this->ma_hop_dong,
             'ma_sinh_vien' => $this->ma_sinh_vien,
             'ma_phong' => $this->ma_phong,
@@ -139,5 +140,32 @@ class ThuePhong
     {
         $stmt = $this->db->query("SELECT * FROM ThuePhong");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateStatus(int $ma_hop_dong, string $trang_thai): bool
+    {
+        try {
+            $statement = $this->db->prepare(
+                'UPDATE ThuePhong SET trang_thai = :trang_thai WHERE ma_hop_dong = :ma_hop_dong'
+            );
+            return $statement->execute([
+                'trang_thai' => $trang_thai,
+                'ma_hop_dong' => $ma_hop_dong
+            ]);
+        } catch (PDOException $e) {
+            $this->errors[] = $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getDefaultHocKy(): ?array
+    {
+        $statement = $this->db->prepare('
+            SELECT * FROM Hoc_Ky
+            WHERE bat_dau <= NOW() AND ket_thuc >= NOW()
+            LIMIT 1
+        ');
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 } 
