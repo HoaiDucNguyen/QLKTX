@@ -1,11 +1,11 @@
-<!-- app/views/sinhvien/index.php -->
+<!-- app/views/phong/index.php -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Sinh Viên</title>
+    <title>Quản Lý Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -20,38 +20,34 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <?php include '../app/views/nav.php'; ?>
+                <?php include '../app/views/navSV.php'; ?>
             </div>
             <div class="col-md-9">
                 <div class="content mt-4">
-                    <h1 class="mb-4">Quản Lý Sinh Viên</h1>
-                    <a href="/sinhvien/create" class="btn btn-primary mb-3">Thêm Sinh Viên</a>
+                    <h1 class="mb-4">Quản Lý Phòng</h1>
+                    <a href="/phong/create" class="btn btn-primary mb-3">Thêm Phòng</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
-                                <th>Mã Sinh Viên</th>
-                                <th>Họ Tên</th>
-                                <th>Số Điện Thoại</th>
-                                <th>Mã Lớp</th>
-                                <th>Giới Tính</th>
-
+                                <th>Mã Phòng</th>
+                                <th>Tên Phòng</th>
+                                <th>Diện Tích</th>
+                                <th>Số Giường</th>
+                                <th>Giá Thuê</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($sinhViens as $sinhvien): ?>
+                            <?php foreach ($phongs as $phong): ?>
                             <tr>
-                                <td><?= htmlspecialchars($sinhvien['ma_sinh_vien']) ?></td>
-                                <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
-                                <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
-                                <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
-                                <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
-
+                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
                                 <td>
-                                    <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>"
+                                    <a href="/phong/edit/<?= $phong['ma_phong'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>
-                                    <a href="/sinhvien/delete/<?= $sinhvien['ma_sinh_vien'] ?>"
-                                        class="btn btn-danger btn-sm">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

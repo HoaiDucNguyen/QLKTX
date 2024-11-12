@@ -2,8 +2,9 @@
 // app/controllers/NhanVienController.php
 namespace Hp\Qlktx\Controllers;
 
-use Hp\Qlktx\Models\NhanVien;
 
+use Hp\Qlktx\Models\NhanVien;
+use Hp\Qlktx\Models\SinhVien;
 class NhanVienController
 {
     private $nhanVienModel;
@@ -18,6 +19,7 @@ class NhanVienController
         $nhanViens = $this->nhanVienModel->getAll() ?? [];
         include '../app/views/NhanVien/index.php';
     }
+    
 
     public function create()
     {
@@ -38,6 +40,7 @@ class NhanVienController
         }
         include '../app/views/NhanVien/create.php';
     }
+    
 
     public function edit($id)
     {
@@ -87,21 +90,37 @@ class NhanVienController
     public function login()
     {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $so_dien_thoai = $_POST['so_dien_thoai'] ?? '';
+        $ma_nhan_vien = $_POST['ma_so'] ?? '';
         $password = md5($_POST['password'] ?? '');
 
-        $nhanVien = $this->nhanVienModel->findByPhoneAndPassword($so_dien_thoai, $password);
+        $nhanVien = $this->nhanVienModel->findByMaAndPassword($ma_nhan_vien, $password);
         if ($nhanVien) {
-            $_SESSION['nhan_vien_id'] = $nhanVien->ma_nhan_vien;
+            $_SESSION['ma_so'] = $nhanVien->ma_nhan_vien;
             $_SESSION['ghi_chu'] = $nhanVien->ghi_chu;
+            $_SESSION['ho_ten'] = $nhanVien->ho_ten;
             header('Location: /');
             exit;
         } else {
-            $error = "Số điện thoại hoặc mật khẩu không đúng.";
+            $sinhvien = new SinhVien($this->nhanVienModel->db);
+            $sinhvien->ma_sinh_vien = $_POST['ma_so'];
+            $sinhvien->password = md5($_POST['password']);
+            if($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)){
+                $_SESSION['ma_so'] = $sinhvien->ma_sinh_vien;
+                $_SESSION['ghi_chu'] = 'sinh vien';
+                header('Location: /');
+            }
+            else{
+                $error = "Sai mã số hoặc mật khẩu";
+            }
         }
     }
     include '../app/views/login.php';
 }
+ public function logout(): void
+    {
+        header('Location: /logout');
+        include '../app/views/logout.php';
+    }
 public function unauthorized():void{
     include '../app/views/unauthorized.php';
 }

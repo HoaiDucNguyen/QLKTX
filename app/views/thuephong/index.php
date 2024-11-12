@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Thuê Phòng</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-12">
+                <?php include '../app/views/header.php'; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">
@@ -28,6 +35,8 @@
                                 <th>Kết Thúc</th>
                                 <th>Tiền Đặt Cọc</th>
                                 <th>Giá Thuê Thực Tế</th>
+                                <th>Cần Thanh Toán</th>
+                                <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -41,11 +50,21 @@
                                 <td><?= $thuePhong['ket_thuc'] ?></td>
                                 <td><?= $thuePhong['tien_dat_coc'] ?></td>
                                 <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
+                                <td><?= $thuePhong['can_thanh_toan'] ?></td>
+                                <td><?php if ($thuePhong['trang_thai'] === 'choxetduyet'): ?>
+                                    <a href="/thuephong/approve/<?= $thuePhong['ma_hop_dong'] ?>"
+                                        class="btn btn-info btn-sm">Xét Duyệt</a>
+                                    <?php else :; ?>
+                                    <p>Đã được duyệt</p>
+                                    <?php endif?>
+                                </td>
                                 <td>
+                                    <?php if ($thuePhong['trang_thai'] === 'daduyet'): ?>
+                                    <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
+                                        class="btn btn-success btn-sm">Thêm Thanh Toán</a>
+                                    <?php endif ?>
                                     <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
                                         class="btn btn-warning btn-sm">Sửa</a>
-                                    <a href="/thuephong/delete/<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-danger btn-sm">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

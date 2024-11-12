@@ -5,12 +5,14 @@ use PDO;
 class SinhVien
 {
     public ?PDO $db;
-    public string $ma_sinh_vien ;
+    public string $ma_sinh_vien;
     public string $ho_ten;
     public string $so_dien_thoai;
     public string $ma_lop;
+    public string $password;
+    public string $gioi_tinh;
     private array $errors = [];
-
+    
     public function __construct(?PDO $pdo)
     {
         $this->db = $pdo;
@@ -22,6 +24,17 @@ class SinhVien
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
         $this->ma_lop = $data['ma_lop'] ?? '';
+        $this->password = isset($data['password']) ? md5($data['password']) : '';
+        $this->gioi_tinh = $data['gioi_tinh'] ?? '';
+        return $this;
+    }
+
+    public function filledit(array $data): SinhVien
+    {
+        $this->ho_ten = $data['ho_ten'] ?? '';
+        $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
+        $this->ma_lop = $data['ma_lop'] ?? '';
+        $this->gioi_tinh = $data['gioi_tinh'] ?? '';
         return $this;
     }
 
@@ -35,11 +48,14 @@ class SinhVien
         if (empty($this->ho_ten)) {
             $this->errors['ho_ten'] = 'Họ tên không được để trống';
         }
-        if (empty($this->so_dien_thoai)) {
-            $this->errors['so_dien_thoai'] = 'Số điện thoại không được để trống';
+        if (empty($this->so_dien_thoai) || !preg_match('/^[0-9]{10,11}$/', $this->so_dien_thoai)) {
+            $this->errors['so_dien_thoai'] = 'Số điện thoại không hợp lệ';
         }
         if (empty($this->ma_lop)) {
             $this->errors['ma_lop'] = 'Mã lớp không được để trống';
+        }
+        if (empty($this->password)) {
+            $this->errors['password'] = 'Mật khẩu không được để trống';
         }
         return empty($this->errors);
     }
@@ -48,23 +64,27 @@ class SinhVien
     {
         if ($this->exists()) {
             $statement = $this->db->prepare(
-                'UPDATE SinhVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ma_lop = :ma_lop WHERE ma_sinh_vien = :ma_sinh_vien'
+                'UPDATE SinhVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ma_lop = :ma_lop, password = :password, gioi_tinh = :gioi_tinh WHERE ma_sinh_vien = :ma_sinh_vien'
             );
             return $statement->execute([
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
                 'ma_lop' => $this->ma_lop,
+                'password' => $this->password,
+                'gioi_tinh' => $this->gioi_tinh,
                 'ma_sinh_vien' => $this->ma_sinh_vien
             ]);
         } else {
             $statement = $this->db->prepare(
-                'INSERT INTO SinhVien (ma_sinh_vien, ho_ten, so_dien_thoai, ma_lop) VALUES (:ma_sinh_vien, :ho_ten, :so_dien_thoai, :ma_lop)'
+                'INSERT INTO SinhVien (ma_sinh_vien, ho_ten, so_dien_thoai, ma_lop, password, gioi_tinh) VALUES (:ma_sinh_vien, :ho_ten, :so_dien_thoai, :ma_lop, :password, :gioi_tinh)'
             );
             return $statement->execute([
                 'ma_sinh_vien' => $this->ma_sinh_vien,
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
-                'ma_lop' => $this->ma_lop
+                'ma_lop' => $this->ma_lop,
+                'password' => $this->password,
+                'gioi_tinh' => $this->gioi_tinh
             ]);
         }
     }
@@ -75,7 +95,7 @@ class SinhVien
         return $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
     }
 
-    public function find( $ma_sinh_vien): ?SinhVien
+    public function find($ma_sinh_vien): ?SinhVien
     {
         $statement = $this->db->prepare('SELECT * FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien');
         $statement->execute(['ma_sinh_vien' => $ma_sinh_vien]);
@@ -91,7 +111,9 @@ class SinhVien
             'ma_sinh_vien' => $this->ma_sinh_vien,
             'ho_ten' => $this->ho_ten,
             'so_dien_thoai' => $this->so_dien_thoai,
-            'ma_lop' => $this->ma_lop
+            'ma_lop' => $this->ma_lop,
+            'password' => $this->password,
+            'gioi_tinh' => $this->gioi_tinh
         ] = $row;
         return $this;
     }
@@ -102,10 +124,76 @@ class SinhVien
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function findByMaAndPassword($ma_sinh_vien, $password): ?SinhVien
+    {
+        $statement = $this->db->prepare('SELECT * FROM sinhVien WHERE ma_sinh_vien = :ma_sinh_vien AND password = :password');
+        $statement->execute(['ma_sinh_vien' => $ma_sinh_vien, 'password' => $password]);
+        if ($row = $statement->fetch()) {
+            return $this->fillFromDB($row);
+        }
+        return null;
+    }
+
     public function exists(): bool
     {
         $statement = $this->db->prepare('SELECT COUNT(*) FROM SinhVien WHERE ma_sinh_vien = :ma_sinh_vien');
         $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
         return $statement->fetchColumn() > 0;
+    }
+
+    public function getCurrentRoom(): ?array
+    {
+        $statement = $this->db->prepare('
+            SELECT p.*, tp.ma_hop_dong 
+            FROM ThuePhong tp
+            JOIN Phong p ON tp.ma_phong = p.ma_phong
+            WHERE tp.ma_sinh_vien = :ma_sinh_vien 
+            AND tp.trang_thai = "daduyet"
+            AND (tp.ket_thuc IS NULL OR tp.ket_thuc > NOW())
+        ');
+        $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public function getRoommates(): array
+    {
+        $currentRoom = $this->getCurrentRoom();
+        if (!$currentRoom) {
+            return [];
+        }
+
+        $statement = $this->db->prepare('
+            SELECT sv.*
+            FROM ThuePhong tp
+            JOIN SinhVien sv ON tp.ma_sinh_vien = sv.ma_sinh_vien
+            WHERE tp.ma_phong = :ma_phong 
+            AND tp.trang_thai = "daduyet"
+            AND sv.ma_sinh_vien != :ma_sinh_vien
+        ');
+        $statement->execute([
+            'ma_phong' => $currentRoom['ma_phong'],
+            'ma_sinh_vien' => $this->ma_sinh_vien
+        ]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getPendingRoom(): ?array
+    {
+        $statement = $this->db->prepare('
+            SELECT p.*, tp.ma_hop_dong 
+            FROM ThuePhong tp
+            JOIN Phong p ON tp.ma_phong = p.ma_phong
+            WHERE tp.ma_sinh_vien = :ma_sinh_vien 
+            AND tp.trang_thai = "choxetduyet"
+        ');
+        $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+        $result= $statement->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+    public function countAllsv(): int
+    {
+        $statement = $this->db->query("SELECT COUNT(*) FROM sinhVien");
+        return (int) $statement->fetchColumn();
     }
 }

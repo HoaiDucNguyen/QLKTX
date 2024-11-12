@@ -6,7 +6,7 @@ use PDO;
 class NhanVien
 {
     public ?PDO $db;
-    public int $ma_nhan_vien = -1;
+    public string $ma_nhan_vien ;
     public string $ho_ten;
     public string $so_dien_thoai;
     public string $ghi_chu = '';
@@ -20,6 +20,7 @@ class NhanVien
 
     public function fill(array $data): NhanVien
     {
+        $this->ma_nhan_vien = $data['ma_nhan_vien'] ?? '';
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
         $this->ghi_chu = $data['ghi_chu'] ?? '';
@@ -59,7 +60,7 @@ class NhanVien
 
     public function save(): bool
     {
-        if ($this->ma_nhan_vien >= 0) {
+        if ($this->exists()) {
             $statement = $this->db->prepare(
                 'update NhanVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ghi_chu = :ghi_chu, password = :password where ma_nhan_vien = :ma_nhan_vien'
             );
@@ -71,20 +72,33 @@ class NhanVien
                 'ma_nhan_vien' => $this->ma_nhan_vien
             ]);
         } else {
+            
             $statement = $this->db->prepare(
-                'INSERT INTO NhanVien (ho_ten, so_dien_thoai, ghi_chu, password) VALUES (:ho_ten, :so_dien_thoai, :ghi_chu, :password)'
+                'INSERT INTO NhanVien (ho_ten, so_dien_thoai, ghi_chu, password, ma_nhan_vien) VALUES (:ho_ten, :so_dien_thoai, :ghi_chu, :password, :ma_nhan_vien)'
             );
             $result = $statement->execute([
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
                 'ghi_chu' => $this->ghi_chu,
-                'password' => $this->password
+                'password' => $this->password,
+                'ma_nhan_vien' => $this->generateMaNhanVien($this->db)
             ]);
-            if ($result) {
-                $this->ma_nhan_vien = $this->db->lastInsertId();
-            }
             return $result;
         }
+    }
+    function generateMaNhanVien($pdo)
+    {
+        // Lấy số thứ tự hiện tại
+        $stmt = $pdo->query("SELECT current_number FROM nhanvien_counter WHERE id = 1");
+        $currentNumber = $stmt->fetchColumn();
+
+        // Tạo mã nhân viên mới
+        $newMaNhanVien = 'G211' . str_pad($currentNumber, 4, '0', STR_PAD_LEFT);
+
+        // Cập nhật số thứ tự
+        $pdo->query("UPDATE nhanvien_counter SET current_number = current_number + 1 WHERE id = 1");
+
+        return $newMaNhanVien;
     }
 
     public function delete(): bool
@@ -93,7 +107,7 @@ class NhanVien
         return $statement->execute(['ma_nhan_vien' => $this->ma_nhan_vien]);
     }
 
-    public function find(int $ma_nhan_vien): ?NhanVien
+    public function find(string $ma_nhan_vien): ?NhanVien
     {
         $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien');
         $statement->execute(['ma_nhan_vien' => $ma_nhan_vien]);
@@ -121,13 +135,25 @@ class NhanVien
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findByPhoneAndPassword(string $so_dien_thoai, string $password): ?NhanVien
-{
-    $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE so_dien_thoai = :so_dien_thoai AND password = :password');
-    $statement->execute(['so_dien_thoai' => $so_dien_thoai, 'password' => $password]);
-    if ($row = $statement->fetch()) {
-        return $this->fillFromDB($row);
+    public function findByMaAndPassWord(string $ma_nhan_vien, string $password): ?NhanVien
+    {
+        $statement = $this->db->prepare('SELECT * FROM NhanVien WHERE ma_nhan_vien = :ma_nhan_vien AND password = :password');
+        $statement->execute(['ma_nhan_vien' => $ma_nhan_vien, 'password' => $password]);
+        if ($row = $statement->fetch()) {
+            return $this->fillFromDB($row);
+        }
+        return null;
     }
-    return null;
-}
+    public function exists(): bool
+    {
+        $statement = $this->db->prepare('SELECT COUNT(*) FROM nhanvien WHERE ma_nhan_vien = :ma_nhan_vien');
+        $statement->execute(['ma_nhan_vien' => $this->ma_nhan_vien]);
+        return $statement->fetchColumn() > 0;
+    }
+    public function countAllnv(): int
+    {
+        $statement = $this->db->prepare("SELECT COUNT(*) FROM NhanVien WHERE ghi_chu = :ghi_chu");
+        $statement->execute(['ghi_chu' => 'nhan vien']);
+        return (int) $statement->fetchColumn();
+    }
 }

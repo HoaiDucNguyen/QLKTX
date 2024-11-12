@@ -1,0 +1,257 @@
+:root {
+  --main-bg-color: #009d63;
+  --main-text-color: #009d63;
+  --second-text-color: #bbbec5;
+  --second-bg-color: #c1efde;
+}
+
+.primary-text {
+  color: var(--main-text-color);
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+.primary-bg {
+  background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+  background-color: var(--second-bg-color);
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+#wrapper {
+  overflow-x: hidden;
+  background-image: linear-gradient(
+    to right,
+    #baf3d7,
+    #c2f5de,
+    #cbf7e4,
+    #d4f8ea,
+    #ddfaef
+  );
+}
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+#menu-toggle {
+  cursor: pointer;
+}
+
+.list-group-item {
+    border: none;
+    padding: 20px;
+}
+
+.list-group-item.active {
+  background-color: transparent;
+  color: var(--main-text-color);
+  font-weight: bold;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+/* Thay đổi màu biểu tượng hamburger */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath stroke='red' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+
+/* phần header */
+/* Apply general styling for the header */
+.header {
+    background-color: #1f5ca9; /* Light background for a professional look */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Extra padding for spacing */
+    border-bottom: 2px solid #ddd; /* Slightly thicker border */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Style for the logo */
+.header .logo {
+    width: 120px; /* Slightly larger logo */
+    margin-right: 20px; /* Space between logo and text */
+}
+
+/* Style for the container holding the title */
+.header .container {
+    flex: 1;
+    text-align: center;
+}
+
+/* Style for the title */
+.header h1 {
+    font-size: 50px; /* Adjust title size */
+    font-weight: bold;
+    color: #ffffff; /* Darker color for better readability */
+    margin: 0; /* Remove default margin */
+}
+
+/* Style chung cho các mục trong sidebar */
+#sidebar-wrapper .list-group-item {
+    color: #333; /* Màu chữ bình thường */
+    transition:  color 0.3s; /* Hiệu ứng chuyển màu mượt */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiệu ứng khi di chuột qua */
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #00afef; /* Màu nền khi hover */
+    color: #ffffff; /* Màu chữ khi hover */
+}
+
+/* Mục đang ở trang hiện tại (active) */
+#sidebar-wrapper .list-group-item.active {
+    background-color: #1f5ca9; /* Màu nền khi active */
+    color: #fff; /* Màu chữ khi active */
+    font-weight: bold; /* Chữ đậm hơn khi active */
+}
+.custom-thead {
+  background-color: #1f5ca9; /* Change this to your desired color */
+  color: white;
+}
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../font/K2D-Bold.ttf') format('truetype');
+  /* Điều chỉnh đường dẫn dựa trên vị trí của file CSS so với file font */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'CustomFont1';
+  src: url('../font/ReadexPro-Light.ttf') format('truetype');
+  /* Điều chỉnh đường dẫn dựa trên vị trí của file CSS so với file font */
+  font-weight: normal;
+  font-style: normal;
+}
+h1 {
+  font-family: 'CustomFont', sans-serif;
+}
+.list-group-item {
+  font-family: 'CustomFont1', sans-serif;
+}
+body {
+  font-family: 'CustomFont1', sans-serif;
+}
+
+.fas{
+  margin-right: 10px;
+}
+
+/* Căn chỉnh form tìm kiếm */
+form.mb-3 {
+  display: flex;
+  justify-content: flex-start; /* Căn phần tử về phía bên trái */
+  gap: 10px;       /* Khoảng cách giữa các phần tử */
+  align-items: center; /* Căn các phần tử theo chiều dọc giữa (tùy chọn) */
+  background-color: #f8f9fa; /* Màu nền nhẹ */
+  padding: 15px;   /* Khoảng cách bên trong form */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Các trường input */
+form.mb-3 input[type="text"],
+form.mb-3 input[type="number"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  width: 200px; /* Độ rộng của mỗi trường input */
+}
+
+/* Nút tìm kiếm */
+form.mb-3 button {
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff; /* Màu xanh cho nút */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng khi hover */
+form.mb-3 input[type="text"]:hover,
+form.mb-3 input[type="number"]:hover,
+form.mb-3 button:hover {
+  border-color: #007bff;
+}
+
+form.mb-3 button:hover {
+  background-color: #0056b3;
+}
+
+
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-item {
+  flex: 1 1 30%;
+  padding: 20px;
+  margin: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tendangnhap {
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}

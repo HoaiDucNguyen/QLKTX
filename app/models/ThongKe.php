@@ -1,7 +1,7 @@
 <?php
 namespace Hp\Qlktx\Models;
 use PDO;
-class Phong
+class ThongKe
 {
     public ?PDO $db;
     public string $ma_phong;
@@ -148,18 +148,4 @@ class Phong
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    // Phương thức đếm tổng số phòng
-    public function countAllRooms(): int
-    {
-        $statement = $this->db->query("SELECT COUNT(*) FROM Phong");
-        return (int) $statement->fetchColumn();
-    }
-
-    // Phương thức đếm số phòng còn trống
-    // public function countAvailableRooms(): int
-    // {
-    //     // Giả sử `trang_thai` là cột trong bảng `Phong` để đánh dấu phòng trống
-    //     $statement = $this->db->query("SELECT COUNT(*) FROM Phong WHERE trang_thai = 'trong'");
-    //     return (int) $statement->fetchColumn();
-    // }
 }
