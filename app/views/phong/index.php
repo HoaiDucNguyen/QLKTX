@@ -24,7 +24,7 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Phòng</h1>
-                    
+
                     <!-- Form tìm kiếm -->
                     <form action="/phong" method="get" class="mb-3">
                         <div class="form-row">
@@ -63,41 +63,45 @@
                         </thead>
                         <tbody>
                             <?php if (isset($_GET['ten_phong']) || isset($_GET['dien_tich']) || isset($_GET['so_giuong'])): ?>
-                                <?php if (empty($phongs)): ?>
-                                    <tr>
-                                        <td colspan="7">Không tìm thấy phòng nào phù hợp.</td>
-                                    </tr>
-                                <?php else: ?>
-                                    <?php foreach ($phongs as $phong): ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                                            <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                                            <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                            <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
-                                            <td>
-                                                <a href="/phong/edit/<?= $phong['ma_phong'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                                <a href="/phong/delete/<?= $phong['ma_phong'] ?>" class="btn btn-danger btn-sm">Xóa</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                            <?php if (empty($phongs)): ?>
+                            <tr>
+                                <td colspan="7">Không tìm thấy phòng nào phù hợp.</td>
+                            </tr>
                             <?php else: ?>
-                                <?php foreach ($phongs as $phong): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                                        <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                                        <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                        <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
-                                        <td>
-                                            <a href="/phong/edit/<?= $phong['ma_phong'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                            <a href="/phong/delete/<?= $phong['ma_phong'] ?>" class="btn btn-danger btn-sm">Xóa</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                            <?php foreach ($phongs as $phong): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                <td>
+                                    <a href="/phong/edit/<?= $phong['ma_phong'] ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/phong/delete/<?= $phong['ma_phong'] ?>"
+                                        class="btn btn-danger btn-sm">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php else: ?>
+                            <?php foreach ($phongs as $phong): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                <td>
+                                    <a href="/phong/edit/<?= $phong['ma_phong'] ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/phong/delete/<?= $phong['ma_phong'] ?>" class="btn btn-danger btn-sm"
+                                        onclick="return confirmDelete();">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -106,9 +110,16 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
+    }
+    </script>
+    <script>
+    < script src = "https://code.jquery.com/jquery-3.5.1.slim.min.js" >
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
-</html> 
+</html>

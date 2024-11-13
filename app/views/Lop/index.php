@@ -9,7 +9,8 @@
     <!-- Đảm bảo rằng tệp CSS được liên kết đúng -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> <!-- Kiểm tra lại đường dẫn -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    =
 </head>
 
 <body>
@@ -48,7 +49,8 @@
 
                     <!-- Form tìm kiếm -->
                     <form action="/lop" method="get" class="mb-3">
-                        <input type="text" name="ten_lop" placeholder="Tên lớp" value="<?= htmlspecialchars($_GET['ten_lop'] ?? '') ?>">
+                        <input type="text" name="ten_lop" placeholder="Tên lớp"
+                            value="<?= htmlspecialchars($_GET['ten_lop'] ?? '') ?>">
                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </form>
 
@@ -56,7 +58,7 @@
 
                     <!-- Bảng hiển thị danh sách lớp hoặc kết quả tìm kiếm -->
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Lớp</th>
                                 <th>Tên Lớp</th>
@@ -75,8 +77,11 @@
                                 <td><?= htmlspecialchars($lop['ma_lop']) ?></td>
                                 <td><?= htmlspecialchars($lop['ten_lop']) ?></td>
                                 <td>
-                                    <a href="/lop/edit/<?= htmlspecialchars($lop['ma_lop']) ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                    <a href="/lop/delete/<?= htmlspecialchars($lop['ma_lop']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa lớp này?');">Xóa</a>
+                                    <a href="/lop/edit/<?= htmlspecialchars($lop['ma_lop']) ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/lop/delete/<?= htmlspecialchars($lop['ma_lop']) ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa lớp này?');">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -87,8 +92,11 @@
                                 <td><?= htmlspecialchars($lop['ma_lop']) ?></td>
                                 <td><?= htmlspecialchars($lop['ten_lop']) ?></td>
                                 <td>
-                                    <a href="/lop/edit/<?= htmlspecialchars($lop['ma_lop']) ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                    <a href="/lop/delete/<?= htmlspecialchars($lop['ma_lop']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa lớp này?');">Xóa</a>
+                                    <a href="/lop/edit/<?= htmlspecialchars($lop['ma_lop']) ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/lop/delete/<?= htmlspecialchars($lop['ma_lop']) ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa lớp này?');">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

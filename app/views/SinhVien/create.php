@@ -49,7 +49,13 @@
                         </div>
                         <div class="form-group">
                             <label for="ma_lop">Mã Lớp:</label>
-                            <input type="text" name="ma_lop" id="ma_lop" class="form-control" required>
+                            <select name="ma_lop" id="ma_lop" class="form-control" required>
+                                <option value="">Chọn lớp</option>
+                                <?php foreach ($lops as $lop): ?>
+                                <option value="<?= htmlspecialchars($lop['ma_lop']) ?>">
+                                    <?= htmlspecialchars($lop['ten_lop']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu:</label>
@@ -57,10 +63,10 @@
                         </div>
                         <div class="form-group">
                             <label for="gioi_tinh">Giới tính:</label>
-                            <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
-                                <option value="">Chọn giới tính</option>
-                                <option value="Nam">nam</option>
-                                <option value="Nữ">nu</option>
+                            <select name="gioi_tinh" id="gioi_tinh" class="form-control" requir <option value="">Chọn
+                                giới tính</option>
+                                <option value="nam">Nam</option>
+                                <option value="nu">Nữ</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>
@@ -73,6 +79,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+</html>
 
 </html>
 

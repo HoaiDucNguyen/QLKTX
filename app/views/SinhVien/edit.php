@@ -36,6 +36,11 @@
                     <?php endif; ?>
                     <form method="POST" class="form">
                         <div class="form-group">
+                            <label for="ma_sinh_vien">Mã Sinh Viên:</label>
+                            <input type="text" name="ma_sinh_vien" id="ma_sinh_vien" class="form-control"
+                                value="<?= htmlspecialchars($sinhVien->ma_sinh_vien) ?>" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="ho_ten">Họ Tên:</label>
                             <input type="text" name="ho_ten" id="ho_ten" class="form-control"
                                 value="<?= htmlspecialchars($sinhVien->ho_ten) ?>" required>
@@ -51,18 +56,18 @@
                                 value="<?= htmlspecialchars($sinhVien->ma_lop) ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Mật khẩu:</label>
-                            <input type="password" name="password" id="password" class="form-control"
-                                value="<?= htmlspecialchars($sinhVien->password) ?>" required>
+                            <label for="password">Mật Khẩu (Để trống nếu không muốn đổi):</label>
+                            <input type="password" name="password" id="password" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="gioi_tinh">Giới tính:</label>
                             <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
                                 <option value="">Chọn giới tính</option>
-                                <option value="Nam" <?= $sinhVien->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
-                                <option value="Nữ" <?= $sinhVien->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
+                                <option value="nam" <?= $sinhVien->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
+                                <option value="nu" <?= $sinhVien->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
                             </select>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>
                     </form>
                 </div>

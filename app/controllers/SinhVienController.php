@@ -52,6 +52,9 @@ class SinhVienController
     public function create()
     {
         $errors = [];
+        $lopModel = new \Hp\Qlktx\Models\Lop($this->sinhVienModel->db);
+        $lops = $lopModel->getAll();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->sinhVienModel->fill($_POST);
             if ($this->sinhVienModel->validate()) {
@@ -71,27 +74,26 @@ class SinhVienController
     // Chỉnh sửa sinh viên
     public function edit($id)
     {
-        $errors = [];
         $sinhVien = $this->sinhVienModel->find($id);
         if (!$sinhVien) {
             header('Location: /sinhvien');
             exit;
         }
 
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->sinhVienModel->fill($_POST);
-            $this->sinhVienModel->ma_sinh_vien = $id;
+            $sinhVien->fill($_POST);
 
             // Cập nhật mật khẩu nếu có nhập mới
             if (!empty($_POST['password'])) {
-                $this->sinhVienModel->password = md5($_POST['password']);
+                $sinhVien->password = md5($_POST['password']);
             }
 
-            if ($this->sinhVienModel->validate() && $this->sinhVienModel->save()) {
+            if ($sinhVien->validate() && $sinhVien->save()) {
                 header('Location: /sinhvien');
                 exit;
             } else {
-                $errors = $this->sinhVienModel->getValidationErrors();
+                $errors = $sinhVien->getValidationErrors();
             }
         }
 

@@ -14,6 +14,7 @@ use Hp\Qlktx\Controllers\LopController; // Import LopController
 use Hp\Qlktx\Controllers\TtThuePhongController;
 use Hp\Qlktx\Controllers\DanhSachPhongController;
 use Hp\Qlktx\Controllers\ThongKeController;
+use Hp\Qlktx\Controllers\HocKyController;
 
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -257,6 +258,41 @@ elseif ($requestUri === '/tt_thuephong') {
     $controller = new ThongKeController($pdo);
     $controller->index();
 
+// Routes cho HocKy
+elseif ($requestUri === '/hocky') {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new HocKyController($pdo);
+        $controller->index();
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
+} elseif ($requestUri === '/hocky/create') {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new HocKyController($pdo);
+        $controller->create();
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
+} elseif (preg_match('/\/hocky\/edit\/(\w+)/', $requestUri, $matches)) {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new HocKyController($pdo);
+        $controller->edit($matches[1]);
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
+} elseif (preg_match('/\/hocky\/delete\/(\w+)/', $requestUri, $matches)) {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new HocKyController($pdo);
+        $controller->delete($matches[1]);
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
+}
+
 
 }elseif($requestUri === '/export_phong') {
     if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
@@ -277,6 +313,7 @@ elseif ($requestUri === '/tt_thuephong') {
     }
 
 }elseif ($requestUri === '/current') {
+
     if (isset($_SESSION['ma_so']) && $_SESSION['ghi_chu'] === 'sinh vien') {
         $controller = new DanhSachPhongController($pdo);
         $controller->current();

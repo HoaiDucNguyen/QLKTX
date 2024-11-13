@@ -85,10 +85,11 @@ class PhongController
             'ten_phong' => $_GET['ten_phong'] ?? '',
             'dien_tich' => $_GET['dien_tich'] ?? '',
             'so_giuong' => $_GET['so_giuong'] ?? '',
-            'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
+            'gioi_tinh' => $_GET['gioi_tinh'] ?? '',
+            'chi_phong_trong' => isset($_GET['chi_phong_trong']) ? 1 : 0
         ];
 
-        if (!empty($criteria['ten_phong']) || !empty($criteria['dien_tich']) || !empty($criteria['so_giuong']) || !empty($criteria['gioi_tinh'])) {
+        if (!empty($criteria['ten_phong']) || !empty($criteria['dien_tich']) || !empty($criteria['so_giuong']) || !empty($criteria['gioi_tinh']) || $criteria['chi_phong_trong']) {
             $phongs = $this->phongModel->search($criteria);
         } else {
             $phongs = $this->phongModel->getAll();
@@ -115,10 +116,10 @@ class PhongController
     public function search()
     {
         $criteria = [
-            'ten_phong' => $_GET['ten_phong'] ?? '',
             'dien_tich' => $_GET['dien_tich'] ?? '',
             'so_giuong' => $_GET['so_giuong'] ?? '',
-            'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
+            'gioi_tinh' => $_GET['gioi_tinh'] ?? '',
+            'chi_phong_trong' => isset($_GET['chi_phong_trong']) ? 1 : 0
         ];
         $phongs = $this->phongModel->search($criteria);
         include '../app/views/danhsachphong/index.php';

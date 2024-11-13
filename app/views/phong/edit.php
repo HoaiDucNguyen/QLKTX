@@ -49,12 +49,12 @@
                         </div>
                         <div class="form-group">
                             <label for="dien_tich">Diện Tích:</label>
-                            <input type="number" name="dien_tich" id="dien_tich" class="form-control"
+                            <input type="number" name="dien_tich" id="dien_tich" step="0.1" class="form-control"
                                 value="<?= htmlspecialchars($phong->dien_tich) ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="so_giuong">Số Giường:</label>
-                            <input type="number" name="so_giuong" id="so_giuong" class="form-control"
+                            <input type="number" name="so_giuong" id="so_giuong" step="0.1" class="form-control"
                                 value="<?= htmlspecialchars($phong->so_giuong) ?>" required>
                         </div>
                         <div class="form-group">
@@ -66,8 +66,8 @@
                             <label for="gioi_tinh">Giới tính:</label>
                             <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
                                 <option value="">Chọn giới tính</option>
-                                <option value="Nam" <?= $phong->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
-                                <option value="Nữ" <?= $phong->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
+                                <option value="nam" <?= $phong->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
+                                <option value="nu" <?= $phong->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>

@@ -26,7 +26,7 @@
                     <h1 class="mb-4">Quản Lý Thuê Phòng</h1>
                     <a href="/thuephong/create" class="btn btn-primary mb-3">Thêm Hợp Đồng</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Hợp Đồng</th>
                                 <th>Mã Sinh Viên</th>

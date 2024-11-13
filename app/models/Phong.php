@@ -144,6 +144,11 @@ class Phong
             $params['gioi_tinh'] = $criteria['gioi_tinh'];
         }
 
+        // Kiểm tra nếu người dùng chọn chỉ hiển thị phòng trống
+        if (isset($criteria['chi_phong_trong']) && $criteria['chi_phong_trong'] == 1) {
+            $query .= " AND checkRoomAvailability(ma_phong) = TRUE";
+        }
+
         $stmt = $this->db->prepare($query);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

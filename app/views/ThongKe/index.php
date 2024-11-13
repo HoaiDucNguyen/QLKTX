@@ -25,32 +25,32 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <div class="col-md-5">
-                    <h1 class="mb-4">Thống Kê</h1>
+                        <h1 class="mb-4">Thống Kê</h1>
                         <section class="dashboard-content">
-                <!-- Hiển thị các thông tin dashboard -->
+                            <!-- Hiển thị các thông tin dashboard -->
                             <div class="dashboard-item">
                                 <h2>Tổng số phòng:</h2>
                                 <p><?= htmlspecialchars($totalRooms) ?></p>
                             </div>
-                            <!-- <div class="dashboard-item">
-                                <h2>Số phòng còn trống:</h2>
+                            <div class="dashboard-item">
+                                <h2>Số phòng đã thuê:</h2>
+                                <p><?= htmlspecialchars($rentedRooms) ?></p>
+                            </div>
+                            <div class="dashboard-item">
+                                <h2>Số phòng trống:</h2>
                                 <p><?= htmlspecialchars($availableRooms) ?></p>
-                            </div> -->
-                            <div class="dashboard-item">
-                                <h2>Tổng số sinh viên</h2>
-                                <p><?= htmlspecialchars($totalsv) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Tổng số lớp</h2>
-                                <p><?= htmlspecialchars($totalLop) ?></p>
+                                <h2>Số sinh viên đang thuê phòng:</h2>
+                                <p><?= htmlspecialchars($currentStudentsRenting) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Tổng số nhân viên</h2>
-                                <p><?= htmlspecialchars($totalnv) ?></p>
+                                <h2>Tổng số tiền thu được:</h2>
+                                <p><?= htmlspecialchars($totalRevenue) ?></p>
                             </div>
                         </section>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

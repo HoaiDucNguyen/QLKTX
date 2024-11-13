@@ -2,6 +2,7 @@
 namespace Hp\Qlktx\Controllers;
 
 use Hp\Qlktx\Models\TtThuePhong;
+use Hp\Qlktx\Models\ThuePhong;
 use PDO;
 
 class TtThuePhongController
@@ -22,12 +23,14 @@ class TtThuePhongController
     public function create()
     {
         $errors = [];
+        $ThuePhong = new ThuePhong($this->ttThuePhongModel->db);
+        $ThuePhong->find($_GET['ma_hop_dong']);
         $ma_hop_dong = $_GET['ma_hop_dong'] ?? null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ttThuePhong = new TtThuePhong($this->ttThuePhongModel->db);
             $ttThuePhong->fill($_POST);
-            if ($ttThuePhong->validate() && $ttThuePhong->save()) {
+            if ($ttThuePhong->validate() && $ttThuePhong->saveWithTransaction()) {
                 header('Location: /tt_thuephong');
                 exit;
             }

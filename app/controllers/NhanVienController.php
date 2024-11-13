@@ -173,6 +173,7 @@ class NhanVienController
                 if ($sinhvien->findByMaAndPassword($sinhvien->ma_sinh_vien, $sinhvien->password)) {
                     $_SESSION['ma_so'] = $sinhvien->ma_sinh_vien;
                     $_SESSION['ghi_chu'] = 'sinh vien';
+                    $_SESSION['ho_ten']=$sinhvien->ho_ten;
                     header('Location: /');
                 } else {
                     $error = "Sai mã số hoặc mật khẩu";

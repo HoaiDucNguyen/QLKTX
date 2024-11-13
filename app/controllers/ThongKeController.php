@@ -6,7 +6,7 @@ use Hp\Qlktx\Models\Phong;
 use Hp\Qlktx\Models\SinhVien;
 use Hp\Qlktx\Models\Lop;
 use Hp\Qlktx\Models\NhanVien;
-
+use Hp\Qlktx\Models\ThongKe;
 
 use PDO;
 class ThongKeController
@@ -28,17 +28,14 @@ class ThongKeController
 
     public function index()
     {
-        // Lấy tổng số phòng và số phòng còn trống từ model
-        $totalRooms = $this->phongModel->countAllRooms();
-        // $availableRooms = $this->phongModel->countAvailableRooms();
+        $thongKeModel = new ThongKe($this->phongModel->db);
 
-        // tong so sinh vien
-        $totalsv = $this->svModel->countAllsv();
+        $totalRooms = $thongKeModel->getTotalRooms();
+        $rentedRooms = $thongKeModel->getRentedRooms();
+        $availableRooms = $thongKeModel->getAvailableRooms();
+        $currentStudentsRenting = $thongKeModel->getCurrentStudentsRenting();
+        $totalRevenue = $thongKeModel->getTotalRevenue();
 
-        $totalLop = $this->lopModel->countAllLop();
-
-        $totalnv = $this->nvModel->countAllnv();
-        // Truyền dữ liệu vào view
         include '../app/views/ThongKe/index.php';
     }
     

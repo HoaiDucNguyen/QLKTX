@@ -24,7 +24,9 @@ class SinhVien
         $this->ho_ten = $data['ho_ten'] ?? '';
         $this->so_dien_thoai = $data['so_dien_thoai'] ?? '';
         $this->ma_lop = $data['ma_lop'] ?? '';
-        $this->password = isset($data['password']) ? md5($data['password']) : '';
+        if (!empty($data['password'])) {
+            $this->password = md5($data['password']);
+        }
         $this->gioi_tinh = $data['gioi_tinh'] ?? '';
         return $this;
     }
@@ -63,17 +65,23 @@ class SinhVien
     public function save(): bool
     {
         if ($this->exists()) {
-            $statement = $this->db->prepare(
-                'UPDATE SinhVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ma_lop = :ma_lop, password = :password, gioi_tinh = :gioi_tinh WHERE ma_sinh_vien = :ma_sinh_vien'
-            );
-            return $statement->execute([
+            $query = 'UPDATE SinhVien SET ho_ten = :ho_ten, so_dien_thoai = :so_dien_thoai, ma_lop = :ma_lop, gioi_tinh = :gioi_tinh';
+            $params = [
                 'ho_ten' => $this->ho_ten,
                 'so_dien_thoai' => $this->so_dien_thoai,
                 'ma_lop' => $this->ma_lop,
-                'password' => $this->password,
                 'gioi_tinh' => $this->gioi_tinh,
                 'ma_sinh_vien' => $this->ma_sinh_vien
-            ]);
+            ];
+
+            if (!empty($this->password)) {
+                $query .= ', password = :password';
+                $params['password'] = $this->password;
+            }
+
+            $query .= ' WHERE ma_sinh_vien = :ma_sinh_vien';
+            $statement = $this->db->prepare($query);
+            return $statement->execute($params);
         } else {
             $statement = $this->db->prepare(
                 'INSERT INTO SinhVien (ma_sinh_vien, ho_ten, so_dien_thoai, ma_lop, password, gioi_tinh) VALUES (:ma_sinh_vien, :ho_ten, :so_dien_thoai, :ma_lop, :password, :gioi_tinh)'

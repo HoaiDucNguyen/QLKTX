@@ -93,4 +93,23 @@
          $stmt = $this->db->query("SELECT * FROM tt_thuephong");
          return $stmt->fetchAll(PDO::FETCH_ASSOC);
      }
+
+     public function saveWithTransaction(): bool
+     {
+         try {
+             $statement = $this->db->prepare('CALL AddThuePhongAndUpdate(:ma_hop_dong, :thang_nam, :so_tien, :ngay_thanh_toan, :ma_nhan_vien)');
+             $result = $statement->execute([
+                 'ma_hop_dong' => $this->ma_hop_dong,
+                 'thang_nam' => $this->thang_nam,
+                 'so_tien' => $this->so_tien,
+                 'ngay_thanh_toan' => $this->ngay_thanh_toan,
+                 'ma_nhan_vien' => $this->ma_nhan_vien
+             ]);
+
+             return $result;
+         } catch (PDOException $e) {
+             $this->errors[] = $e->getMessage();
+             return false;
+         }
+     }
  }
