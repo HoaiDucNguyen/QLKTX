@@ -259,7 +259,7 @@ elseif ($requestUri === '/tt_thuephong') {
     $controller->index();
 
 // Routes cho HocKy
-elseif ($requestUri === '/hocky') {
+}elseif ($requestUri === '/hocky') {
     if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
         $controller = new HocKyController($pdo);
         $controller->index();
@@ -294,7 +294,7 @@ elseif ($requestUri === '/hocky') {
 }
 
 
-}elseif($requestUri === '/export_phong') {
+elseif($requestUri === '/export_phong') {
     if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
         $controller = new PhongController($pdo);
         $controller->export();
