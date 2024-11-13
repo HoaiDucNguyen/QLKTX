@@ -93,7 +93,7 @@ class NhanVien
         $currentNumber = $stmt->fetchColumn();
 
         // Tạo mã nhân viên mới
-        $newMaNhanVien = 'G211' . str_pad($currentNumber, 4, '0', STR_PAD_LEFT);
+        $newMaNhanVien = 'NVKTXA' . str_pad($currentNumber, 2, '0', STR_PAD_LEFT);
 
         // Cập nhật số thứ tự
         $pdo->query("UPDATE nhanvien_counter SET current_number = current_number + 1 WHERE id = 1");
