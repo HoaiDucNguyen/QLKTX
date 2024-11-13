@@ -43,9 +43,8 @@
                                 <td><?= $ttThuePhong['so_tien'] ?></td>
                                 <td><?= $ttThuePhong['ngay_thanh_toan'] ?></td>
                                 <td><?= $ttThuePhong['ma_nhan_vien'] ?></td>
-                                <td>
-                                    <a href="/tt_thuephong/edit/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= $ttThuePhong['thang_nam'] ?>"
-                                        class="btn btn-warning btn-sm">Sửa</a>
+                                <td class="text-center">
+
                                     <a href="/tt_thuephong/delete/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= $ttThuePhong['thang_nam'] ?>"
                                         class="btn btn-danger btn-sm">Xóa</a>
                                 </td>

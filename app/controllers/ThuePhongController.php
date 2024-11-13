@@ -116,6 +116,7 @@ class ThuePhongController
     {
         $thuePhong = $this->thuePhongModel->find($id);
         if ($thuePhong && $thuePhong->delete()) {
+            $this->sendNotification($thuePhong->ma_sinh_vien, 'Yêu cầu thuê phòng của bạn không được duyệt. Vui lòng đăng ký phòng khác.');
             header('Location: /thuephong');
             exit;
         }
@@ -135,10 +136,17 @@ class ThuePhongController
     {
         $thuePhong = $this->thuePhongModel->find($id);
         if ($thuePhong && $thuePhong->updateStatus($id, 'daduyet')) {
+            $this->sendNotification($thuePhong->ma_sinh_vien, 'Yêu cầu thuê phòng của bạn đã được duyệt.');
             header('Location: /thuephong');
             exit;
         }
         $errors = $thuePhong->getValidationErrors();
         include '../app/views/thuephong/index.php';
     }
+    private function sendNotification($ma_sinh_vien, $message)
+    {
+        $stmt = $this->thuePhongModel->db->prepare('UPDATE sinhvien SET notification = :message WHERE ma_sinh_vien = :ma_sinh_vien');
+        $stmt->execute(['message' => $message, 'ma_sinh_vien' => $ma_sinh_vien]);
+    }
+    
 } 

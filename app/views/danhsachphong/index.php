@@ -27,6 +27,11 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Danh Sách Phòng</h1>
+                    <?php if ($sinhVien->notification!=''): ?>
+                    <div class="alert alert-info">
+                        <?= htmlspecialchars($sinhVien->notification) ?>
+                    </div>
+                    <?php $this->clearNotification($sinhVien->ma_sinh_vien);  endif; ?>
 
                     <!-- Hiển thị thông báo thành công nếu có -->
                     <?php if (!empty($successMessage)): ?>
