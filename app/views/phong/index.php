@@ -47,7 +47,7 @@
                     </form>
 
                     <a href="/phong/create" class="btn btn-primary mb-3">Thêm Phòng</a>
-
+                    <a href="/export_phong" class="btn btn-primary mb-3">Xuất Excel</a>
                     <!-- Bảng hiển thị danh sách phòng hoặc kết quả tìm kiếm -->
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
@@ -105,6 +105,7 @@
                             <?php endif; ?>
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
         </div>

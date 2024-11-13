@@ -2,6 +2,8 @@
 // app/controllers/NhanVienController.php
 namespace Hp\Qlktx\Controllers;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use Hp\Qlktx\Models\NhanVien;
 use Hp\Qlktx\Models\SinhVien;
@@ -101,6 +103,45 @@ class NhanVienController
             exit;
         }
     }
+// xuat file 
+    public function export()
+    {
+    $nhanviens = $this->nhanVienModel->getAll();
+
+    // Create a new spreadsheet
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Set the header row
+    $headers = ['Mã Nhân Viên', 'Họ Tên', 'Số Điện Thoại', 'Ghi Chú'];
+    $sheet->fromArray($headers, NULL, 'A1');
+
+    // Fill data rows
+    $rowIndex = 2;
+    foreach ($nhanviens as $nhanvien) {
+        // Extract only the required columns (excluding 'mật khẩu')
+        $dataRow = [
+            $nhanvien['ma_nhan_vien'],
+            $nhanvien['ho_ten'],
+            $nhanvien['so_dien_thoai'],
+            $nhanvien['ghi_chu']
+        ];
+        
+        $sheet->fromArray($dataRow, NULL, 'A' . $rowIndex);
+        $rowIndex++;
+    }
+
+    // Set the headers for the download
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="nhanvien_export.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    // Save and output the file
+    $writer = new Xlsx($spreadsheet);
+    $writer->save('php://output');
+    exit;
+    }
+
 
     public function detail($id)
     {

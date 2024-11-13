@@ -2,6 +2,9 @@
 // app/controllers/PhongController.php
 namespace Hp\Qlktx\Controllers;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use Hp\Qlktx\Models\Phong;
 use Hp\Qlktx\Models\ThuePhong;
 class PhongController
@@ -150,7 +153,35 @@ class PhongController
             exit;
         }
     }
+    public function export()
+    {
+        $rooms = $this->phongModel->getAll();
 
+        // Create a new spreadsheet
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set the header row
+        $headers = ['Mã Phòng', 'Tên Phòng', 'Diện Tích', 'Số Giường', 'Giá Thuê', 'Giới Tính'];
+        $sheet->fromArray($headers, NULL, 'A1');
+
+        // Fill data rows
+        $rowIndex = 2;
+        foreach ($rooms as $room) {
+            $sheet->fromArray(array_values($room), NULL, 'A' . $rowIndex);
+            $rowIndex++;
+        }
+
+        // Set the headers for the download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="phong_export.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Save and output the file
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        exit;
+    }
     public function detail($id)
     {
         $phong = $this->phongModel->find($id);
