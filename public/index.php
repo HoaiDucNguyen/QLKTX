@@ -49,6 +49,8 @@ if ($requestUri === '/' || $requestUri === '/phong') {
         $controller = new PhongController($pdo);
         $controller->search();
     }
+
+
 }
 elseif (preg_match('/\/phong\/edit\/(\w+)/', $requestUri, $matches)) {
     if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
@@ -249,15 +251,32 @@ elseif ($requestUri === '/tt_thuephong') {
     $controller = new NhanVienController($pdo);
     $controller->logout();
 
+    
 
-
-} elseif($requestUri === '/ThongKe'){
+}elseif($requestUri === '/ThongKe'){
     $controller = new ThongKeController($pdo);
     $controller->index();
-}
 
 
- elseif ($requestUri === '/current') {
+}elseif($requestUri === '/export_phong') {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new PhongController($pdo);
+        $controller->export();
+    } else {
+        $controller = new PhongController($pdo);
+        $controller->unauthorized();
+    }
+
+}elseif($requestUri === '/export_nhanvien') {
+    if (isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien') {
+        $controller = new NhanVienController($pdo);
+        $controller->export();
+    } else {
+        $controller = new NhanVienController($pdo);
+        $controller->unauthorized();
+    }
+
+}elseif ($requestUri === '/current') {
     if (isset($_SESSION['ma_so']) && $_SESSION['ghi_chu'] === 'sinh vien') {
         $controller = new DanhSachPhongController($pdo);
         $controller->current();

@@ -65,7 +65,7 @@
                     </form>
                     
                     <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
-                    
+                    <a href="/export_nhanvien" class="btn btn-primary mb-3">Xuất Excel</a>
                     <!-- Bảng hiển thị danh sách nhân viên -->
                     <table class="table table-bordered table-hover">
                         <thead class="thead-dark">
