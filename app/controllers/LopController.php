@@ -11,10 +11,27 @@ class LopController
     {
         $this->lopModel = new Lop($pdo);
     }
+    public function search() {
+        $criteria = [
+            'ten_lop' => $_GET['ten_lop'] ?? '',
+        ];
+        $lops = $this->lopModel->search($criteria);
+        include '../app/views/lop/index.php';
+    }
+    public function index() {
+        // Kiểm tra xem có tiêu chí tìm kiếm không
+        $criteria = [
+            'ten_lop' => $_GET['ten_lop'] ?? '',
+        ];
 
-    public function index()
-    {
-        $lops = $this->lopModel->getAll();
+        // Nếu có tiêu chí tìm kiếm, gọi phương thức `search`, nếu không thì lấy toàn bộ danh sách
+        if (!empty($criteria['ten_lop']) || !empty($criteria['ma_lop']) ) {
+            $lops = $this->lopModel->search($criteria);
+        } else {
+            $lops = $this->lopModel->getAll();
+        }
+
+        // Gọi view index.php và truyền kết quả vào
         include '../app/views/lop/index.php';
     }
 
@@ -71,4 +88,6 @@ class LopController
         }
         include '../app/views/lop/detail.php';
     }
+
+    
 }

@@ -12,10 +12,24 @@ class PhongController
     {
         $this->phongModel = new Phong($pdo);
     }
-    
     public function index()
     {
-        $phongs = $this->phongModel->getAll();
+        // Kiểm tra xem có tiêu chí tìm kiếm không
+        $criteria = [
+            'ten_phong' => $_GET['ten_phong'] ?? '',
+            'dien_tich' => $_GET['dien_tich'] ?? '',
+            'so_giuong' => $_GET['so_giuong'] ?? '',
+            'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
+        ];
+
+        // Nếu có tiêu chí tìm kiếm, gọi phương thức `search`, nếu không thì lấy toàn bộ danh sách
+        if (!empty($criteria['ten_phong']) || !empty($criteria['dien_tich']) || !empty($criteria['so_giuong']) || !empty($criteria['gioi_tinh'])) {
+            $phongs = $this->phongModel->search($criteria);
+        } else {
+            $phongs = $this->phongModel->getAll();
+        }
+
+        // Gọi view index.php và truyền kết quả vào
         include '../app/views/phong/index.php';
     }
 

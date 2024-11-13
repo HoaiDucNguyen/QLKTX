@@ -156,4 +156,30 @@ class NhanVien
         $statement->execute(['ghi_chu' => 'nhan vien']);
         return (int) $statement->fetchColumn();
     }
+
+    public function search(array $criteria): array {
+        $query = "SELECT * FROM NhanVien WHERE 1=1";
+        $params = [];
+
+        if (!empty($criteria['ma_nhan_vien'])) {
+            $query .= " AND ma_nhan_vien = :ma_nhan_vien";
+            $params['ma_nhan_vien'] = $criteria['ma_nhan_vien'];
+        }
+        if (!empty($criteria['ho_ten'])) {
+            $query .= " AND ho_ten = :ho_ten";
+            $params['ho_ten'] = $criteria['ho_ten'];
+        }
+        if (!empty($criteria['so_dien_thoai'])) {
+            $query .= " AND so_dien_thoai = :so_dien_thoai";
+            $params['so_dien_thoai'] = $criteria['so_dien_thoai'];
+        }
+        if (!empty($criteria['ghi_chu'])) {
+            $query .= " AND ghi_chu = :ghi_chu";
+            $params['ghi_chu'] = $criteria['ghi_chu'];
+        }
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
