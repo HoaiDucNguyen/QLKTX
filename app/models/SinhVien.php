@@ -196,4 +196,46 @@ class SinhVien
         $statement = $this->db->query("SELECT COUNT(*) FROM sinhVien");
         return (int) $statement->fetchColumn();
     }
+    public function search(array $criteria): array {
+        $query = "SELECT * FROM SinhVien WHERE 1=1";
+        $params = [];
+    
+        // Tìm kiếm theo mã sinh viên
+        if (!empty($criteria['ma_sinh_vien'])) {
+            $query .= " AND ma_sinh_vien = :ma_sinh_vien";
+            $params['ma_sinh_vien'] = $criteria['ma_sinh_vien'];
+        }
+    
+        // Tìm kiếm theo họ tên
+        if (!empty($criteria['ho_ten'])) {
+            $query .= " AND ho_ten LIKE :ho_ten";
+            $params['ho_ten'] = '%' . $criteria['ho_ten'] . '%'; // Thêm dấu % để tìm kiếm theo phần chuỗi
+        }
+    
+        // Tìm kiếm theo số điện thoại
+        if (!empty($criteria['so_dien_thoai'])) {
+            $query .= " AND so_dien_thoai = :so_dien_thoai";
+            $params['so_dien_thoai'] = $criteria['so_dien_thoai'];
+        }
+    
+        // Tìm kiếm theo mã lớp
+        if (!empty($criteria['ma_lop'])) {
+            $query .= " AND ma_lop = :ma_lop";
+            $params['ma_lop'] = $criteria['ma_lop'];
+        }
+    
+        // Tìm kiếm theo giới tính
+        if (!empty($criteria['gioi_tinh'])) {
+            $query .= " AND gioi_tinh = :gioi_tinh";
+            $params['gioi_tinh'] = $criteria['gioi_tinh'];
+        }
+    
+        // Thực thi truy vấn
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($params);
+        
+        // Trả về kết quả dưới dạng mảng
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }

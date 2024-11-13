@@ -1,4 +1,3 @@
-<!-- app/views/phong/index.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +24,31 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Phòng</h1>
+                    
+                    <!-- Form tìm kiếm -->
+                    <form action="/phong" method="get" class="mb-3">
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" name="ten_phong" class="form-control" placeholder="Tên phòng"
+                                    value="<?= htmlspecialchars($_GET['ten_phong'] ?? '') ?>">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="dien_tich" class="form-control" placeholder="Diện tích"
+                                    value="<?= htmlspecialchars($_GET['dien_tich'] ?? '') ?>">
+                            </div>
+                            <div class="col">
+                                <input type="number" name="so_giuong" class="form-control" placeholder="Số giường"
+                                    value="<?= htmlspecialchars($_GET['so_giuong'] ?? '') ?>">
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+
                     <a href="/phong/create" class="btn btn-primary mb-3">Thêm Phòng</a>
+
+                    <!-- Bảng hiển thị danh sách phòng hoặc kết quả tìm kiếm -->
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>
@@ -39,22 +62,43 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($phongs as $phong): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                                <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                                <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                                <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                                <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
-                                <td>
-                                    <a href="/phong/edit/<?= $phong['ma_phong'] ?>"
-                                        class="btn btn-warning btn-sm">Sửa</a>
-                                    <a href="/phong/delete/<?= $phong['ma_phong'] ?>"
-                                        class="btn btn-danger btn-sm">Xóa</a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                            <?php if (isset($_GET['ten_phong']) || isset($_GET['dien_tich']) || isset($_GET['so_giuong'])): ?>
+                                <?php if (empty($phongs)): ?>
+                                    <tr>
+                                        <td colspan="7">Không tìm thấy phòng nào phù hợp.</td>
+                                    </tr>
+                                <?php else: ?>
+                                    <?php foreach ($phongs as $phong): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                            <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                            <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                            <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                            <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                            <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                            <td>
+                                                <a href="/phong/edit/<?= $phong['ma_phong'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                                                <a href="/phong/delete/<?= $phong['ma_phong'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php foreach ($phongs as $phong): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                                        <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                                        <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                                        <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                                        <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                        <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                        <td>
+                                            <a href="/phong/edit/<?= $phong['ma_phong'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                                            <a href="/phong/delete/<?= $phong['ma_phong'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -64,7 +108,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
-</html>
+</html> 
