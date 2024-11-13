@@ -18,7 +18,7 @@
             </div>
         </div>  
         <div class="row">
-            <div class="col-md-2">
+            <div">
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">

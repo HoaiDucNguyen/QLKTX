@@ -120,13 +120,15 @@ class PhongController
     public function search()
     {
         $criteria = [
+            
+            'ten_phong' => $_GET['ten_phong'] ?? '',
             'dien_tich' => $_GET['dien_tich'] ?? '',
             'so_giuong' => $_GET['so_giuong'] ?? '',
             'gioi_tinh' => $_GET['gioi_tinh'] ?? '',
             'chi_phong_trong' => isset($_GET['chi_phong_trong']) ? 1 : 0
         ];
         $phongs = $this->phongModel->search($criteria);
-        include '../app/views/danhsachphong/index.php';
+        include '../app/views/phong/index.php';
     }
 
     public function edit($id)

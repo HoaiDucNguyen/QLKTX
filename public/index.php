@@ -299,7 +299,6 @@ elseif($requestUri === '/export_phong') {
         $controller = new PhongController($pdo);
         $controller->export();
     } else {
-        $controller = new PhongController($pdo);
         $controller->unauthorized();
     }
 

@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div>
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">
@@ -39,6 +39,10 @@
                             <div class="col">
                                 <input type="number" name="so_giuong" class="form-control" placeholder="Số giường"
                                     value="<?= htmlspecialchars($_GET['so_giuong'] ?? '') ?>">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="gioi_tinh" class="form-control" placeholder="Giới tính"
+                                    value="<?= htmlspecialchars($_GET['gioi_tinh'] ?? '') ?>">
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -115,8 +119,10 @@
         return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
     }
     </script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
     </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

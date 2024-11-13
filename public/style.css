@@ -286,3 +286,11 @@ form.mb-3 label {
   font-size: 14px;
   color: #333;
 }
+
+.hanhdong{
+  display: inline-flex; /* Sử dụng flex để căn giữa */
+  align-items: center;  /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  text-align: center;
+  margin-right: 5px;
+}
