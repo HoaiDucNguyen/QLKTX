@@ -59,8 +59,8 @@
                             <label for="gioi_tinh">Giới tính:</label>
                             <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
                                 <option value="">Chọn giới tính</option>
-                                <option value="Nam" <?= $sinhVien->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
-                                <option value="Nữ" <?= $sinhVien->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
+                                <option value="nam" <?= $sinhVien->gioi_tinh === 'nam' ? 'selected' : '' ?>>Nam</option>
+                                <option value="nu" <?= $sinhVien->gioi_tinh === 'nu' ? 'selected' : '' ?>>Nữ</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Cập Nhật</button>

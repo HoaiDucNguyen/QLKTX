@@ -27,7 +27,7 @@
                     <h1 class="mb-4">Quản Lý Sinh Viên</h1>
                     <a href="/sinhvien/create" class="btn btn-primary mb-3">Thêm Sinh Viên</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Sinh Viên</th>
                                 <th>Họ Tên</th>

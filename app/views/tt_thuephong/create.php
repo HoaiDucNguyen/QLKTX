@@ -24,6 +24,18 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Thêm Thanh Toán Thuê Phòng</h1>
+
+                    <!-- Hiển thị thông báo lỗi -->
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+
                     <form method="POST">
                         <div class="form-group">
                             <label>Mã Hợp Đồng:</label>
@@ -37,7 +49,8 @@
                         </div>
                         <div class="form-group">
                             <label>Số Tiền:</label>
-                            <input type="number" name="so_tien" class="form-control" required>
+                            <input type="number" name="so_tien" value="<?= $ThuePhong->can_thanh_toan  ?>" readonly
+                                class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Ngày Thanh Toán:</label>

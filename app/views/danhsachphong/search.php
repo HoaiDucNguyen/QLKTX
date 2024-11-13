@@ -8,7 +8,7 @@
     <title>Kết quả tìm kiếm</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../../style.css">
+    <link rel="stylesheet" type="text/css" href="../../../style.css">
 </head>
 
 <body>
@@ -26,17 +26,17 @@
             </thead>
             <tbody>
                 <?php if (empty($phongs)): ?>
-                    <p>Không tìm thấy phòng nào phù hợp.</p>
+                <p>Không tìm thấy phòng nào phù hợp.</p>
                 <?php else: ?>
-                    <?php foreach ($phongs as $phong): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
-                            <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
-                            <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
-                            <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
-                            <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($phongs as $phong): ?>
+                <tr>
+                    <td><?= htmlspecialchars($phong['ma_phong']) ?></td>
+                    <td><?= htmlspecialchars($phong['ten_phong']) ?></td>
+                    <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
+                    <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
+                    <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                </tr>
+                <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>

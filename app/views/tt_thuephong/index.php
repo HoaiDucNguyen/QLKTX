@@ -11,22 +11,21 @@
 </head>
 
 <body>
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Thanh Toán Thuê Phòng</h1>
-                    <a href="/tt_thuephong/create" class="btn btn-primary mb-3">Thêm Thanh Toán</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Hợp Đồng</th>
                                 <th>Tháng Năm</th>

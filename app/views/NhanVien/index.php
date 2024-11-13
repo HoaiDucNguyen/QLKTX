@@ -7,7 +7,7 @@
     <title>Quản Lý Nhân Viên</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -16,17 +16,17 @@
             <div class="col-md-12">
                 <?php include '../app/views/header.php'; ?>
             </div>
-        </div>  
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <?php include '../app/views/nav.php'; ?>
-        </div>
+            </div>
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Nhân Viên</h1>
                     <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
                     <table class="table table-bordered table-hover">
-                        <thead class="thead-dark">
+                        <thead class="custom-thead">
                             <tr>
                                 <th>Mã Nhân Viên</th>
                                 <th>Họ Tên</th>

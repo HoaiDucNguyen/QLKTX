@@ -257,7 +257,7 @@ elseif ($requestUri === '/tt_thuephong') {
 }
 
 
-} elseif ($requestUri === '/current') {
+elseif ($requestUri === '/current') {
     if (isset($_SESSION['ma_so']) && $_SESSION['ghi_chu'] === 'sinh vien') {
         $controller = new DanhSachPhongController($pdo);
         $controller->current();

@@ -48,12 +48,24 @@
 
                     <!-- Form tìm kiếm -->
                     <form action="/phong" method="get" class="mb-3">
-                        <input type="text" name="ten_phong" placeholder="Tên phòng"
-                            value="<?= htmlspecialchars($_GET['ten_phong'] ?? '') ?>">
                         <input type="text" name="dien_tich" placeholder="Diện tích"
                             value="<?= htmlspecialchars($_GET['dien_tich'] ?? '') ?>">
                         <input type="number" name="so_giuong" placeholder="Số giường"
                             value="<?= htmlspecialchars($_GET['so_giuong'] ?? '') ?>">
+                        <select name="gioi_tinh">
+                            <option value="">Chọn giới tính</option>
+                            <option value="nam"
+                                <?= (isset($_GET['gioi_tinh']) && $_GET['gioi_tinh'] === 'nam') ? 'selected' : '' ?>>Nam
+                            </option>
+                            <option value="nu"
+                                <?= (isset($_GET['gioi_tinh']) && $_GET['gioi_tinh'] === 'nu') ? 'selected' : '' ?>>Nữ
+                            </option>
+                        </select>
+                        <label>
+                            <input type="checkbox" name="chi_phong_trong" value="1"
+                                <?= isset($_GET['chi_phong_trong']) ? 'checked' : '' ?>>
+                            Chỉ hiển thị phòng trống
+                        </label>
                         <button type="submit">Tìm kiếm</button>
                     </form>
 

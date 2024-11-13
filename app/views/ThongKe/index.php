@@ -25,9 +25,9 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <div class="col-md-5">
-                    <h1 class="mb-4">Thống Kê</h1>
+                        <h1 class="mb-4">Thống Kê</h1>
                         <section class="dashboard-content">
-                <!-- Hiển thị các thông tin dashboard -->
+                            <!-- Hiển thị các thông tin dashboard -->
                             <div class="dashboard-item">
                                 <h2>Tổng số phòng:</h2>
                                 <p><?= htmlspecialchars($totalRooms) ?></p>
@@ -50,7 +50,7 @@
                             </div>
                         </section>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
