@@ -1,4 +1,5 @@
 <?php
+
 namespace Hp\Qlktx\Models;
 
 use PDO;
@@ -100,5 +101,22 @@ class Lop
     {
         $statement = $this->db->query("SELECT COUNT(*) FROM Lop");
         return (int) $statement->fetchColumn();
+    }
+    public function search(array $criteria): array {
+        $query = "SELECT * FROM Lop WHERE 1=1";
+        $params = [];
+
+        if (!empty($criteria['ma_lop'])) {
+            $query .= " AND ma_lop = :ma_lop";
+            $params['ma_lop'] = $criteria['ma_lop'];
+        }
+        if (!empty($criteria['ten_lop'])) {
+            $query .= " AND ten_lop = :ten_lop";
+            $params['ten_lop'] = $criteria['ten_lop'];
+        }
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
