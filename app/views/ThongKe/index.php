@@ -32,21 +32,21 @@
                                 <h2>Tổng số phòng:</h2>
                                 <p><?= htmlspecialchars($totalRooms) ?></p>
                             </div>
-                            <!-- <div class="dashboard-item">
-                                <h2>Số phòng còn trống:</h2>
+                            <div class="dashboard-item">
+                                <h2>Số phòng đã thuê:</h2>
+                                <p><?= htmlspecialchars($rentedRooms) ?></p>
+                            </div>
+                            <div class="dashboard-item">
+                                <h2>Số phòng trống:</h2>
                                 <p><?= htmlspecialchars($availableRooms) ?></p>
-                            </div> -->
-                            <div class="dashboard-item">
-                                <h2>Tổng số sinh viên</h2>
-                                <p><?= htmlspecialchars($totalsv) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Tổng số lớp</h2>
-                                <p><?= htmlspecialchars($totalLop) ?></p>
+                                <h2>Số sinh viên đang thuê phòng:</h2>
+                                <p><?= htmlspecialchars($currentStudentsRenting) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Tổng số nhân viên</h2>
-                                <p><?= htmlspecialchars($totalnv) ?></p>
+                                <h2>Tổng số tiền thu được:</h2>
+                                <p><?= htmlspecialchars($totalRevenue) ?></p>
                             </div>
                         </section>
                     </div>

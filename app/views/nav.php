@@ -37,6 +37,8 @@ function isActive($path) {
                 <a href="/tt_thuephong"
                     class="list-group-item list-group-item-action <?php echo isActive('/tt_thuephong'); ?>"><i
                         class="fas fa-money-bill me-2"></i>Quản Lý Thanh Toán Thuê Phòng</a>
+                <a href="/hocky" class="list-group-item list-group-item-action <?php echo isActive('/hocky'); ?>"><i
+                        class="fas fa-address-book me-2"></i>Quản Lý Học Kỳ</a>
                 <a href="/lop" class="list-group-item list-group-item-action <?php echo isActive('/lop'); ?>"><i
                         class="fas fa-address-book me-2"></i>Quản Lý Lớp</a>
                 <a href="/sinhvien"

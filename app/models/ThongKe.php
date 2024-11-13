@@ -148,4 +148,34 @@ class ThongKe
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getCurrentStudentsRenting(): int
+    {
+        $stmt = $this->db->query("SELECT count_current_students_renting()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getTotalRooms(): int
+    {
+        $stmt = $this->db->query("SELECT count_total_rooms()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getRentedRooms(): int
+    {
+        $stmt = $this->db->query("SELECT count_rented_rooms()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getAvailableRooms(): int
+    {
+        $stmt = $this->db->query("SELECT count_available_rooms()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getTotalRevenue(): float
+    {
+        $stmt = $this->db->query("SELECT total_revenue()");
+        return $stmt->fetchColumn();
+    }
 }
