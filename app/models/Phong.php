@@ -130,7 +130,10 @@ class Phong
     public function search(array $criteria): array {
         $query = "SELECT * FROM Phong WHERE 1=1";
         $params = [];
-
+        if (!empty($criteria['ten_phong'])) {
+            $query .= " AND ten_phong LIKE :ten_phong";
+            $params['ten_phong'] = '%' . $criteria['ten_phong'] . '%'; 
+        }
         if (!empty($criteria['dien_tich'])) {
             $query .= " AND dien_tich = :dien_tich";
             $params['dien_tich'] = $criteria['dien_tich'];
@@ -153,6 +156,12 @@ class Phong
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getRoomNames(): array {
+        $query = "SELECT DISTINCT ten_phong FROM Phong";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+    
     // Phương thức đếm tổng số phòng
     public function countAllRooms(): int
     {

@@ -1,10 +1,7 @@
 <?php
-function isActive($path)
-{
+function isActive($path) {
     $currentPath = $_SERVER['REQUEST_URI'];
-    return $currentPath === $path ||
-        strpos($currentPath, $path . '') === 0 ||
-        strpos($currentPath, $path . '') === 0 ? 'active' : '';
+    return strpos($currentPath, $path) === 0 ? 'active' : '';
 }
 ?>
 

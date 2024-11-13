@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div>
                 <?php include '../app/views/nav.php'; ?>
             </div>
             <div class="col-md-9">
@@ -58,13 +58,13 @@
                                     <p>Đã được duyệt</p>
                                     <?php endif?>
                                 </td>
-                                <td>
+                                <td class="d-flex">
                                     <?php if ($thuePhong['trang_thai'] === 'daduyet'): ?>
                                     <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-success btn-sm">Thêm Thanh Toán</a>
+                                        class="btn btn-success btn-sm col-6 hanhdong">Thêm Thanh Toán</a>
                                     <?php endif ?>
                                     <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-warning btn-sm">Sửa</a>
+                                        class="btn btn-warning btn-sm col-6 hanhdong">Sửa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
