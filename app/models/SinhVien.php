@@ -11,6 +11,7 @@ class SinhVien
     public string $ma_lop;
     public string $password;
     public string $gioi_tinh;
+    public string $notification = '';
     private array $errors = [];
     
     public function __construct(?PDO $pdo)
@@ -28,6 +29,7 @@ class SinhVien
             $this->password = md5($data['password']);
         }
         $this->gioi_tinh = $data['gioi_tinh'] ?? '';
+        $this->notification = $data['notification'] ?? '';
         return $this;
     }
 
@@ -121,7 +123,8 @@ class SinhVien
             'so_dien_thoai' => $this->so_dien_thoai,
             'ma_lop' => $this->ma_lop,
             'password' => $this->password,
-            'gioi_tinh' => $this->gioi_tinh
+            'gioi_tinh' => $this->gioi_tinh,
+            'notification' => $this->notification
         ] = $row;
         return $this;
     }
@@ -217,7 +220,7 @@ class SinhVien
         // Tìm kiếm theo họ tên
         if (!empty($criteria['ho_ten'])) {
             $query .= " AND ho_ten LIKE :ho_ten";
-            $params['ho_ten'] = '%' . $criteria['ho_ten'] . '%'; // Thêm dấu % để tìm kiếm theo phần chuỗi
+            $params['ho_ten'] = '%' . $criteria['ho_ten'] . '%'; // Thêm dấu % để tm kiếm theo phần chuỗi
         }
     
         // Tìm kiếm theo số điện thoại
@@ -246,4 +249,15 @@ class SinhVien
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
+    public function updateNotification(string $message): bool
+    {
+        $statement = $this->db->prepare('UPDATE SinhVien SET notification = :notification WHERE ma_sinh_vien = :ma_sinh_vien');
+        return $statement->execute(['notification' => $message, 'ma_sinh_vien' => $this->ma_sinh_vien]);
+    }
+
+    public function clearNotification(): bool
+    {
+        $statement = $this->db->prepare('UPDATE SinhVien SET notification = NULL WHERE ma_sinh_vien = :ma_sinh_vien');
+        return $statement->execute(['ma_sinh_vien' => $this->ma_sinh_vien]);
+    }
 }

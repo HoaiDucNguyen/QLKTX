@@ -50,21 +50,35 @@
                                 <td><?= $thuePhong['ket_thuc'] ?></td>
                                 <td><?= $thuePhong['tien_dat_coc'] ?></td>
                                 <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
-                                <td><?= $thuePhong['can_thanh_toan'] ?></td>
-                                <td><?php if ($thuePhong['trang_thai'] === 'choxetduyet'): ?>
+                                <?php if ($thuePhong['can_thanh_toan'] == 0): ?>
+                                <td>
+                                    <p>đã thanh toán đủ</p>
+                                </td>
+                                <?php else :?>
+                                <td>
+                                    <?= $thuePhong['can_thanh_toan'] ?>
+                                </td>
+                                <?php endif; ?>
+
+                                <td>
+                                    <?php if ($thuePhong['trang_thai'] === 'choxetduyet'): ?>
                                     <a href="/thuephong/approve/<?= $thuePhong['ma_hop_dong'] ?>"
                                         class="btn btn-info btn-sm">Xét Duyệt</a>
+                                    <a href="/thuephong/delete/<?= $thuePhong['ma_hop_dong'] ?>"
+                                        class="btn btn-danger btn-sm mt-2"
+                                        onclick="return confirm('Bạn có chắc chắn muốn không duyệt và xóa hợp đồng này?');">Không
+                                        Duyệt</a>
                                     <?php else :; ?>
                                     <p>Đã được duyệt</p>
                                     <?php endif?>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <?php if ($thuePhong['trang_thai'] === 'daduyet'): ?>
                                     <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-success btn-sm">Thêm Thanh Toán</a>
+                                        class="btn btn-success btn-sm mt-2">Thêm Thanh Toán</a>
                                     <?php endif ?>
                                     <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-warning btn-sm">Sửa</a>
+                                        class="btn btn-warning btn-sm mt-2">Sửa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

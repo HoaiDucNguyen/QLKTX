@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 use Hp\Qlktx\Models\Phong;
 use Hp\Qlktx\Models\ThuePhong;
+use Hp\Qlktx\Models\SinhVien;
 class PhongController
 {
     private $phongModel;
@@ -38,6 +39,8 @@ class PhongController
 
     public function SVindex()
     {
+        $sinhVien = new SinhVien($this->phongModel->db);
+        $sinhVien = $sinhVien->find($_SESSION['ma_so']);
         $errors = [];
         $successMessage = '';
 
@@ -96,6 +99,7 @@ class PhongController
         }
 
         include '../app/views/danhsachphong/index.php';
+      
     }
 
     public function create()
@@ -191,5 +195,9 @@ class PhongController
         }
         include '../app/views/phong/detail.php';
     }
-    
+    public function clearNotification($ma_sinh_vien)
+    {   
+        $stmt = $this->phongModel ->db->prepare('UPDATE sinhvien SET notification = :notification WHERE ma_sinh_vien = :ma_sinh_vien');
+        $stmt->execute(['notification' => '', 'ma_sinh_vien' => $ma_sinh_vien]);
+    }
 }
