@@ -60,8 +60,8 @@
                             <label for="gioi_tinh">Giới tính:</label>
                             <select name="gioi_tinh" id="gioi_tinh" class="form-control" required>
                                 <option value="">Chọn giới tính</option>
-                                <option value="Nam">nam</option>
-                                <option value="Nữ">nu</option>
+                                <option value="nam">Nam</option>
+                                <option value="nu">Nữ</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Thêm</button>

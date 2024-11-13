@@ -73,39 +73,43 @@
                         </thead>
                         <tbody>
                             <?php if (isset($_GET['ho_ten']) || isset($_GET['so_dien_thoai']) || isset($_GET['ma_lop'])): ?>
-                                <?php if (empty($sinhViens)): ?>
-                                <tr>
-                                    <td colspan="6">Không tìm thấy sinh viên nào phù hợp.</td>
-                                </tr>
-                                <?php else: ?>
-                                <?php foreach ($sinhViens as $sinhvien): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($sinhvien['ma_sinh_vien']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
-                                        <td>
-                                            <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                            <a href="/sinhvien/delete/<?= $sinhvien['ma_sinh_vien'] ?>" class="btn btn-danger btn-sm">Xóa</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                <?php endif; ?>
+                            <?php if (empty($sinhViens)): ?>
+                            <tr>
+                                <td colspan="6">Không tìm thấy sinh viên nào phù hợp.</td>
+                            </tr>
                             <?php else: ?>
-                                <?php foreach ($sinhViens as $sinhvien): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($sinhvien['ma_sinh_vien']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
-                                        <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
-                                        <td>
-                                            <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                            <a href="/sinhvien/delete/<?= $sinhvien['ma_sinh_vien'] ?>" class="btn btn-danger btn-sm">Xóa</a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                            <?php foreach ($sinhViens as $sinhvien): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($sinhvien['ma_sinh_vien']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
+                                <td>
+                                    <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/sinhvien/delete/<?= $sinhvien['ma_sinh_vien'] ?>"
+                                        class="btn btn-danger btn-sm" onclick="return confirmDelete();">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php else: ?>
+                            <?php foreach ($sinhViens as $sinhvien): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($sinhvien['ma_sinh_vien']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['ho_ten']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['so_dien_thoai']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['ma_lop']) ?></td>
+                                <td><?= htmlspecialchars($sinhvien['gioi_tinh']) ?></td>
+                                <td>
+                                    <a href="/sinhvien/edit/<?= $sinhvien['ma_sinh_vien'] ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/sinhvien/delete/<?= $sinhvien['ma_sinh_vien'] ?>"
+                                        class="btn btn-danger btn-sm" onclick="return confirmDelete();">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -115,6 +119,11 @@
     </div>
 
     <!-- JavaScript Files -->
+    <script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

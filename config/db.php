@@ -4,13 +4,8 @@
 $host = 'localhost';
 $db = 'qlktx';
 $user = 'root';
-<<<<<<< HEAD
+
 $pass = '322003';
-=======
-$pass = 'hao123';
-
-
->>>>>>> 32695277d9b3017808e2706b2077a8c29ad3bd01
 
 
 try {

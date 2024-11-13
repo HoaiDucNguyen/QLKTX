@@ -7,11 +7,8 @@
     <title>Quản Lý Nhân Viên</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="style.css">
-=======
-    <link rel="stylesheet" href="style.css"> <!-- Kiểm tra lại đường dẫn -->
->>>>>>> 32695277d9b3017808e2706b2077a8c29ad3bd01
+
 </head>
 
 <body>
@@ -28,7 +25,7 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Nhân Viên</h1>
-                    
+
                     <!-- Hiển thị thông báo thành công nếu có -->
                     <?php if (!empty($successMessage)): ?>
                     <div class="alert alert-success">
@@ -67,9 +64,9 @@
                             </div>
                         </div>
                     </form>
-                    
+
                     <a href="/nhanvien/create" class="btn btn-primary mb-3">Thêm Nhân Viên</a>
-                    
+
                     <!-- Bảng hiển thị danh sách nhân viên -->
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
@@ -83,22 +80,24 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($nhanViens) && is_array($nhanViens)): ?>
-                                <?php foreach ($nhanViens as $nhanvien): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?></td>
-                                    <td><?= htmlspecialchars($nhanvien['ho_ten']) ?></td>
-                                    <td><?= htmlspecialchars($nhanvien['so_dien_thoai']) ?></td>
-                                    <td><?= htmlspecialchars($nhanvien['ghi_chu']) ?></td>
-                                    <td>
-                                        <a href="/nhanvien/edit/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>" class="btn btn-warning btn-sm">Sửa</a>
-                                        <a href="/nhanvien/delete/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này?');">Xóa</a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
+                            <?php foreach ($nhanViens as $nhanvien): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['ho_ten']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['so_dien_thoai']) ?></td>
+                                <td><?= htmlspecialchars($nhanvien['ghi_chu']) ?></td>
+                                <td>
+                                    <a href="/nhanvien/edit/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>"
+                                        class="btn btn-warning btn-sm">Sửa</a>
+                                    <a href="/nhanvien/delete/<?= htmlspecialchars($nhanvien['ma_nhan_vien']) ?>"
+                                        class="btn btn-danger btn-sm" onclick="return confirmDelete();">Xóa</a>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
                             <?php else: ?>
-                                <tr>
-                                    <td colspan="5">Không có nhân viên nào để hiển thị.</td>
-                                </tr>
+                            <tr>
+                                <td colspan="5">Không có nhân viên nào để hiển thị.</td>
+                            </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -106,7 +105,11 @@
             </div>
         </div>
     </div>
-
+    <script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
+    }
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
