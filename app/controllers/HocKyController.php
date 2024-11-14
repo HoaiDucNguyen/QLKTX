@@ -71,9 +71,14 @@ class HocKyController
             if ($conflict) {
                 $errors['time_conflict'] = 'Thời gian học kỳ bị xung đột với học kỳ khác.';
             } else {
-                if ($hocKy->validate() && $hocKy->save()) {
-                    header('Location: /hocky');
-                    exit;
+                if ($hocKy->validate()) {
+                    if ($hocKy->save()) {
+                        $_SESSION['success'] = "Cập nhật học kỳ thành công";
+                        header('Location: /hocky');
+                        exit;
+                    } else {
+                        $errors[] = "Có lỗi xảy ra khi cập nhật học kỳ";
+                    }
                 }
                 $errors = array_merge($errors, $hocKy->getValidationErrors());
             }
