@@ -24,6 +24,21 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Thanh Toán Thuê Phòng</h1>
+
+                    <?php if (isset($_SESSION['success'])): ?>
+                    <div class="alert alert-success">
+                        <?= htmlspecialchars($_SESSION['success']) ?>
+                        <?php unset($_SESSION['success']); ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger">
+                        <?= htmlspecialchars($_SESSION['error']) ?>
+                        <?php unset($_SESSION['error']); ?>
+                    </div>
+                    <?php endif; ?>
+
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>
@@ -45,8 +60,9 @@
                                 <td><?= $ttThuePhong['ma_nhan_vien'] ?></td>
                                 <td class="text-center">
 
-                                    <a href="/tt_thuephong/delete/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= $ttThuePhong['thang_nam'] ?>"
-                                        class="btn btn-danger btn-sm">Xóa</a>
+                                    <a href="/tt_thuephong/delete/<?= $ttThuePhong['ma_hop_dong'] ?>/<?= urlencode($ttThuePhong['ma_nhan_vien']) ?>"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa?');">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

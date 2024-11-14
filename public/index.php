@@ -239,11 +239,10 @@ elseif ($requestUri === '/tt_thuephong') {
         $controller = new NhanVienController($pdo);
         $controller->unauthorized();
     }
-} elseif (preg_match('/\/tt_thuephong\/delete\/(\d+)\/(\d{4}-\d{2})/', $requestUri, $matches)) {
-
+} elseif (preg_match('/\/tt_thuephong\/delete\/(\d+)\/([A-Za-z0-9]+)/', $requestUri, $matches)) {
     if(isset($_SESSION['ghi_chu']) && $_SESSION['ghi_chu'] !== 'sinh vien'){
         $controller = new TtThuePhongController($pdo);
-        $controller->delete($matches[1]);
+        $controller->delete($matches[1], $matches[2]);
     } else {
         $controller = new NhanVienController($pdo);
         $controller->unauthorized();

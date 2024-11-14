@@ -128,15 +128,17 @@ class ThuePhongController
         $errors = [];
         try {
             $thuePhong = $this->thuePhongModel->find($id);
-            $thuePhong->delete();
+            if ($thuePhong && $thuePhong->delete()) {
                 $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
                 header('Location: /thuephong');
-           
+                exit;
+            }
+            $errors = $thuePhong->getValidationErrors();
         } catch (PDOException $e) {
-            // Bắt ngoại lệ và lưu thông báo lỗi từ trigger
-            $errors[] = $e->getMessage();
+            // Bắt lỗi từ trigger
+            $errors[] = "Không thể xóa: " . $e->getMessage();
         }
-        $_SESSION['errors'] = $errors; // Lưu lỗi vào session để hiển thị
+        $_SESSION['errors'] = $errors;
         header('Location: /thuephong');
         exit;
     }

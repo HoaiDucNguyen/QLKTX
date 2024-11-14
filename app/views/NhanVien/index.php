@@ -26,6 +26,13 @@
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Nhân Viên</h1>
 
+                    <?php if (isset($_SESSION['error'])): ?>
+                    <div class="alert alert-danger">
+                        <?= htmlspecialchars($_SESSION['error']) ?>
+                        <?php unset($_SESSION['error']); ?>
+                    </div>
+                    <?php endif; ?>
+
                     <!-- Hiển thị thông báo thành công nếu có -->
                     <?php if (!empty($successMessage)): ?>
                     <div class="alert alert-success">

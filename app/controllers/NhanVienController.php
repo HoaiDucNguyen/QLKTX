@@ -97,8 +97,15 @@ class NhanVienController
 
     public function delete($id)
     {
-        $nhanVien = $this->nhanVienModel->find($id);
-        if ($nhanVien && $nhanVien->delete()) {
+        try {
+            $nhanVien = $this->nhanVienModel->find($id);
+            if ($nhanVien && $nhanVien->delete()) {
+                header('Location: /nhanvien');
+                exit;
+            }
+        } catch (\PDOException $e) {
+            // Bắt lỗi từ trigger
+            $_SESSION['error'] = "Không thể xóa: " . $e->getMessage();
             header('Location: /nhanvien');
             exit;
         }

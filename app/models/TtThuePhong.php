@@ -1,7 +1,7 @@
 <?php
  namespace Hp\Qlktx\Models;
  use PDO;
-
+use PDOException;
  class TtThuePhong
  {
      public ?PDO $db;
@@ -107,6 +107,20 @@
              ]);
 
              return $result;
+         } catch (PDOException $e) {
+             $this->errors[] = $e->getMessage();
+             return false;
+         }
+     }
+
+     public function deleteWithUpdate(string $ma_nhan_vien): bool
+     {
+         try {
+             $statement = $this->db->prepare('CALL DeleteTtThuePhongAndUpdateThuePhong(:ma_hop_dong, :ma_nhan_vien)');
+             return $statement->execute([
+                 'ma_hop_dong' => $this->ma_hop_dong,
+                 'ma_nhan_vien' => $ma_nhan_vien
+             ]);
          } catch (PDOException $e) {
              $this->errors[] = $e->getMessage();
              return false;
