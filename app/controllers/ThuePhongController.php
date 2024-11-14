@@ -132,11 +132,11 @@ class ThuePhongController
                 $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
                 header('Location: /thuephong');
            
-        } catch (PDOException $e) {
-            // Bắt ngoại lệ và lưu thông báo lỗi từ trigger
-            $errors[] = $e->getMessage();
+        }catch (PDOException $e) {
+            // Lưu thông báo lỗi vào session
+            $_SESSION['error_message'] = 'Không thể xóa phòng vì phòng đang được thuê.';
         }
-        $_SESSION['errors'] = $errors; // Lưu lỗi vào session để hiển thị
+        
         header('Location: /thuephong');
         exit;
     }
