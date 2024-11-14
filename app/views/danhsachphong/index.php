@@ -66,7 +66,7 @@
                                 <?= (isset($_GET['gioi_tinh']) && $_GET['gioi_tinh'] === 'nu') ? 'selected' : '' ?>>Nữ
                             </option>
                         </select>
-                        <label>
+                        <label class="buttonphongtrong">
                             <input type="checkbox" name="chi_phong_trong" value="1"
                                 <?= isset($_GET['chi_phong_trong']) ? 'checked' : '' ?>>
                             Chỉ hiển thị phòng trống
@@ -84,6 +84,7 @@
                                 <th>Diện Tích</th>
                                 <th>Số Giường</th>
                                 <th>Giá Thuê</th>
+                                <th>Giới Tính</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -101,6 +102,8 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                
                                 <td>
                                     <form action="/thuephong/create" method="post" style="display:inline;">
                                         <input type="hidden" name="ma_phong"
@@ -121,6 +124,7 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
                                 <td>
                                     <form method="post" style="display:inline;">
                                         <input type="hidden" name="ma_phong"
