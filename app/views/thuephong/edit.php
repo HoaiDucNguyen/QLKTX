@@ -24,11 +24,24 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Sửa Thuê Phòng</h1>
+
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+
                     <form method="POST">
                         <div class="form-group">
                             <label>Mã Hợp Đồng:</label>
                             <input type="text" name="ma_hop_dong" class="form-control"
                                 value="<?= htmlspecialchars($thuePhong->ma_hop_dong) ?>" readonly>
+                            <input type="text" hidden name="ma_hoc_ky" class="form-control"
+                                value="<?= htmlspecialchars($thuePhong->ma_hoc_ky) ?>">
                         </div>
                         <div class="form-group">
                             <label>Mã Sinh Viên:</label>

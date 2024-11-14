@@ -124,7 +124,7 @@
     </div>
     <script>
     function confirmDelete() {
-        return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
+        return confirm("Bạn có chắc chắn muốn xóa?");
     }
     </script>
 

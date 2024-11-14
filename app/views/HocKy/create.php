@@ -24,6 +24,15 @@
             <div class="col-md-9">
                 <div class="content mt-4">
                     <h1 class="mb-4">Thêm Học Kỳ</h1>
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
                     <form method="POST">
                         <div class="form-group">
                             <label>Mã Học Kỳ:</label>

@@ -20,15 +20,30 @@ class HocKyController
 
     public function create()
     {
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hocKy = new HocKy($this->hocKyModel->db);
             $hocKy->fill($_POST);
 
-            if ($hocKy->validate() && $hocKy->save()) {
-                header('Location: /hocky');
-                exit;
+            $stmt = $this->hocKyModel->db->prepare("SELECT checkHocKyConflict(:bat_dau, :ket_thuc, :ma_hoc_ky) AS conflict");
+            $stmt->execute([
+                'bat_dau' => $hocKy->bat_dau,
+                'ket_thuc' => $hocKy->ket_thuc,
+                'ma_hoc_ky' => $hocKy->ma_hoc_ky
+            ]);
+            $conflict = $stmt->fetchColumn();
+
+            if ($conflict) {
+                $errors['time_conflict'] = 'Thời gian học kỳ bị xung đột với học kỳ khác.';
+            } elseif ($hocKy->exists()) {
+                $errors['ma_hoc_ky'] = 'Mã học kỳ đã tồn tại.';
+            } else {
+                if ($hocKy->validate() && $hocKy->save()) {
+                    header('Location: /hocky');
+                    exit;
+                }
+                $errors = array_merge($errors, $hocKy->getValidationErrors());
             }
-            $errors = $hocKy->getValidationErrors();
         }
         include '../app/views/HocKy/create.php';
     }
@@ -41,14 +56,27 @@ class HocKyController
             exit;
         }
 
+        $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hocKy->fill($_POST);
 
-            if ($hocKy->validate() && $hocKy->save()) {
-                header('Location: /hocky');
-                exit;
+            $stmt = $this->hocKyModel->db->prepare("SELECT checkHocKyConflict(:bat_dau, :ket_thuc, :ma_hoc_ky) AS conflict");
+            $stmt->execute([
+                'bat_dau' => $hocKy->bat_dau,
+                'ket_thuc' => $hocKy->ket_thuc,
+                'ma_hoc_ky' => $hocKy->ma_hoc_ky
+            ]);
+            $conflict = $stmt->fetchColumn();
+
+            if ($conflict) {
+                $errors['time_conflict'] = 'Thời gian học kỳ bị xung đột với học kỳ khác.';
+            } else {
+                if ($hocKy->validate() && $hocKy->save()) {
+                    header('Location: /hocky');
+                    exit;
+                }
+                $errors = array_merge($errors, $hocKy->getValidationErrors());
             }
-            $errors = $hocKy->getValidationErrors();
         }
         include '../app/views/HocKy/edit.php';
     }

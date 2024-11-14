@@ -103,11 +103,16 @@ class ThuePhongController
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $thuePhong->fill($_POST);
-            if ($thuePhong->validate() && $thuePhong->save()) {
-                header('Location: /thuephong');
-                exit;
+            if ($thuePhong->validate()) {
+                if ($thuePhong->save()) {
+                    header('Location: /thuephong');
+                    exit;
+                } else {
+                    $errors[] = 'Lỗi khi lưu thông tin phòng.';
+                }
+            } else {
+                $errors = $thuePhong->getValidationErrors();
             }
-            $errors = $thuePhong->getValidationErrors();
         }
         include '../app/views/thuephong/edit.php';
     }
@@ -116,9 +121,12 @@ class ThuePhongController
     {
         $thuePhong = $this->thuePhongModel->find($id);
         if ($thuePhong && $thuePhong->delete()) {
-            $this->sendNotification($thuePhong->ma_sinh_vien, 'Yêu cầu thuê phòng của bạn không được duyệt. Vui lòng đăng ký phòng khác.');
+            $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
             header('Location: /thuephong');
             exit;
+        } else {
+            $errors[] = 'Lỗi khi xóa hợp đồng.';
+            header('Location: /thuephong');
         }
     }
 

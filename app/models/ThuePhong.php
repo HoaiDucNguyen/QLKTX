@@ -34,6 +34,7 @@ class ThuePhong
         $this->gia_thue_thuc_te = $data['gia_thue_thuc_te'] ?? 0;
         $this->ma_hoc_ky = $data['ma_hoc_ky'] ?? '';
         $this->can_thanh_toan = $data['can_thanh_toan'] ?? 0;
+        $this->trang_thai = $data['trang_thai'] ?? 'choxetduyet';
         return $this;
     }
 
@@ -44,18 +45,50 @@ class ThuePhong
 
     public function validate(): bool
     {
-        if ($this->ma_sinh_vien =='') {
-            $this->errors['ma_sinh_vien'] = 'Mã sinh viên không hợp lệ';
+        $this->errors = []; // Reset errors
+
+        if (empty($this->ma_sinh_vien)) {
+            $this->errors['ma_sinh_vien'] = 'Mã sinh viên không được để trống';
         }
-        if ($this->ma_phong== '') {
-            $this->errors['ma_phong'] = 'Mã phòng không hợp lệ';
+
+        if (empty($this->ma_phong)) {
+            $this->errors['ma_phong'] = 'Mã phòng không được để trống';
         }
+
         if (empty($this->bat_dau)) {
             $this->errors['bat_dau'] = 'Ngày bắt đầu không được để trống';
+        } elseif (!strtotime($this->bat_dau)) {
+            $this->errors['bat_dau'] = 'Ngày bắt đầu không hợp lệ';
         }
+
         if (empty($this->ket_thuc)) {
             $this->errors['ket_thuc'] = 'Ngày kết thúc không được để trống';
+        } elseif (!strtotime($this->ket_thuc)) {
+            $this->errors['ket_thuc'] = 'Ngày kết thúc không hợp lệ';
+        } elseif (strtotime($this->bat_dau) > strtotime($this->ket_thuc)) {
+            $this->errors['ket_thuc'] = 'Ngày kết thúc phải sau ngày bắt đầu';
         }
+
+        if ($this->tien_dat_coc < 0) {
+            $this->errors['tien_dat_coc'] = 'Tiền đặt cọc không được âm';
+        }
+
+        if ($this->gia_thue_thuc_te < 0) {
+            $this->errors['gia_thue_thuc_te'] = 'Giá thuê thực tế không được âm';
+        }
+
+        if (empty($this->ma_hoc_ky)) {
+            $this->errors['ma_hoc_ky'] = 'Mã học kỳ không được để trống';
+        }
+
+        if ($this->can_thanh_toan < 0) {
+            $this->errors['can_thanh_toan'] = 'Cần thanh toán không được âm';
+        }
+
+        if (empty($this->trang_thai)) {
+            $this->errors['trang_thai'] = 'Trạng thái không được để trống';
+        }
+
         return empty($this->errors);
     }
 
@@ -64,7 +97,7 @@ class ThuePhong
         try {
             if ($this->ma_hop_dong >= 0) {
                 $statement = $this->db->prepare(
-                    'UPDATE ThuePhong SET ma_sinh_vien = :ma_sinh_vien, ma_phong = :ma_phong, bat_dau = :bat_dau, ket_thuc = :ket_thuc, tien_dat_coc = :tien_dat_coc, gia_thue_thuc_te = :gia_thue_thuc_te, ma_hoc_ky = :ma_hoc_ky, can_thanh_toan = :can_thanh_toan WHERE ma_hop_dong = :ma_hop_dong'
+                    'UPDATE ThuePhong SET ma_sinh_vien = :ma_sinh_vien, ma_phong = :ma_phong, bat_dau = :bat_dau, ket_thuc = :ket_thuc, tien_dat_coc = :tien_dat_coc, gia_thue_thuc_te = :gia_thue_thuc_te, ma_hoc_ky = :ma_hoc_ky, can_thanh_toan = :can_thanh_toan, trang_thai = :trang_thai WHERE ma_hop_dong = :ma_hop_dong'
                 );
                 return $statement->execute([
                     'ma_sinh_vien' => $this->ma_sinh_vien,
@@ -75,11 +108,12 @@ class ThuePhong
                     'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
                     'ma_hoc_ky' => $this->ma_hoc_ky,
                     'can_thanh_toan' => $this->can_thanh_toan,
-                    'ma_hop_dong' => $this->ma_hop_dong
+                    'ma_hop_dong' => $this->ma_hop_dong,
+                    'trang_thai' => $this->trang_thai
                 ]);
             } else {
                 $statement = $this->db->prepare(
-                    'INSERT INTO ThuePhong (ma_sinh_vien, ma_phong, bat_dau, ket_thuc, tien_dat_coc, gia_thue_thuc_te, ma_hoc_ky, can_thanh_toan) VALUES (:ma_sinh_vien, :ma_phong, :bat_dau, :ket_thuc, :tien_dat_coc, :gia_thue_thuc_te, :ma_hoc_ky, :can_thanh_toan)'
+                    'INSERT INTO ThuePhong (ma_sinh_vien, ma_phong, bat_dau, ket_thuc, tien_dat_coc, gia_thue_thuc_te, ma_hoc_ky, can_thanh_toan, trang_thai) VALUES (:ma_sinh_vien, :ma_phong, :bat_dau, :ket_thuc, :tien_dat_coc, :gia_thue_thuc_te, :ma_hoc_ky, :can_thanh_toan, :trang_thai)'
                 );
                 $result = $statement->execute([
                     'ma_sinh_vien' => $this->ma_sinh_vien,
@@ -89,7 +123,8 @@ class ThuePhong
                     'tien_dat_coc' => $this->tien_dat_coc,
                     'gia_thue_thuc_te' => $this->gia_thue_thuc_te,
                     'ma_hoc_ky' => $this->ma_hoc_ky,
-                    'can_thanh_toan' => $this->can_thanh_toan
+                    'can_thanh_toan' => $this->can_thanh_toan,
+                    'trang_thai' => $this->trang_thai
                 ]);
                 if ($result) {
                     $this->ma_hop_dong = $this->db->lastInsertId();
@@ -106,8 +141,13 @@ class ThuePhong
 
     public function delete(): bool
     {
-        $statement = $this->db->prepare('DELETE FROM ThuePhong WHERE ma_hop_dong = :ma_hop_dong');
-        return $statement->execute(['ma_hop_dong' => $this->ma_hop_dong]);
+        try {
+            $statement = $this->db->prepare('DELETE FROM ThuePhong WHERE ma_hop_dong = :ma_hop_dong');
+            return $statement->execute(['ma_hop_dong' => $this->ma_hop_dong]);
+        } catch (PDOException $e) {
+            $this->errors[] = $e->getMessage();
+            return false;
+        }
     }
 
     public function find(int $ma_hop_dong): ?ThuePhong

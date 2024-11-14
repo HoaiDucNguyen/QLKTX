@@ -76,11 +76,13 @@
                                 <td class="d-flex">
                                     <?php if ($thuePhong['trang_thai'] === 'daduyet'): ?>
                                     <a href="/tt_thuephong/create?ma_hop_dong=<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-success btn-sm col-6 hanhdong">Thêm Thanh Toán</a>
+                                        class="btn btn-success btn-sm col-4 hanhdong">Thêm Thanh Toán</a>
                                     <?php endif ?>
                                     <a href="/thuephong/edit/<?= $thuePhong['ma_hop_dong'] ?>"
-                                        class="btn btn-warning btn-sm col-6 hanhdong">Sửa</a>
-
+                                        class="btn btn-warning btn-sm col-4 hanhdong">Sửa</a>
+                                    <a href="/thuephong/delete/<?= $thuePhong['ma_hop_dong'] ?>"
+                                        class="btn btn-danger btn-sm col-4 hanhdong"
+                                        onclick="return confirm('Bạn có chắc chắn muốn xóa hợp đồng này, các dữ liệu liên quan sẽ bị xóa theo?');">Xóa</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

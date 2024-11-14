@@ -120,7 +120,7 @@
     <!-- JavaScript Files -->
     <script>
     function confirmDelete() {
-        return confirm("Bạn có chắc chắn muốn xóa? Tất cả dữ liệu liên quan sẽ bị xóa.");
+        return confirm("Bạn có chắc chắn muốn xóa? ");
     }
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
