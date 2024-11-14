@@ -62,8 +62,8 @@
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>
-                                <th>Mã Sinh Viên</th>
-                                <th>Họ Tên</th>
+                                <th>Mã Sinh Viên<a href="?order_by=ma_sinh_vien&order_direction=ASC"> ▲</a> | <a href="?order_by=ma_sinh_vien&order_direction=DESC">▼</a></th>
+                                <th>Họ Tên<a href="?order_by=ho_ten&order_direction=ASC"> ▲</a> | <a href="?order_by=ho_ten&order_direction=DESC">▼</a></th>
                                 <th>Số Điện Thoại</th>
                                 <th>Mã Lớp</th>
                                 <th>Giới Tính</th>

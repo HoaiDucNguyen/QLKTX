@@ -232,14 +232,40 @@ form.mb-3 button:hover {
 .dashboard-content {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 .dashboard-item {
-  flex: 1 1 30%;
+  background-color: #f8f9fa;
+  border-radius: 8px;
   padding: 20px;
-  margin: 10px;
-  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 30%;
+  min-width: 250px;
+}
+
+.dashboard-item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.dashboard-item p {
+  
+  font-size: 1em;
+  margin: 5px 0;
+}
+.dashboard-item p {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+.dashboard-item p span {
+  font-weight: bold;
+  color: #007bff; /* Màu xanh dương nổi bật cho giá trị */
+}
+
+.text-center {
+  text-align: center;
 }
 
 .navbar {
@@ -293,4 +319,12 @@ form.mb-3 label {
   justify-content: center; /* Căn giữa theo chiều ngang */
   text-align: center;
   margin-right: 5px;
+}
+
+.custom-thead th a{
+    color: white; /* Màu chữ của các liên kết */
+    text-decoration: none; /* Xóa gạch chân nếu có */
+}
+.custom-thead th a:hover{
+  color: #007bff;
 }

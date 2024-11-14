@@ -122,17 +122,21 @@ class Phong
         return $statement->fetchColumn() > 0;
     }
 
-    public function getAll():array 
+    public function getAll($orderBy = 'ma_phong', $orderDirection = 'ASC')
     {
-        $stmt = $this->db->query("SELECT * FROM Phong");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM phong ORDER BY $orderBy $orderDirection";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-    public function search(array $criteria): array {
-        $query = "SELECT * FROM Phong WHERE 1=1";
+    public function search($criteria, $orderBy = 'ma_phong', $orderDirection = 'ASC')
+    {
+        $query = "SELECT * FROM phong WHERE 1=1";
         $params = [];
+
         if (!empty($criteria['ten_phong'])) {
             $query .= " AND ten_phong LIKE :ten_phong";
-            $params['ten_phong'] = '%' . $criteria['ten_phong'] . '%'; 
+            $params['ten_phong'] = '%' . $criteria['ten_phong'] . '%';
         }
         if (!empty($criteria['dien_tich'])) {
             $query .= " AND dien_tich = :dien_tich";
@@ -147,14 +151,10 @@ class Phong
             $params['gioi_tinh'] = $criteria['gioi_tinh'];
         }
 
-        // Kiểm tra nếu người dùng chọn chỉ hiển thị phòng trống
-        if (isset($criteria['chi_phong_trong']) && $criteria['chi_phong_trong'] == 1) {
-            $query .= " AND checkRoomAvailability(ma_phong) = TRUE";
-        }
-
+        $query .= " ORDER BY $orderBy $orderDirection";
         $stmt = $this->db->prepare($query);
         $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
     public function getRoomNames(): array {
         $query = "SELECT DISTINCT ten_phong FROM Phong";

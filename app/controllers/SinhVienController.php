@@ -35,12 +35,14 @@ class SinhVienController
             'ma_lop' => $_GET['ma_lop'] ?? '',
             'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
         ];
+        $orderBy = $_GET['order_by'] ?? 'ma_sinh_vien'; // Cột mặc định là 'ma_phong'
+        $orderDirection = $_GET['order_direction'] ?? 'ASC'; // Thứ tự mặc định là 'ASC'
 
         // Nếu có tiêu chí tìm kiếm, gọi phương thức `search`, nếu không thì lấy toàn bộ danh sách
-        if (!empty($criteria['ma_sinh_vien']) || !empty($criteria['ho_ten']) || !empty($criteria['so_dien_thoai'])|| !empty($criteria['ma_lop'])|| !empty($criteria['gioi_tinh'])) {
-            $sinhViens = $this->sinhVienModel->search($criteria);
+        if (!empty($criteria['ma_sinh_vien']) || !empty($criteria['ho_ten']) ) {
+            $sinhViens = $this->sinhVienModel->search($criteria, $orderBy, $orderDirection);
         } else {
-            $sinhViens = $this->sinhVienModel->getAll();
+            $sinhViens = $this->sinhVienModel->getAll($orderBy, $orderDirection);
         }
 
         // Gọi view index.php và truyền kết quả vào

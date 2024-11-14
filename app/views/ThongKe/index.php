@@ -29,23 +29,23 @@
                         <section class="dashboard-content">
                             <div class="dashboard-item">
                                 <h2 class="text-center text-primary font-weight-bold">Phòng</h2>
-                                <p>Tổng số phòng: <?= htmlspecialchars($totalRooms) ?></p>
-                                <p>Số phòng nam: <?= htmlspecialchars($maleRooms) ?></p>
-                                <p>Số phòng nữ: <?= htmlspecialchars($femaleRooms) ?></p>
-                                <p>Số phòng trống: <?= htmlspecialchars($availableRooms) ?></p>
-                                <p>Số phòng đã thuê: <?= htmlspecialchars($rentedRooms) ?></p>
+                                <p>Tổng số phòng:<span> <?= htmlspecialchars($totalRooms) ?></span></p>
+                                <p>Số phòng nam:<span> <?= htmlspecialchars($maleRooms) ?></span></p>
+                                <p>Số phòng nữ:<span> <?= htmlspecialchars($femaleRooms) ?></span></p>
+                                <p>Số phòng trống:<span> <?= htmlspecialchars($availableRooms) ?></span></p>
+                                <p>Số phòng đã thuê:<span> <?= htmlspecialchars($rentedRooms) ?></span></p>
                             </div>
                             <div class="dashboard-item">
                                 <h2 class="text-center text-primary font-weight-bold">Sinh Viên</h2>
-                                <p>Số sinh viên đang thuê phòng: <?= htmlspecialchars($currentStudentsRenting) ?></p>
-                                <p>Số sinh viên nam đang thuê: <?= htmlspecialchars($maleStudentsRenting) ?></p>
-                                <p>Số sinh viên nữ đang thuê: <?= htmlspecialchars($femaleStudentsRenting) ?></p>
+                                <p>Số sinh viên đang thuê phòng:<span> <?= htmlspecialchars($currentStudentsRenting) ?></span></p>
+                                <p>Số sinh viên nam đang thuê:<span> <?= htmlspecialchars($maleStudentsRenting) ?></span></p>
+                                <p>Số sinh viên nữ đang thuê:<span> <?= htmlspecialchars($femaleStudentsRenting) ?></span></p>
                             </div>
                             <div class="dashboard-item">
                                 <h2 class="text-center text-primary font-weight-bold">Tài Chính</h2>
-                                <p>Tổng số tiền thu được: <?= htmlspecialchars($totalRevenue) ?></p>
-                                <p>Tổng số tiền đặt cọc: <?= htmlspecialchars($totalDeposit) ?></p>
-                                <p>Tổng số tiền thanh toán: <?= htmlspecialchars($totalPayment) ?></p>
+                                <p>Tổng số tiền thu được:<span> <?= htmlspecialchars($totalRevenue) ?></span></p>
+                                <p>Tổng số tiền đặt cọc:<span> <?= htmlspecialchars($totalDeposit) ?></span></p>
+                                <p>Tổng số tiền thanh toán:<span> <?= htmlspecialchars($totalPayment) ?></span></p>
                             </div>
                         </section>
                     </div>

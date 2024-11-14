@@ -64,11 +64,11 @@
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>
-                                <th>Mã Phòng</th>
-                                <th>Tên Phòng</th>
-                                <th>Diện Tích</th>
-                                <th>Số Giường</th>
-                                <th>Giá Thuê</th>
+                                <th>Mã Phòng<a href="?order_by=ma_phong&order_direction=ASC"> ▲</a> | <a href="?order_by=ma_phong&order_direction=DESC">▼</a></th>
+                                <th>Tên Phòng<a href="?order_by=ten_phong&order_direction=ASC"> ▲</a> | <a href="?order_by=ten_phong&order_direction=DESC">▼</a></th>
+                                <th>Diện Tích<a href="?order_by=dien_tich&order_direction=ASC"> ▲</a> | <a href="?order_by=dien_tich&order_direction=DESC">▼</a></th>
+                                <th>Số Giường<a href="?order_by=so_giuong&order_direction=ASC"> ▲</a> | <a href="?order_by=so_giuong&order_direction=DESC">▼</a></th>
+                                <th>Giá Thuê<a href="?order_by=gia_thue&order_direction=ASC"> ▲</a> | <a href="?order_by=gia_thue&order_direction=DESC">▼</a></th>
                                 <th>Giới Tính</th>
                                 <th>Hành Động</th>
                             </tr>
