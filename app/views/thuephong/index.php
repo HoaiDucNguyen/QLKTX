@@ -50,16 +50,7 @@
                                 <td><?= $thuePhong['ket_thuc'] ?></td>
                                 <td><?= $thuePhong['tien_dat_coc'] ?></td>
                                 <td><?= $thuePhong['gia_thue_thuc_te'] ?></td>
-                                <?php if ($thuePhong['can_thanh_toan'] == 0): ?>
-                                <td>
-                                    <p>đã thanh toán đủ</p>
-                                </td>
-                                <?php else :?>
-                                <td>
-                                    <?= $thuePhong['can_thanh_toan'] ?>
-                                </td>
-                                <?php endif; ?>
-
+                                <td><?= $thuePhong['can_thanh_toan'] ?> </td>
                                 <td>
                                     <?php if ($thuePhong['trang_thai'] === 'choxetduyet'): ?>
                                     <a href="/thuephong/approve/<?= $thuePhong['ma_hop_dong'] ?>"
