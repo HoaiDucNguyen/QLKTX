@@ -27,22 +27,26 @@
                 <div class="content mt-4">
                     <h1 class="mb-4">Danh Sách Sinh Viên</h1>
 
+
+
                     <!-- Hiển thị thông báo thành công nếu có -->
-                    <?php if (!empty($successMessage)): ?>
+                    <?php if (!empty($_SESSION['successMessage'])): ?>
                     <div class="alert alert-success">
-                        <?= htmlspecialchars($successMessage) ?>
+                        <?= htmlspecialchars($_SESSION['successMessage']) ?>
                     </div>
+                    <?php unset($_SESSION['successMessage']); ?>
                     <?php endif; ?>
 
                     <!-- Hiển thị lỗi nếu có -->
-                    <?php if (!empty($errors)): ?>
+                    <?php if (!empty($_SESSION['errors'])): ?>
                     <div class="alert alert-danger">
                         <ul>
-                            <?php foreach ($errors as $error): ?>
+                            <?php foreach ($_SESSION['errors'] as $error): ?>
                             <li><?= htmlspecialchars($error) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
+                    <?php unset($_SESSION['errors']); ?>
                     <?php endif; ?>
 
                     <!-- Form tìm kiếm -->

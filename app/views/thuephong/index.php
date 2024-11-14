@@ -25,6 +25,17 @@
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Thuê Phòng</h1>
                     <a href="/thuephong/create" class="btn btn-primary mb-3">Thêm Hợp Đồng</a>
+                    <a href="/thuephong?status=choxetduyet" class="btn btn-secondary mb-3">Các Hợp Đồng Chờ Xét
+                        Duyệt</a>
+                    <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><?= htmlspecialchars($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
                     <table class="table table-bordered table-hover">
                         <thead class="custom-thead">
                             <tr>

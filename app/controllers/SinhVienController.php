@@ -4,6 +4,7 @@ namespace Hp\Qlktx\Controllers;
 
 use Hp\Qlktx\Models\SinhVien;
 use PDO;
+use PDOException;
 
 class SinhVienController
 {
@@ -105,12 +106,17 @@ class SinhVienController
     // Xóa sinh viên
     public function delete($id)
     {
-        $sinhVien = $this->sinhVienModel->find($id);
-        if ($sinhVien && $this->sinhVienModel->delete()) {
-            header('Location: /sinhvien');
-            exit;
-        } else {
-            die('Lỗi khi xóa sinh viên.');
+        try {
+            $sinhVien = $this->sinhVienModel->find($id);
+            if ($sinhVien && $sinhVien->delete()) {
+                $_SESSION['successMessage'] = 'Xóa sinh viên thành công.';
+            } else {
+                $_SESSION['errors'][] = 'Lỗi khi xóa sinh viên.';
+            }
+        } catch (PDOException $e) {
+            $_SESSION['errors'][] = 'Sinh viên đang thuê phòng không thể xóa.';
         }
+        header('Location: /sinhvien');
+        exit;
     }
 }

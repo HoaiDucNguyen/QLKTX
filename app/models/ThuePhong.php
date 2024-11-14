@@ -142,7 +142,7 @@ class ThuePhong
     public function delete(): bool
     {
         try {
-            $statement = $this->db->prepare('DELETE FROM ThuePhong WHERE ma_hop_dong = :ma_hop_dong');
+            $statement = $this->db->prepare('delete FROM ThuePhong WHERE ma_hop_dong = :ma_hop_dong');
             return $statement->execute(['ma_hop_dong' => $this->ma_hop_dong]);
         } catch (PDOException $e) {
             $this->errors[] = $e->getMessage();
@@ -207,5 +207,12 @@ class ThuePhong
         ');
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getPending()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM ThuePhong WHERE trang_thai = 'choxetduyet'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } 
