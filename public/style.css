@@ -328,3 +328,19 @@ form.mb-3 label {
 .custom-thead th a:hover{
   color: #007bff;
 }
+
+
+.table tbody tr:nth-child(even) {
+  background-color: #eef6ff;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff; 
+}
+
+.table tbody tr:hover {
+  background-color: #ebebeb; 
+}
+.buttonphongtrong{
+  margin: 5px;
+}

@@ -66,7 +66,7 @@
                                 <?= (isset($_GET['gioi_tinh']) && $_GET['gioi_tinh'] === 'nu') ? 'selected' : '' ?>>Nữ
                             </option>
                         </select>
-                        <label>
+                        <label class="buttonphongtrong">
                             <input type="checkbox" name="chi_phong_trong" value="1"
                                 <?= isset($_GET['chi_phong_trong']) ? 'checked' : '' ?>>
                             Chỉ hiển thị phòng trống
@@ -102,7 +102,10 @@
                                 <td><?= htmlspecialchars($phong['dien_tich']) ?></td>
                                 <td><?= htmlspecialchars($phong['so_giuong']) ?></td>
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
-                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?> </td>
+
+                                <td><?= htmlspecialchars($phong['gioi_tinh']) ?></td>
+                                
+
                                 <td>
                                     <form method="post" style="display:inline;">
                                         <input type="hidden" name="ma_phong"
