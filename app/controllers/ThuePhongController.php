@@ -131,6 +131,7 @@ class ThuePhongController
             if ($thuePhong && $thuePhong->delete()) {
                 $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
                 header('Location: /thuephong');
+
                 exit;
             }
             $errors = $thuePhong->getValidationErrors();
@@ -139,6 +140,7 @@ class ThuePhongController
             $errors[] = "Không thể xóa: " . $e->getMessage();
         }
         $_SESSION['errors'] = $errors;
+
         header('Location: /thuephong');
         exit;
     }
