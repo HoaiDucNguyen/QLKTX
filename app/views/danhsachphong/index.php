@@ -104,7 +104,7 @@
                                 <td><?= htmlspecialchars($phong['gia_thue']) ?></td>
                                 <td><?= htmlspecialchars($phong['gioi_tinh']) ?> </td>
                                 <td>
-                                    <form action="/thuephong/create" method="post" style="display:inline;">
+                                    <form method="post" style="display:inline;">
                                         <input type="hidden" name="ma_phong"
                                             value="<?= htmlspecialchars($phong['ma_phong']) ?>">
                                         <input type="hidden" name="ma_sinh_vien"
