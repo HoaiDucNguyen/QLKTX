@@ -129,12 +129,18 @@ class SinhVien
         return $this;
     }
 
-    public function getAll()
+    // public function getAll()
+    // {
+    //     $stmt = $this->db->query("SELECT * FROM SinhVien");
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+    public function getAll($orderBy = 'ma_sinh_vien', $orderDirection = 'ASC')
     {
-        $stmt = $this->db->query("SELECT * FROM SinhVien");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $query = "SELECT * FROM sinhvien ORDER BY $orderBy $orderDirection";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-
     public function findByMaAndPassword($ma_sinh_vien, $password): ?SinhVien
     {
         $statement = $this->db->prepare('SELECT * FROM sinhVien WHERE ma_sinh_vien = :ma_sinh_vien AND password = :password');
@@ -207,7 +213,8 @@ class SinhVien
         $statement = $this->db->query("SELECT COUNT(*) FROM sinhVien");
         return (int) $statement->fetchColumn();
     }
-    public function search(array $criteria): array {
+    public function search($criteria, $orderBy = 'ma_sinh_vien', $orderDirection = 'ASC')
+    {
         $query = "SELECT * FROM SinhVien WHERE 1=1";
         $params = [];
     
@@ -242,11 +249,10 @@ class SinhVien
         }
     
         // Thực thi truy vấn
+        $query .= " ORDER BY $orderBy $orderDirection";
         $stmt = $this->db->prepare($query);
         $stmt->execute($params);
-        
-        // Trả về kết quả dưới dạng mảng
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
     
     public function updateNotification(string $message): bool

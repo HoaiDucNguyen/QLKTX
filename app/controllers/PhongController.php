@@ -19,7 +19,7 @@ class PhongController
     }
     public function index()
     {
-        // Kiểm tra xem có tiêu chí tìm kiếm không
+        // Lấy tiêu chí tìm kiếm và sắp xếp từ request
         $criteria = [
             'ten_phong' => $_GET['ten_phong'] ?? '',
             'dien_tich' => $_GET['dien_tich'] ?? '',
@@ -27,11 +27,14 @@ class PhongController
             'gioi_tinh' => $_GET['gioi_tinh'] ?? ''
         ];
 
+        $orderBy = $_GET['order_by'] ?? 'ma_phong'; // Cột mặc định là 'ma_phong'
+        $orderDirection = $_GET['order_direction'] ?? 'ASC'; // Thứ tự mặc định là 'ASC'
+
         // Nếu có tiêu chí tìm kiếm, gọi phương thức `search`, nếu không thì lấy toàn bộ danh sách
         if (!empty($criteria['ten_phong']) || !empty($criteria['dien_tich']) || !empty($criteria['so_giuong']) || !empty($criteria['gioi_tinh'])) {
-            $phongs = $this->phongModel->search($criteria);
+            $phongs = $this->phongModel->search($criteria, $orderBy, $orderDirection);
         } else {
-            $phongs = $this->phongModel->getAll();
+            $phongs = $this->phongModel->getAll($orderBy, $orderDirection);
         }
 
         // Gọi view index.php và truyền kết quả vào
