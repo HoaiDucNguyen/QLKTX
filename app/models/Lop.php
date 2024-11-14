@@ -91,7 +91,7 @@ class Lop
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    private function exists(): bool
+    public function exists(): bool
     {
         $statement = $this->db->prepare('SELECT COUNT(*) FROM Lop WHERE ma_lop = :ma_lop');
         $statement->execute(['ma_lop' => $this->ma_lop]);

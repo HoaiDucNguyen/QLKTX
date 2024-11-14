@@ -5,6 +5,7 @@ use Hp\Qlktx\Models\ThuePhong;
 
 use PDO;
 use Exception;
+use PDOException;
 
 class ThuePhongController
 {
@@ -17,7 +18,12 @@ class ThuePhongController
 
     public function index()
     {
-        $thuePhongs = $this->thuePhongModel->getAll();
+        $status = $_GET['status'] ?? '';
+        if ($status === 'choxetduyet') {
+            $thuePhongs = $this->thuePhongModel->getPending();
+        } else {
+            $thuePhongs = $this->thuePhongModel->getAll();
+        }
         include '../app/views/thuephong/index.php';
     }
 
@@ -119,15 +125,20 @@ class ThuePhongController
 
     public function delete($id)
     {
-        $thuePhong = $this->thuePhongModel->find($id);
-        if ($thuePhong && $thuePhong->delete()) {
-            $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
-            header('Location: /thuephong');
-            exit;
-        } else {
-            $errors[] = 'Lỗi khi xóa hợp đồng.';
-            header('Location: /thuephong');
+        $errors = [];
+        try {
+            $thuePhong = $this->thuePhongModel->find($id);
+            $thuePhong->delete();
+                $this->sendNotification($thuePhong->ma_sinh_vien, 'Hợp đồng thuê phòng của bạn đã bị xóa.');
+                header('Location: /thuephong');
+           
+        } catch (PDOException $e) {
+            // Bắt ngoại lệ và lưu thông báo lỗi từ trigger
+            $errors[] = $e->getMessage();
         }
+        $_SESSION['errors'] = $errors; // Lưu lỗi vào session để hiển thị
+        header('Location: /thuephong');
+        exit;
     }
 
     public function detail($id)
