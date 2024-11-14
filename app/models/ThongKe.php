@@ -169,7 +169,7 @@ class ThongKe
 
     public function getAvailableRooms(): int
     {
-        $stmt = $this->db->query("SELECT count_available_rooms()");
+        $stmt = $this->db->query("SELECT countAvailableRooms()");
         return $stmt->fetchColumn();
     }
 
@@ -178,4 +178,42 @@ class ThongKe
         $stmt = $this->db->query("SELECT total_revenue()");
         return $stmt->fetchColumn();
     }
+
+    public function getMaleRooms(): int
+    {
+        $stmt = $this->db->query("SELECT countMaleRooms()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getFemaleRooms(): int
+    {
+        $stmt = $this->db->query("SELECT countFemaleRooms()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getMaleStudentsRenting(): int
+    {
+        $stmt = $this->db->query("SELECT countMaleStudentsRenting()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getFemaleStudentsRenting(): int
+    {
+        $stmt = $this->db->query("SELECT countFemaleStudentsRenting()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getTotalDeposit(): float
+    {
+        $stmt = $this->db->query("SELECT totalDeposit()");
+        return $stmt->fetchColumn();
+    }
+
+    public function getTotalPayment(): float
+    {
+        $stmt = $this->db->query("SELECT totalPayment()");
+        return $stmt->fetchColumn();
+    }
+
+    
 }

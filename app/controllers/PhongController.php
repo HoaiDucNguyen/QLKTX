@@ -4,6 +4,7 @@ namespace Hp\Qlktx\Controllers;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PDOException;
 
 use Hp\Qlktx\Models\Phong;
 use Hp\Qlktx\Models\ThuePhong;
@@ -108,11 +109,17 @@ class PhongController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $phong = new Phong($this->phongModel->db);
             $phong->fill($_POST);
-            if ($phong->validate() && $phong->save()) {
-                header('Location: /phong');
-                exit;
+
+            // Kiểm tra mã phòng đã tồn tại
+            if ($phong->exists()) {
+                $errors[] = 'Mã phòng đã tồn tại. Vui lòng chọn mã phòng khác.';
+            } else {
+                if ($phong->validate() && $phong->save()) {
+                    header('Location: /phong');
+                    exit;
+                }
+                $errors = $phong->getValidationErrors();
             }
-            $errors = $phong->getValidationErrors();
         }
         include '../app/views/phong/create.php';
     }
@@ -154,10 +161,19 @@ class PhongController
     public function delete($id)
     {
         $phong = $this->phongModel->find($id);
-        if ($phong && $phong->delete()) {
-            header('Location: /phong');
-            exit;
+        if ($phong) {
+            try {
+                if ($phong->delete()) {
+                    header('Location: /phong');
+                    exit;
+                }
+            } catch (PDOException $e) {
+                // Lưu thông báo lỗi vào session
+                $_SESSION['error_message'] = 'Không thể xóa phòng vì phòng đang được thuê.';
+            }
         }
+        header('Location: /phong');
+        exit;
     }
     public function export()
     {

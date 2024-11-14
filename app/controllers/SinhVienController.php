@@ -57,15 +57,17 @@ class SinhVienController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->sinhVienModel->fill($_POST);
-            if ($this->sinhVienModel->validate()) {
-                if ($this->sinhVienModel->save()) {
+
+            // Kiểm tra mã sinh viên đã tồn tại
+            if ($this->sinhVienModel->exists()) {
+                $errors[] = 'Mã sinh viên đã tồn tại. Vui lòng chọn mã khác.';
+            } else {
+                if ($this->sinhVienModel->validate() && $this->sinhVienModel->save()) {
                     header('Location: /sinhvien');
                     exit;
                 } else {
-                    $errors[] = 'Lỗi khi lưu sinh viên. Vui lòng thử lại.';
+                    $errors = $this->sinhVienModel->getValidationErrors();
                 }
-            } else {
-                $errors = $this->sinhVienModel->getValidationErrors();
             }
         }
         include '../app/views/sinhvien/create.php';

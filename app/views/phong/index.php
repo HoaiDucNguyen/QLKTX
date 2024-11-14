@@ -25,6 +25,14 @@
                 <div class="content mt-4">
                     <h1 class="mb-4">Quản Lý Phòng</h1>
 
+                    <!-- Hiển thị thông báo lỗi nếu có -->
+                    <?php if (isset($_SESSION['error_message'])): ?>
+                    <div class="alert alert-danger">
+                        <?= htmlspecialchars($_SESSION['error_message']) ?>
+                    </div>
+                    <?php unset($_SESSION['error_message']); ?>
+                    <?php endif; ?>
+
                     <!-- Form tìm kiếm -->
                     <form action="/phong" method="get" class="mb-3">
                         <div class="form-row">

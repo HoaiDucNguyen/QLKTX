@@ -24,33 +24,31 @@
             </div>
             <div class="col-md-9">
                 <div class="content mt-4">
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                         <h1 class="mb-4">Thống Kê</h1>
                         <section class="dashboard-content">
-                            <!-- Hiển thị các thông tin dashboard -->
                             <div class="dashboard-item">
-                                <h2>Tổng số phòng:</h2>
-                                <p><?= htmlspecialchars($totalRooms) ?></p>
+                                <h2 class="text-center text-primary font-weight-bold">Phòng</h2>
+                                <p>Tổng số phòng: <?= htmlspecialchars($totalRooms) ?></p>
+                                <p>Số phòng nam: <?= htmlspecialchars($maleRooms) ?></p>
+                                <p>Số phòng nữ: <?= htmlspecialchars($femaleRooms) ?></p>
+                                <p>Số phòng trống: <?= htmlspecialchars($availableRooms) ?></p>
+                                <p>Số phòng đã thuê: <?= htmlspecialchars($rentedRooms) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Số phòng đã thuê:</h2>
-                                <p><?= htmlspecialchars($rentedRooms) ?></p>
+                                <h2 class="text-center text-primary font-weight-bold">Sinh Viên</h2>
+                                <p>Số sinh viên đang thuê phòng: <?= htmlspecialchars($currentStudentsRenting) ?></p>
+                                <p>Số sinh viên nam đang thuê: <?= htmlspecialchars($maleStudentsRenting) ?></p>
+                                <p>Số sinh viên nữ đang thuê: <?= htmlspecialchars($femaleStudentsRenting) ?></p>
                             </div>
                             <div class="dashboard-item">
-                                <h2>Số phòng trống:</h2>
-                                <p><?= htmlspecialchars($availableRooms) ?></p>
-                            </div>
-                            <div class="dashboard-item">
-                                <h2>Số sinh viên đang thuê phòng:</h2>
-                                <p><?= htmlspecialchars($currentStudentsRenting) ?></p>
-                            </div>
-                            <div class="dashboard-item">
-                                <h2>Tổng số tiền thu được:</h2>
-                                <p><?= htmlspecialchars($totalRevenue) ?></p>
+                                <h2 class="text-center text-primary font-weight-bold">Tài Chính</h2>
+                                <p>Tổng số tiền thu được: <?= htmlspecialchars($totalRevenue) ?></p>
+                                <p>Tổng số tiền đặt cọc: <?= htmlspecialchars($totalDeposit) ?></p>
+                                <p>Tổng số tiền thanh toán: <?= htmlspecialchars($totalPayment) ?></p>
                             </div>
                         </section>
                     </div>
-
                 </div>
             </div>
         </div>

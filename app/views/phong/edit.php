@@ -39,7 +39,7 @@
                             <label for="ma_phong">Mã Phòng:</label>
 
                             <input type="text" name="ma_phong" id="ma_phong" class="form-control"
-                                value="<?= htmlspecialchars($phong->ma_phong )?>" required>
+                                value="<?= htmlspecialchars($phong->ma_phong )?>" readonly>
                         </div>
                         <div class="form-group">
                             <label for="ten_phong">Tên Phòng:</label>

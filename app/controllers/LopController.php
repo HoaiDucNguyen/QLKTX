@@ -41,11 +41,17 @@ class LopController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $lop = new Lop($this->lopModel->db);
             $lop->fill($_POST);
-            if ($lop->validate() && $lop->save()) {
-                header('Location: /lop');
-                exit;
+
+            // Kiểm tra mã lớp đã tồn tại
+            if ($lop->exists()) {
+                $errors[] = 'Mã lớp đã tồn tại. Vui lòng chọn mã khác.';
+            } else {
+                if ($lop->validate() && $lop->save()) {
+                    header('Location: /lop');
+                    exit;
+                }
+                $errors = $lop->getValidationErrors();
             }
-            $errors = $lop->getValidationErrors();
         }
         include '../app/views/lop/create.php';
     }

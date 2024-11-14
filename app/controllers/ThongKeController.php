@@ -2,42 +2,32 @@
 // app/controllers/PhongController.php
 namespace Hp\Qlktx\Controllers;
 
-use Hp\Qlktx\Models\Phong;
-use Hp\Qlktx\Models\SinhVien;
-use Hp\Qlktx\Models\Lop;
-use Hp\Qlktx\Models\NhanVien;
 use Hp\Qlktx\Models\ThongKe;
-
 use PDO;
+
 class ThongKeController
 {
-    public ?PDO $db;
-    private $phongModel;
-    private $svModel;
-    private $totalLop;
-    private $totalnv;
-    public function __construct($pdo)
+    private $thongKeModel;
+
+    public function __construct(PDO $pdo)
     {
-        $this->phongModel = new Phong($pdo);
-        $this->svModel = new SinhVien($pdo);
-        $this->lopModel = new Lop($pdo);
-        $this->nvModel = new NhanVien($pdo);
-        
-        
+        $this->thongKeModel = new ThongKe($pdo);
     }
 
     public function index()
     {
-        $thongKeModel = new ThongKe($this->phongModel->db);
-
-        $totalRooms = $thongKeModel->getTotalRooms();
-        $rentedRooms = $thongKeModel->getRentedRooms();
-        $availableRooms = $thongKeModel->getAvailableRooms();
-        $currentStudentsRenting = $thongKeModel->getCurrentStudentsRenting();
-        $totalRevenue = $thongKeModel->getTotalRevenue();
+        $totalRooms = $this->thongKeModel->getTotalRooms();
+        $rentedRooms = $this->thongKeModel->getRentedRooms();
+        $availableRooms = $this->thongKeModel->getAvailableRooms();
+        $currentStudentsRenting = $this->thongKeModel->getCurrentStudentsRenting();
+        $totalRevenue = $this->thongKeModel->getTotalRevenue();
+        $maleRooms = $this->thongKeModel->getMaleRooms();
+        $femaleRooms = $this->thongKeModel->getFemaleRooms();
+        $maleStudentsRenting = $this->thongKeModel->getMaleStudentsRenting();
+        $femaleStudentsRenting = $this->thongKeModel->getFemaleStudentsRenting();
+        $totalDeposit = $this->thongKeModel->getTotalDeposit();
+        $totalPayment = $this->thongKeModel->getTotalPayment();
 
         include '../app/views/ThongKe/index.php';
     }
-    
- 
 }
